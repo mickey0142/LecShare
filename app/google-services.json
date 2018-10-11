@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1087193237255",
+    "firebase_url": "https://lecshare-44a6a.firebaseio.com",
+    "project_id": "lecshare-44a6a",
+    "storage_bucket": "lecshare-44a6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087193237255:android:7e26ff958fc8e02e",
+        "android_client_info": {
+          "package_name": "com.kairanpa.se.lecshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087193237255-0l8dqjmfcskc049blk8daalsi1a3tfpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAbmwvUqLcAl30PA-qJVdDOySq5MUWq08"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
