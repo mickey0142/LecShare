@@ -27,9 +27,9 @@ public class FileListAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View fileItem = LayoutInflater.from(context).inflate(R.layout.fragment_upload_file_item, parent, false);
-        TextView fileName = fileItem.findViewById(R.id.upload_file_item_file_name);
-        ImageView removeButton = fileItem.findViewById(R.id.upload_file_item_delete_button);
+        View fileItem = LayoutInflater.from(context).inflate(R.layout.fragment_file_list_item, parent, false);
+        TextView fileName = fileItem.findViewById(R.id.file_list_item_file_name);
+        ImageView removeButton = fileItem.findViewById(R.id.file_list_item_delete_button);
         final int pos = position;
         final FileListAdapter temp = this;
         removeButton.setOnClickListener(new View.OnClickListener() {

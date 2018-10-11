@@ -59,7 +59,7 @@ public class UploadFragment extends Fragment{
             filePath = (ArrayList<String>) savedInstanceState.getSerializable("filePath");
             fileURL = (ArrayList<String>) savedInstanceState.getSerializable("fileURL");
             nameArray = (ArrayList<String>) savedInstanceState.getSerializable("nameArray");
-            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_upload_file_item, nameArray);
+            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_file_list_item, nameArray);
             ListView filelist = getView().findViewById(R.id.upload_file_list);
             filelist.setAdapter(nameAdapter);
             nameAdapter.notifyDataSetChanged();
@@ -73,9 +73,9 @@ public class UploadFragment extends Fragment{
                 final EditText titleBox = getView().findViewById(R.id.upload_title);
                 final EditText descriptionBox = getView().findViewById(R.id.upload_description);
                 String title = titleBox.getText().toString();
-                String text = descriptionBox.getText().toString();
+                String description = descriptionBox.getText().toString();
                 final LecNote lecNote = new LecNote();
-                lecNote.setDescription(text);
+                lecNote.setDescription(description);
                 lecNote.setTitle(title);
 
                 Uri file;
@@ -124,7 +124,7 @@ public class UploadFragment extends Fragment{
                             filePath.clear();
                             fileURL.clear();
                             nameArray.clear();
-                            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_upload_file_item, nameArray);
+                            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_file_list_item, nameArray);
                             ListView fileList = getView().findViewById(R.id.upload_file_list);
                             fileList.setAdapter(nameAdapter);
                             nameAdapter.notifyDataSetChanged();
@@ -155,6 +155,17 @@ public class UploadFragment extends Fragment{
                 startActivityForResult(intent, 1);
             }
         });
+
+        Button tempBack = getView().findViewById(R.id.temp_back_button);
+        tempBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new ViewFragment())
+                        .commit();
+            }
+        });
     }
 
     @Override
@@ -162,6 +173,10 @@ public class UploadFragment extends Fragment{
         String path = "";
         if(requestCode == 1)
         {
+            if (data == null)
+            {
+                return;
+            }
             Uri uri = data.getData();
             path = GetFilePathFromDevice.getPath(getContext(), uri);
             filePath.add(path);
@@ -178,7 +193,7 @@ public class UploadFragment extends Fragment{
             {
                 Log.d("test", "nameArray : " + nameArray.get(i));
             }
-            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_upload_file_item, nameArray);
+            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_file_list_item, nameArray);
             ListView fileList = getView().findViewById(R.id.upload_file_list);
             fileList.setAdapter(nameAdapter);
         }

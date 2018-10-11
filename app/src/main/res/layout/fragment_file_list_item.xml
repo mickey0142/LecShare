@@ -4,14 +4,14 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/upload_file_item_file_name"
+        android:id="@+id/file_list_item_file_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="no file chosen"
         android:layout_marginBottom="-20dp"/>
 
     <ImageView
-        android:id="@+id/upload_file_item_delete_button"
+        android:id="@+id/file_list_item_delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ico_delete"

@@ -19,7 +19,7 @@ public class LecNote {
         return description;
     }
 
-    public void setDescription(String descriptions) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
