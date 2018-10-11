@@ -18,39 +18,39 @@
                     android:inputType="textPersonName"
                     android:hint="@string/username"
                     android:ems="10"
-                    android:id="@+id/editText" android:layout_weight="1"/>
+                    android:id="@+id/username" android:layout_weight="1"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:hint="@string/idNumber"
                     android:ems="10"
-                    android:id="@+id/editText2" android:layout_weight="1"/>
+                    android:id="@+id/stdNumber" android:layout_weight="1"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:hint="@string/email"
                     android:ems="10"
-                    android:id="@+id/editText3" android:layout_weight="1"/>
+                    android:id="@+id/email" android:layout_weight="1"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:hint="@string/password"
                     android:ems="10"
-                    android:id="@+id/editText5" android:layout_weight="1"/>
+                    android:id="@+id/password" android:layout_weight="1"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:hint="@string/rePassword"
                     android:ems="10"
-                    android:id="@+id/editText4" android:layout_weight="1"/>
+                    android:id="@+id/rePassword" android:layout_weight="1"/>
             <Button
                     android:hint="@string/register"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/button" android:layout_weight="1"/>
+                    android:layout_height="wrap_content" android:id="@+id/registerBtn" android:layout_weight="1"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
