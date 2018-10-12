@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class LecNote {
     private String title;
     private String description;
-    private ArrayList<String> filesURL = new ArrayList<>();
+    private ArrayList<String> filesName = new ArrayList<>();
     private String owner;
     //double point;
 
@@ -23,12 +23,12 @@ public class LecNote {
         this.description = description;
     }
 
-    public ArrayList<String> getFilesURL() {
-        return filesURL;
+    public ArrayList<String> getFilesName() {
+        return filesName;
     }
 
-    public void setFilesURL(ArrayList<String> filesURL) {
-        this.filesURL = filesURL;
+    public void setFilesName(ArrayList<String> filesName) {
+        this.filesName = filesName;
     }
 
     public String getOwner() {
@@ -39,19 +39,19 @@ public class LecNote {
         this.owner = owner;
     }
 
-    public void addFileURL(String url)
+    public void addFileName(String name)
     {
-        filesURL.add(url);
+        filesName.add(name);
     }
 
-    public void removeFileURL(int index)
+    public void removeFileName(int index)
     {
-        filesURL.remove(index);
+        filesName.remove(index);
     }
 
-    public void removeFileURL(String url)
+    public void removeFileName(String name)
     {
-        filesURL.remove(url);// not sure if this work or not. if not just loop in arraylist to find specific url
+        filesName.remove(name);// not sure if this work or not. if not just loop in arraylist to find specific url
     }
 
     public String getTitle() {

@@ -2,7 +2,6 @@ package com.kairanpa.se.lecshare;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.content.Context.*;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -43,7 +42,7 @@ public class ViewFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        fbStore.collection("LecNote").whereEqualTo("title", "test1").get()
+        fbStore.collection("LecNote").whereEqualTo("title", "test2").get()
         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -56,7 +55,7 @@ public class ViewFragment extends Fragment{
                         TextView descriptionBox = getView().findViewById(R.id.view_lec_note_description);
                         titleBox.setText(lecNote.getTitle());
                         descriptionBox.setText(lecNote.getDescription());
-                        StorageReference storageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child("FB_IMG_1538452608818.jpg");
+                        StorageReference storageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child("26044_nutty_CNEIFINAL.pdf");
                         Log.d("test", "url is : " + storageRef.getDownloadUrl());
 
                         try
@@ -67,7 +66,7 @@ public class ViewFragment extends Fragment{
                             {
                                 directory.mkdir();
                             }
-                            final File file = new File(directory, "def.jpg");
+                            final File file = new File(directory, "gjh.pdf");
                             storageRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {

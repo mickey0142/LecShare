@@ -16,7 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +28,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -40,8 +43,15 @@ public class UploadFragment extends Fragment{
     FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
     StorageReference storageRef = fbStorage.getReference();
     ArrayList<String> filePath = new ArrayList<>();
-    ArrayList<String> fileURL = new ArrayList<>();
-    ArrayList<String> nameArray = new ArrayList<>();
+    ArrayList<String> fileName = new ArrayList<>();
+    ProgressBar progressBar;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setRetainInstance(true);// well this solved null when rotate somehow?
+        progressBar = null;
+    }
 
     @Nullable
     @Override
@@ -57,11 +67,10 @@ public class UploadFragment extends Fragment{
         if (savedInstanceState != null)
         {
             filePath = (ArrayList<String>) savedInstanceState.getSerializable("filePath");
-            fileURL = (ArrayList<String>) savedInstanceState.getSerializable("fileURL");
-            nameArray = (ArrayList<String>) savedInstanceState.getSerializable("nameArray");
-            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_file_list_item, nameArray);
-            ListView filelist = getView().findViewById(R.id.upload_file_list);
-            filelist.setAdapter(nameAdapter);
+            fileName = (ArrayList<String>) savedInstanceState.getSerializable("nameArray");
+            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_file_list_item, fileName);
+            ListView fileList = getView().findViewById(R.id.upload_file_list);
+            fileList.setAdapter(nameAdapter);
             nameAdapter.notifyDataSetChanged();
             Log.d("test", "restore save state");
         }
@@ -70,6 +79,7 @@ public class UploadFragment extends Fragment{
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "uploading... please wait", Toast.LENGTH_SHORT).show();
                 final EditText titleBox = getView().findViewById(R.id.upload_title);
                 final EditText descriptionBox = getView().findViewById(R.id.upload_description);
                 String title = titleBox.getText().toString();
@@ -81,14 +91,45 @@ public class UploadFragment extends Fragment{
                 Uri file;
                 StorageReference fileRef;
                 UploadTask uploadTask;
-                for (int i = 0; i < filePath.size(); i++)
+                final ArrayList<Integer> allProgress = new ArrayList<>();
+                for(int i = 0; i < fileName.size(); i++)
+                {
+                    allProgress.add(0);
+                }
+                for (int i = 0; i < fileName.size(); i++)
                 {
                     file = Uri.fromFile(new File(filePath.get(i)));
                     fileRef = storageRef.child(file.getLastPathSegment());
                     uploadTask = fileRef.putFile(file);
-                    fileURL.add(fileRef.getDownloadUrl().toString());
-                    lecNote.addFileURL(fileURL.get(i));
+                    lecNote.addFileName(fileName.get(i));
                     final int temp = i;
+
+                    uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                            Log.d("test", "upload progress for " + fileName.get(temp) + " is : " + progress + " %");
+                            if (progressBar == null)
+                            {
+                                progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleHorizontal);
+                                LinearLayout linearLayout = getView().findViewById(R.id.upload_linear_layout);
+                                linearLayout.addView(progressBar);
+                            }
+                            else
+                            {
+                                int progressInt = (int) progress;
+                                allProgress.set(temp, progressInt);
+                                int sumProgress = 0;
+                                for (int j = 0; j < allProgress.size(); j++)
+                                {
+                                    sumProgress += allProgress.get(j);
+                                }
+                                sumProgress /= allProgress.size();
+                                Log.d("test", "sum progress : " + sumProgress);
+                                progressBar.setProgress(sumProgress);
+                            }
+                        }
+                    });
 
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -117,17 +158,16 @@ public class UploadFragment extends Fragment{
                                     }
                                 });
                             }
+                            if(temp == filePath.size())
+                            {
+                                filePath.clear();
+                                fileName.clear();
+                            }
                         }
                     }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            filePath.clear();
-                            fileURL.clear();
-                            nameArray.clear();
-                            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_file_list_item, nameArray);
-                            ListView fileList = getView().findViewById(R.id.upload_file_list);
-                            fileList.setAdapter(nameAdapter);
-                            nameAdapter.notifyDataSetChanged();
+
                             // or maybe go to another layout here or maybe go to another layout when success
                             // or maybe need to check when all upload is completed to go to another layout
                         }
@@ -182,18 +222,18 @@ public class UploadFragment extends Fragment{
             filePath.add(path);
             Log.d("test", "path is : " + path);
 
-            String fileName = "no file chosen";
+            String fileNameStr = "no file chosen";
             if (path.lastIndexOf('/') != -1)
             {
-                fileName = path.substring(path.lastIndexOf('/')+1);
-                nameArray.add(fileName);
+                fileNameStr = path.substring(path.lastIndexOf('/')+1);
+                fileName.add(fileNameStr);
             }
-            Log.d("test", "nameArray Size : " + nameArray.size());
-            for (int i = 0; i < nameArray.size(); i++)
+            Log.d("test", "fileName Size : " + fileName.size());
+            for (int i = 0; i < fileName.size(); i++)
             {
-                Log.d("test", "nameArray : " + nameArray.get(i));
+                Log.d("test", "fileName : " + fileName.get(i));
             }
-            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_file_list_item, nameArray);
+            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_file_list_item, fileName);
             ListView fileList = getView().findViewById(R.id.upload_file_list);
             fileList.setAdapter(nameAdapter);
         }
@@ -202,8 +242,8 @@ public class UploadFragment extends Fragment{
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("nameArray", nameArray);
+        outState.putSerializable("nameArray", fileName);
         outState.putSerializable("filePath", filePath);
-        outState.putSerializable("fileURL", fileURL);
     }
+
 }
