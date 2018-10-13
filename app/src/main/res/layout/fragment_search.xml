@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/upload_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search page"/>
+
+            <EditText
+                android:id="@+id/search_search_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search here..."/>
+
+            <Button
+                android:id="@+id/search_search_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search"/>
+
+            <ListView
+                android:id="@+id/search_lec_note_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+
+            <!--temporary button-->
+            <Button
+                android:id="@+id/search_upload_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="upload new lecture note"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

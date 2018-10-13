@@ -21,10 +21,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -87,6 +85,7 @@ public class UploadFragment extends Fragment{
                 final LecNote lecNote = new LecNote();
                 lecNote.setDescription(description);
                 lecNote.setTitle(title);
+                lecNote.setUploadTimeStamp();
 
                 Uri file;
                 StorageReference fileRef;
@@ -96,6 +95,7 @@ public class UploadFragment extends Fragment{
                 {
                     allProgress.add(0);
                 }
+                // move progress bar variable to here later
                 for (int i = 0; i < fileName.size(); i++)
                 {
                     file = Uri.fromFile(new File(filePath.get(i)));
@@ -164,13 +164,6 @@ public class UploadFragment extends Fragment{
                                 fileName.clear();
                             }
                         }
-                    }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-
-                            // or maybe go to another layout here or maybe go to another layout when success
-                            // or maybe need to check when all upload is completed to go to another layout
-                        }
                     });
                 }
             }
@@ -203,6 +196,17 @@ public class UploadFragment extends Fragment{
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main_view, new ViewFragment())
+                        .commit();
+            }
+        });
+
+        Button backToSearchButton = getView().findViewById(R.id.upload_back_button);
+        backToSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new SearchFragment())
                         .commit();
             }
         });

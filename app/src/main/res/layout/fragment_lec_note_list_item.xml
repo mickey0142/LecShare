@@ -4,26 +4,25 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/view_lec_note_title"
+        android:id="@+id/lec_note_list_item_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="..."/>
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/view_lec_note_description"
+        android:id="@+id/lec_note_list_item_owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="..."/>
+        android:text="owner name here later"/>
 
-    <ListView
-        android:id="@+id/view_file_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
-
-    <Button
-        android:id="@+id/view_back_button"
+    <TextView
+        android:id="@+id/lec_note_list_item_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="back"/>
+        android:text="5"/>
+
+    <TextView
+        android:id="@+id/lec_note_list_item_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

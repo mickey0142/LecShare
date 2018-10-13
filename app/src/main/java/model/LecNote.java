@@ -1,12 +1,20 @@
 package model;
 
-import java.util.ArrayList;
+import android.util.Log;
 
-public class LecNote {
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+public class LecNote implements Serializable{
     private String title;
     private String description;
     private ArrayList<String> filesName = new ArrayList<>();
     private String owner;
+    private String uploadTimeStamp;
     //double point;
 
     public LecNote()
@@ -60,5 +68,17 @@ public class LecNote {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setUploadTimeStamp()
+    {
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        uploadTimeStamp = dateFormat.format(date);
+    }
+
+    public String getUploadTimeStamp()
+    {
+        return this.uploadTimeStamp;
     }
 }

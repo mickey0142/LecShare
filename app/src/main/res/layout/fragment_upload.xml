@@ -45,11 +45,19 @@
                 android:layout_height="50dp"
                 android:text="upload"/>
 
+            <!--temporary button-->
             <Button
                 android:id="@+id/temp_back_button"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="temp back"/>
+
+            <Button
+                android:id="@+id/upload_back_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="back to search page"/>
+
         </LinearLayout>
     </ScrollView>
 
