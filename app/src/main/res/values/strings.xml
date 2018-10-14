@@ -6,4 +6,7 @@
     <string name="email">Email</string>
     <string name="register">Register</string>
     <string name="idNumber">Student\'s ID number</string>
+    <string name="login">Login</string>
+    <string name="newAccount">Create a new account.</string>
+    <string name="forgotPassword">Forgot your password?</string>
 </resources>
