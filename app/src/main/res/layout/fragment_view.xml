@@ -3,27 +3,39 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/view_lec_note_title"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="..."/>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/view_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/view_lec_note_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="..."/>
+            <TextView
+                android:id="@+id/view_lec_note_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."/>
 
-    <ListView
-        android:id="@+id/view_file_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+            <TextView
+                android:id="@+id/view_lec_note_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."/>
 
-    <Button
-        android:id="@+id/view_back_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="back"/>
+            <ListView
+                android:id="@+id/view_file_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>
+
+            <Button
+                android:id="@+id/view_back_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="back"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

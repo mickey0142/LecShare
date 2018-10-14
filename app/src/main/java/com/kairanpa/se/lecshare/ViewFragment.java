@@ -10,9 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.module.AppGlideModule;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -73,6 +79,13 @@ public class ViewFragment extends Fragment{
         FileListDownloadAdapter nameAdapter = new FileListDownloadAdapter(getActivity(), R.layout.fragment_view, fileName);
         ListView fileList = getView().findViewById(R.id.view_file_list);
         fileList.setAdapter(nameAdapter);
+
+        ImageView fileImage = new ImageView(getContext());
+        LinearLayout linearLayout = getView().findViewById(R.id.view_linear_layout);
+        linearLayout.addView(fileImage);
+        Log.d("test", "file name : " + lecNote.getFilesName().get(0));
+        StorageReference imageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child(lecNote.getFilesName().get(0));
+        GlideApp.with(getContext()).load(imageRef).into(fileImage);
 
         /*fbStore.collection("LecNote").whereEqualTo("title", "test2").get()
         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
