@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_view, new UploadFragment())
+                    .replace(R.id.main_view, new LoginFragment())
                     .commit();
         }
     }
