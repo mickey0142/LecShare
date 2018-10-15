@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/fragment_title_register"/>
+    <!--<include layout="@layout/fragment_title_register"/>-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -23,37 +23,59 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#000000"/>
+
             <EditText
+                android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:hint="@string/email"
-                android:id="@+id/emailLogin"/>
+                />
+
             <EditText
+                android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="@string/password"
                 android:ems="10"
-                android:id="@+id/passwordLogin"/>
+                />
+
             <Button
+                android:id="@+id/login_login_button"
                 android:hint="@string/login"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/loginBtn"/>
+                android:layout_height="wrap_content"
+                />
+
             <TextView
+                android:id="@+id/login_new_account"
                 android:hint="@string/newAccount"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/newAccount"/>
+                android:layout_height="wrap_content"
+                />
+
             <TextView
+                android:id="@+id/login_forget_password"
                 android:hint="@string/forgotPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/forgotPassword"
+                android:layout_height="wrap_content"
                 android:gravity="end"
                 android:layout_marginTop="-19dp"/>
+
             <android.support.constraint.Guideline
+                android:id="@+id/login_guideline"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/guideline"/>
+                android:layout_height="wrap_content"
+                />
+
+            <!--temporary button-->
+            <Button
+                android:id="@+id/login_skip_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="skip"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

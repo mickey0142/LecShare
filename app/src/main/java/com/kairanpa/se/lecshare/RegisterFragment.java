@@ -33,15 +33,15 @@ public class RegisterFragment extends Fragment {
     }
 
     private void initRegister(){
-        Button _regisBtn = getView().findViewById(R.id.registerBtn);
+        Button _regisBtn = getView().findViewById(R.id.register_register_button);
         _regisBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText _username = getView().findViewById(R.id.username);
-                EditText _email = getView().findViewById(R.id.email);
-                EditText _stdNumber = getView().findViewById(R.id.stdNumber);
-                EditText _passowrd = getView().findViewById(R.id.password);
-                EditText _rePassword = getView().findViewById(R.id.rePassword);
+                EditText _username = getView().findViewById(R.id.register_username);
+                EditText _email = getView().findViewById(R.id.register_email);
+                EditText _stdNumber = getView().findViewById(R.id.register_std_number);
+                EditText _passowrd = getView().findViewById(R.id.register_password);
+                EditText _rePassword = getView().findViewById(R.id.register_rePassword);
 
                 String _usernameStr = _username.getText().toString();
                 String _emailStr = _email.getText().toString();

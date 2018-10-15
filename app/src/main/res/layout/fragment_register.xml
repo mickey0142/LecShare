@@ -7,48 +7,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-        android:paddingTop="40dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="40dp">
 
             <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="@string/username"
-                    android:id="@+id/username" android:layout_weight="1"/>
+                android:id="@+id/register_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="@string/username"
+                android:layout_weight="1"/>
+
             <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="@string/idNumber"
-                    android:ems="8"
-                    android:id="@+id/stdNumber" android:layout_weight="1"/>
+                android:id="@+id/register_std_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/idNumber"
+                android:ems="8"
+                android:layout_weight="1"/>
+
             <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:hint="@string/email"
-                    android:id="@+id/email" android:layout_weight="1"/>
+                android:id="@+id/register_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="@string/email"
+                android:layout_weight="1"/>
+
             <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="@string/password"
-                    android:ems="15"
-                    android:id="@+id/password" android:layout_weight="1"/>
+                android:id="@+id/register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/password"
+                android:ems="15"
+                android:layout_weight="1"/>
+
             <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="@string/rePassword"
-                    android:ems="15"
-                    android:id="@+id/rePassword" android:layout_weight="1"/>
+                android:id="@+id/register_rePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/rePassword"
+                android:ems="15"
+                android:layout_weight="1"/>
+
             <Button
-                    android:hint="@string/register"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/registerBtn" android:layout_weight="1"/>
+                android:id="@+id/register_register_button"
+                android:hint="@string/register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

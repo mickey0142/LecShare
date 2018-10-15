@@ -31,16 +31,27 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initLogin();
         initRegister();
+
+        Button skipButton = getView().findViewById(R.id.login_skip_button);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new SearchFragment())
+                        .commit();
+            }
+        });
     }
     public void initLogin(){
 
         mAuth = FirebaseAuth.getInstance();
-        Button loginBtn = getView().findViewById(R.id.loginBtn);
+        Button loginBtn = getView().findViewById(R.id.login_login_button);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText _email = getView().findViewById(R.id.emailLogin);
-                EditText _password = getView().findViewById(R.id.passwordLogin);
+                EditText _email = getView().findViewById(R.id.login_email);
+                EditText _password = getView().findViewById(R.id.login_password);
                 String _emailStr = _email.getText().toString();
                 String _passwordStr = _password.getText().toString();
 
@@ -54,7 +65,10 @@ public class LoginFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 Log.e("LOGIN", "Login: successful");
-                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new UploadFragment()).commit();
+                                getActivity().getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.main_view, new SearchFragment())
+                                        .commit();
                             }
                             else{
                                 Toast.makeText(getActivity(), "Please enter correct your E-mail and Password.", Toast.LENGTH_SHORT).show();
@@ -67,7 +81,7 @@ public class LoginFragment extends Fragment {
     }
 
     public void initRegister(){
-        TextView _registerBtn = getView().findViewById(R.id.newAccount);
+        TextView _registerBtn = getView().findViewById(R.id.login_new_account);
         _registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

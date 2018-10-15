@@ -4,9 +4,9 @@
               android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.Toolbar
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:id="@+id/fragment_titleRegister"
+            android:id="@+id/fragment_title_register"
             app:title="@string/register"/>
 </LinearLayout>
