@@ -44,17 +44,6 @@ public class SearchFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Button uploadButton = getView().findViewById(R.id.search_upload_button);
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new UploadFragment())
-                        .commit();
-            }
-        });
-
         fbStore.collection("LecNote").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -64,7 +53,6 @@ public class SearchFragment extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         LecNote lecNote = document.toObject(LecNote.class);
                         lecNoteList.add(lecNote);
-
                     }
                     LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, lecNoteList);
                     ListView lecNoteListView = getView().findViewById(R.id.search_lec_note_list);
@@ -103,6 +91,17 @@ public class SearchFragment extends Fragment {
                                 }
                             }
                         });
+            }
+        });
+
+        Button uploadButton = getView().findViewById(R.id.search_upload_button);
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new UploadFragment())
+                        .commit();
             }
         });
     }

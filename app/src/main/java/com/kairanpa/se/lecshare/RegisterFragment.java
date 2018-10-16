@@ -49,15 +49,17 @@ public class RegisterFragment extends Fragment {
                 String _passwordStr = _passowrd.getText().toString();
                 String _repasswordStr = _rePassword.getText().toString();
 
-                if(_usernameStr.isEmpty() || _emailStr.isEmpty() || _stdNumberStr.isEmpty() || _passwordStr.isEmpty() || _repasswordStr.isEmpty()){
+                if(_usernameStr.isEmpty() || _emailStr.isEmpty() || _stdNumberStr.isEmpty() || _passwordStr.isEmpty() || _repasswordStr.isEmpty())
+                {
                     Toast.makeText(getActivity(), "Can't be blank", Toast.LENGTH_LONG).show();
                     Log.e("REGISTER", "Can't be blank.");
                 }
-                else if (_passwordStr.equals(_repasswordStr)){
+                else if (!_passwordStr.equals(_repasswordStr))
+                {
                     Toast.makeText(getActivity(), "Password and Re-Password not equal.", Toast.LENGTH_LONG).show();
                     Log.e("REGISTER", "Not equal.");
                 }
-                else if (_passwordStr.length() > 6){
+                else if (_passwordStr.length() < 6){
                     Toast.makeText(getActivity(), "Please fill Password at least 6 or more.", Toast.LENGTH_LONG).show();
                     Log.e("REGISTER", "Password at least 6 or more.");
                 }
@@ -71,7 +73,7 @@ public class RegisterFragment extends Fragment {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.e("REGISTER", "Register fail.");
+                            Log.e("REGISTER", "Register fail : " + e.getMessage());
                         }
                     });
                 }
@@ -82,10 +84,14 @@ public class RegisterFragment extends Fragment {
     private void sendVerifyEmail(FirebaseUser _email){
         _email.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) { }
+            public void onSuccess(Void aVoid) {
+                Log.e("REGISTER", "send email success");
+            }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception e) { }
+            public void onFailure(@NonNull Exception e) {
+                Log.e("REGISTER", "send email fail : " + e.getMessage());
+            }
         });
     }
 }

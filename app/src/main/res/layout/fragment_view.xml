@@ -27,7 +27,7 @@
             <ListView
                 android:id="@+id/view_file_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="100dp"></ListView>
 
             <Button
                 android:id="@+id/view_back_button"

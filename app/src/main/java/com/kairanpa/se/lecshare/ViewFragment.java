@@ -80,12 +80,20 @@ public class ViewFragment extends Fragment{
         ListView fileList = getView().findViewById(R.id.view_file_list);
         fileList.setAdapter(nameAdapter);
 
-        ImageView fileImage = new ImageView(getContext());
-        LinearLayout linearLayout = getView().findViewById(R.id.view_linear_layout);
-        linearLayout.addView(fileImage);
-        Log.d("test", "file name : " + lecNote.getFilesName().get(0));
-        StorageReference imageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child(lecNote.getFilesName().get(0));
-        GlideApp.with(getContext()).load(imageRef).into(fileImage);
+        for (int i = 0; i < lecNote.getFilesName().size(); i++)
+        {
+            if (lecNote.getFilesName().get(i).endsWith(".pdf"))
+            {
+                Log.d("test", "it is pdf skipped loop");
+                continue;
+            }
+            ImageView fileImage = new ImageView(getContext());
+            LinearLayout linearLayout = getView().findViewById(R.id.view_linear_layout);
+            linearLayout.addView(fileImage);
+            Log.d("test", "file name : " + lecNote.getFilesName().get(0));
+            StorageReference imageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child(lecNote.getFilesName().get(i));
+            GlideApp.with(getContext()).load(imageRef).into(fileImage);
+        }
 
         /*fbStore.collection("LecNote").whereEqualTo("title", "test2").get()
         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

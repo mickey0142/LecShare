@@ -21,9 +21,12 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -103,12 +106,21 @@ public class UploadFragment extends Fragment{
                     uploadTask = fileRef.putFile(file);
                     lecNote.addFileName(fileName.get(i));
                     final int temp = i;
+                    final boolean check;
+                    if (i == 0)
+                    {
+                        check = true;
+                    }
+                    else
+                    {
+                        check = false;
+                    }
 
                     uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            Log.d("test", "upload progress for " + fileName.get(temp) + " is : " + progress + " %");
+                            //Log.d("test", "upload progress for " + fileName.get(temp) + " is : " + progress + " %");
                             if (progressBar == null)
                             {
                                 progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleHorizontal);
@@ -125,7 +137,7 @@ public class UploadFragment extends Fragment{
                                     sumProgress += allProgress.get(j);
                                 }
                                 sumProgress /= allProgress.size();
-                                Log.d("test", "sum progress : " + sumProgress);
+                                //Log.d("test", "sum progress : " + sumProgress);
                                 progressBar.setProgress(sumProgress);
                             }
                         }
@@ -141,27 +153,10 @@ public class UploadFragment extends Fragment{
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Log.d("test", "upload file success");
-                            if (temp == 0)
+                            if(check)
                             {
-                                fbStore.collection("LecNote").add(lecNote)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                Log.d("test", "add lecNote to firebase success");
-                                                Toast.makeText(getContext(), "add success", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d("test", "add lecNote to firebase failed. Error : " + e.getMessage());
-                                        Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                            if(temp == filePath.size())
-                            {
-                                filePath.clear();
-                                fileName.clear();
+                                Log.d("test", "starting upload lecnote");
+                                uploadLecNote("LecNote", lecNote.getTitle(), lecNote);
                             }
                         }
                     });
@@ -186,17 +181,6 @@ public class UploadFragment extends Fragment{
                 chooseFile.putExtra(Intent.EXTRA_MIME_TYPES, mimeType);
                 intent = Intent.createChooser(chooseFile, "Choose a file");
                 startActivityForResult(intent, 1);
-            }
-        });
-
-        Button tempBack = getView().findViewById(R.id.temp_back_button);
-        tempBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new ViewFragment())
-                        .commit();
             }
         });
 
@@ -250,4 +234,41 @@ public class UploadFragment extends Fragment{
         outState.putSerializable("filePath", filePath);
     }
 
+    public void uploadLecNote(String collectionName, String documentName, final LecNote lecNote)
+    {
+        DocumentReference doc = fbStore.collection(collectionName).document(documentName);
+        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot snapshot = task.getResult();
+                if(snapshot.exists())
+                {
+                    Toast.makeText(getContext(), "title already exists", Toast.LENGTH_SHORT).show();
+                    Log.d("test", "lecnote title already exists");
+                }
+                else
+                {
+                    Log.d("test", "inside upload method");
+                    fbStore.collection("LecNote").document(lecNote.getTitle()).set(lecNote)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("test", "add lecNote to firebase success");
+                                    Toast.makeText(getContext(), "add success", Toast.LENGTH_SHORT).show();
+                                    getActivity().getSupportFragmentManager()
+                                            .beginTransaction()
+                                            .replace(R.id.main_view, new SearchFragment())
+                                            .commit();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("test", "add lecNote to firebase failed. Error : " + e.getMessage());
+                            Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
 }

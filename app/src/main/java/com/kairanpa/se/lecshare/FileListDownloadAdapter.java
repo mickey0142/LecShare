@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,6 +45,7 @@ public class FileListDownloadAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 Log.d("test", "fileList.get(pos) : " + fileList.get(pos));
+                Toast.makeText(context, "downloading " + fileList.get(pos), Toast.LENGTH_SHORT).show();
                 try
                 {
                     // add asking for permission somewhere around here
@@ -61,11 +63,13 @@ public class FileListDownloadAdapter extends ArrayAdapter {
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                             Log.d("test", "download success");
                             Log.d("test", "create at : " + file.toString());
+                            Toast.makeText(context, "download " + fileList.get(pos) + " completed", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.d("test", "download failed");
+                            Toast.makeText(context, "download error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
