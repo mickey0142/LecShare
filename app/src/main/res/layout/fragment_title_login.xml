@@ -5,10 +5,10 @@
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        app:titleTextColor="#ffff"
+        app:titleTextColor="#ffffff"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:id="@+id/fragment_title_register"
-        app:title="@string/register"/>
+        app:title="@string/login"/>
 
 </LinearLayout>
