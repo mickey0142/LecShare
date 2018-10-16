@@ -64,11 +64,15 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                Log.e("LOGIN", "Login: successful");
-                                getActivity().getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .replace(R.id.main_view, new SearchFragment())
-                                        .commit();
+                                if (mAuth.getCurrentUser().isEmailVerified()) {
+                                    Log.e("LOGIN", "Login: successful");
+                                    getActivity().getSupportFragmentManager()
+                                            .beginTransaction()
+                                            .replace(R.id.main_view, new SearchFragment())
+                                            .commit();
+                                }
+                                else
+                                    Toast.makeText(getActivity(), "Please verify your email.", Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 Toast.makeText(getActivity(), "Please enter correct your E-mail and Password.", Toast.LENGTH_SHORT).show();
