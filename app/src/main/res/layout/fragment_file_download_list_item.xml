@@ -16,4 +16,25 @@
         android:src="@drawable/ico_download"
         android:layout_gravity="end"/>
 
+    <ProgressBar
+        android:id="@+id/file_list_item_progress_bar"
+        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="-25dp"
+        android:indeterminate="false"
+        android:progress="0" />
+
+    <ImageView
+        android:id="@+id/file_list_item_download_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ico_yes"
+        android:layout_marginTop="-25dp"
+        android:layout_marginRight="40dp"
+        android:layout_gravity="right"
+        android:visibility="invisible"/>
+
 </LinearLayout>
