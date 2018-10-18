@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,6 +39,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import model.LecNote;
+import model.User;
 
 public class UploadFragment extends Fragment{
 
@@ -46,12 +49,16 @@ public class UploadFragment extends Fragment{
     ArrayList<String> filePath = new ArrayList<>();
     ArrayList<String> fileName = new ArrayList<>();
     ProgressBar progressBar;
+    User user;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRetainInstance(true);// well this solved null when rotate somehow?
         progressBar = null;
+        Bundle bundle = getArguments();
+        user = (User) bundle.getSerializable("User object");
+        Log.d("test", "user : " + user);
     }
 
     @Nullable
@@ -82,13 +89,23 @@ public class UploadFragment extends Fragment{
             public void onClick(View v) {
                 Toast.makeText(getContext(), "uploading... please wait", Toast.LENGTH_SHORT).show();
                 final EditText titleBox = getView().findViewById(R.id.upload_title);
+                final EditText subjectBox = getView().findViewById(R.id.upload_subject);
                 final EditText descriptionBox = getView().findViewById(R.id.upload_description);
                 String title = titleBox.getText().toString();
+                String subject = subjectBox.getText().toString();
                 String description = descriptionBox.getText().toString();
+                if (title.equals(""))
+                {
+                    Toast.makeText(getContext(), "note title is empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 final LecNote lecNote = new LecNote();
                 lecNote.setDescription(description);
                 lecNote.setTitle(title);
+                lecNote.setSubject(subject);
                 lecNote.setUploadTimeStamp();
+                lecNote.setOwner(user.getUsername());
+
 
                 Uri file;
                 StorageReference fileRef;
@@ -98,7 +115,6 @@ public class UploadFragment extends Fragment{
                 {
                     allProgress.add(0);
                 }
-                // move progress bar variable to here later
                 for (int i = 0; i < fileName.size(); i++)
                 {
                     file = Uri.fromFile(new File(filePath.get(i)));
@@ -188,10 +204,13 @@ public class UploadFragment extends Fragment{
         backToSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new SearchFragment())
-                        .commit();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("User object", user);
+                Fragment searchFragment = new SearchFragment();
+                searchFragment.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.main_view, searchFragment).commit();
             }
         });
     }
@@ -255,10 +274,13 @@ public class UploadFragment extends Fragment{
                                 public void onSuccess(Void aVoid) {
                                     Log.d("test", "add lecNote to firebase success");
                                     Toast.makeText(getContext(), "add success", Toast.LENGTH_SHORT).show();
-                                    getActivity().getSupportFragmentManager()
-                                            .beginTransaction()
-                                            .replace(R.id.main_view, new SearchFragment())
-                                            .commit();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("User object", user);
+                                    Fragment searchFragment = new SearchFragment();
+                                    searchFragment.setArguments(bundle);
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                    ft.replace(R.id.main_view, searchFragment).commit();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override

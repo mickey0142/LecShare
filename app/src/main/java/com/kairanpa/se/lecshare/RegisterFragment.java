@@ -16,9 +16,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import model.User;
 
 public class RegisterFragment extends Fragment {
     private FirebaseAuth fbAuth;
+    FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,15 +43,15 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 EditText _username = getView().findViewById(R.id.register_username);
-                EditText _email = getView().findViewById(R.id.register_email);
+                final EditText _email = getView().findViewById(R.id.register_email);
                 EditText _stdNumber = getView().findViewById(R.id.register_std_number);
-                EditText _passowrd = getView().findViewById(R.id.register_password);
+                EditText _password = getView().findViewById(R.id.register_password);
                 EditText _rePassword = getView().findViewById(R.id.register_rePassword);
 
-                String _usernameStr = _username.getText().toString();
-                String _emailStr = _email.getText().toString();
-                String _stdNumberStr = _stdNumber.getText().toString();
-                String _passwordStr = _passowrd.getText().toString();
+                final String _usernameStr = _username.getText().toString();
+                final String _emailStr = _email.getText().toString();
+                final String _stdNumberStr = _stdNumber.getText().toString();
+                String _passwordStr = _password.getText().toString();
                 String _repasswordStr = _rePassword.getText().toString();
 
                 if(_usernameStr.isEmpty() || _emailStr.isEmpty() || _stdNumberStr.isEmpty() || _passwordStr.isEmpty() || _repasswordStr.isEmpty())
@@ -64,16 +69,26 @@ public class RegisterFragment extends Fragment {
                     Log.e("REGISTER", "Password at least 6 or more.");
                 }
                 else{
+                    Toast.makeText(getContext(), "please wait...", Toast.LENGTH_SHORT).show();
                     fbAuth.createUserWithEmailAndPassword(_emailStr, _passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            sendVerifyEmail(authResult.getUser());
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).addToBackStack(null).commit();
+                            User user = new User(_usernameStr, _stdNumberStr, _emailStr);
+                            final FirebaseUser authUser = authResult.getUser();
+                            fbStore.collection("User").document(_usernameStr).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    sendVerifyEmail(authUser);
+                                    Toast.makeText(getContext(), "register success", Toast.LENGTH_SHORT).show();
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).addToBackStack(null).commit();
+                                }
+                            });
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.e("REGISTER", "Register fail : " + e.getMessage());
+                            Toast.makeText(getContext(), "error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import model.LecNote;
+import model.User;
 
 public class ViewFragment extends Fragment{
 
@@ -41,12 +43,15 @@ public class ViewFragment extends Fragment{
     FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
     StorageReference storageRef = fbStorage.getReference();
     LecNote lecNote;
+    User user;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         lecNote = (LecNote) bundle.getSerializable("LecNote object");
+        user = (User) bundle.getSerializable("User object");
+        Log.d("test", "user : " + user);
     }
 
     @Nullable
@@ -68,10 +73,13 @@ public class ViewFragment extends Fragment{
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new SearchFragment())
-                        .commit();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("User object", user);
+                Fragment searchFragment = new SearchFragment();
+                searchFragment.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.main_view, searchFragment).commit();
             }
         });
 
@@ -94,52 +102,5 @@ public class ViewFragment extends Fragment{
             StorageReference imageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child(lecNote.getFilesName().get(i));
             GlideApp.with(getContext()).load(imageRef).into(fileImage);
         }
-
-        /*fbStore.collection("LecNote").whereEqualTo("title", "test2").get()
-        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("test", document.getId() + " => " + document.getData());
-                        LecNote lecNote = document.toObject(LecNote.class);
-                        TextView titleBox = getView().findViewById(R.id.view_lec_note_title);
-                        TextView descriptionBox = getView().findViewById(R.id.view_lec_note_description);
-                        titleBox.setText(lecNote.getTitle());
-                        descriptionBox.setText(lecNote.getDescription());
-                        StorageReference storageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child("26044_nutty_CNEIFINAL.pdf");
-                        Log.d("test", "url is : " + storageRef.getDownloadUrl());
-
-                        try
-                        {
-                            // add asking for permission somewhere around here
-                            File directory = new File(Environment.getExternalStorageDirectory(), "abc");
-                            if(!directory.exists())
-                            {
-                                directory.mkdir();
-                            }
-                            final File file = new File(directory, "gjh.pdf");
-                            storageRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                    Log.d("test", "download success");
-                                    Log.d("test", "create at ? : " + file.toString());
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d("test", "download failed");
-                                }
-                            });
-                        }
-                        catch (Exception e)
-                        {
-                            Log.d("test", "error from viewFragment : " + e.getMessage());
-                        }
-                    }
-                }
-            }
-        });*/
     }
 }

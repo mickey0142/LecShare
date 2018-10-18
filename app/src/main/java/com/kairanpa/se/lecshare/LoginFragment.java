@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import model.LecNote;
+import model.User;
 
 public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
+    FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,10 +45,14 @@ public class LoginFragment extends Fragment {
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new SearchFragment())
-                        .commit();
+                User user = new User("tester", "99999999", "testereiei@mail.com");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("User object", user);
+                Fragment searchFragment = new SearchFragment();
+                searchFragment.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.main_view, searchFragment).commit();
             }
         });
     }
@@ -63,13 +76,35 @@ public class LoginFragment extends Fragment {
                     mAuth.signInWithEmailAndPassword(_emailStr, _passwordStr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful())
+                            {
                                 if (mAuth.getCurrentUser().isEmailVerified()) {
                                     Log.e("LOGIN", "Login: successful");
-                                    getActivity().getSupportFragmentManager()
-                                            .beginTransaction()
-                                            .replace(R.id.main_view, new SearchFragment())
-                                            .commit();
+                                    fbStore.collection("User").whereEqualTo("email", mAuth.getCurrentUser().getEmail())
+                                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful())
+                                            {
+                                                for (QueryDocumentSnapshot document : task.getResult())
+                                                {
+                                                    User user = document.toObject(User.class);
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putSerializable("User object", user);
+                                                    Fragment searchFragment = new SearchFragment();
+                                                    searchFragment.setArguments(bundle);
+                                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                                    ft.replace(R.id.main_view, searchFragment).commit();
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Log.d("test", "get user from firestore failed");
+                                            }
+                                        }
+                                    });
+
                                 }
                                 else
                                     Toast.makeText(getActivity(), "Please verify your email.", Toast.LENGTH_SHORT).show();

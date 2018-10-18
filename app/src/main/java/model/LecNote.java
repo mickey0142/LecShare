@@ -15,6 +15,7 @@ public class LecNote implements Serializable{
     private ArrayList<String> filesName = new ArrayList<>();
     private String owner;
     private String uploadTimeStamp;
+    private String subject;
     //double point;
 
     public LecNote()
@@ -59,7 +60,7 @@ public class LecNote implements Serializable{
 
     public void removeFileName(String name)
     {
-        filesName.remove(name);// not sure if this work or not. if not just loop in arraylist to find specific url
+        filesName.remove(name);// not sure if this work or not. if not just loop in arraylist to find specific name
     }
 
     public String getTitle() {
@@ -80,5 +81,13 @@ public class LecNote implements Serializable{
     public String getUploadTimeStamp()
     {
         return this.uploadTimeStamp;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 }

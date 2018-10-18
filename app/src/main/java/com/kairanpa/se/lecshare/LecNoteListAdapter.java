@@ -30,11 +30,14 @@ public class LecNoteListAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View lecNoteItem = LayoutInflater.from(context).inflate(R.layout.fragment_lec_note_list_item, parent, false);
         TextView title = lecNoteItem.findViewById(R.id.lec_note_list_item_title);
-//        TextView owner = lecNoteItem.findViewById(R.id.lec_note_list_item_owner);
+        TextView subject = lecNoteItem.findViewById(R.id.lec_note_list_item_subject);
+        TextView owner = lecNoteItem.findViewById(R.id.lec_note_list_item_owner);
 //        TextView score = lecNoteItem.findViewById(R.id.lec_note_list_item_score);
         TextView date = lecNoteItem.findViewById(R.id.lec_note_list_item_date);
 
         title.setText(lecNote.get(position).getTitle());
+        subject.setText(lecNote.get(position).getSubject());
+        owner.setText(lecNote.get(position).getOwner());
         date.setText(lecNote.get(position).getUploadTimeStamp());
         return lecNoteItem;
     }
