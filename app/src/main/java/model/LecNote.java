@@ -73,7 +73,7 @@ public class LecNote implements Serializable{
     public void setUploadTimeStamp()
     {
         Date date = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         uploadTimeStamp = dateFormat.format(date);
     }
 
