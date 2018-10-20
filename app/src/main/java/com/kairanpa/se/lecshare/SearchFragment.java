@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -95,16 +96,44 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        final TextView moreOption = getView().findViewById(R.id.search_more_option);
+        final EditText searchSubject = getView().findViewById(R.id.search_search_subject);
+        final EditText searchOwner = getView().findViewById(R.id.search_search_owner);
+        moreOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(searchSubject.getVisibility() == View.GONE)
+                {
+                    searchSubject.setVisibility(View.VISIBLE);
+                    searchOwner.setVisibility(View.VISIBLE);
+                    moreOption.setText("less option");
+                }
+                else if(searchSubject.getVisibility() == View.VISIBLE)
+                {
+                    searchSubject.setVisibility(View.GONE);
+                    searchOwner.setVisibility(View.GONE);
+                    searchSubject.setText("");
+                    searchOwner.setText("");
+                    moreOption.setText("more option");
+                }
+            }
+        });
+
         Button searchButton = getView().findViewById(R.id.search_search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText searchTextBox = getView().findViewById(R.id.search_search_box);
-                String searchText = searchTextBox.getText().toString();
+                EditText searchTitle = getView().findViewById(R.id.search_search_title);
+                String searchTitleStr = searchTitle.getText().toString();
+                String searchSubjectStr = searchSubject.getText().toString();
+                String searchOwnerStr = searchOwner.getText().toString();
                 final ArrayList<LecNote> lecNoteList = new ArrayList<>();
                 for (int i = 0; i < allNote.size(); i++)
                 {
-                    if(allNote.get(i).getTitle().contains(searchText))
+                    String title = allNote.get(i).getTitle();
+                    String subject = allNote.get(i).getSubject();
+                    String owner = allNote.get(i).getOwner();
+                    if(title.contains(searchTitleStr) && subject.contains(searchSubjectStr) && owner.contains(searchOwnerStr))
                     {
                         lecNoteList.add(allNote.get(i));
                     }

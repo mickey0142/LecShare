@@ -18,10 +18,31 @@
                 android:text="Search page"/>
 
             <EditText
-                android:id="@+id/search_search_box"
+                android:id="@+id/search_search_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Search title"/>
+
+            <EditText
+                android:id="@+id/search_search_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search subject"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/search_search_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search owner"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/search_more_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="more option"
+                android:layout_gravity="right"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
