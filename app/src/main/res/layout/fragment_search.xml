@@ -1,98 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#2D3047">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal">-->
-            <!--<ImageView-->
-                <!--android:id="@+id/imageView"-->
-                <!--android:layout_width="76dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:src="@drawable/ico_back" />-->
-
-            <!--<TextView-->
-                <!--android:layout_width="384dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:hint="Search page"-->
-                <!--android:paddingLeft="70dp"-->
-                <!--android:textColorHint="#FFFFFF"-->
-                <!--android:textSize="30sp"-->
-                <!--android:textStyle="bold" />-->
-        <!--</LinearLayout>-->
         <LinearLayout
             android:id="@+id/upload_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp">
-                <ImageView
-                    android:layout_width="53dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_search" />
 
-                <EditText
-                    android:id="@+id/search_search_box"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Search here"
-                    android:textColorHint="#FFFFFF"/>
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search page"/>
 
-            <Button
-                android:layout_marginTop="10dp"
-                android:id="@+id/search_search_button"
+            <EditText
+                android:id="@+id/search_search_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search title"/>
+
+            <EditText
+                android:id="@+id/search_search_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search subject"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/search_search_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search owner"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/search_more_option"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/login_btn"
-                android:layout_gravity="center"
-                android:textColor="#FFFFFF"
-                android:text="Search"/>
+                android:text="more option"
+                android:layout_gravity="right"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            </LinearLayout>
-            <ListView
-                android:background="@drawable/login_border"
-                android:id="@+id/search_lec_note_list"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                >
-            </ListView>
+                <Button
+                    android:id="@+id/search_order_by_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="title" />
 
-            <!--temporary button-->
+                <Button
+                    android:id="@+id/search_order_by_subject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="subject" />
+
+                <Button
+                    android:id="@+id/search_order_by_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="time" />
+
+                <ImageView
+                    android:id="@+id/search_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ico_refresh"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/search_search_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search"/>
+
+            <ListView
+                android:id="@+id/search_lec_note_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+
             <Button
                 android:id="@+id/search_upload_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/login_btn"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:textColor="#FFFFFF"
-                android:text="Upload"/>
+                android:text="upload new lecture note"/>
 
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>

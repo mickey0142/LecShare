@@ -41,20 +41,20 @@ public class LoginFragment extends Fragment {
         initLogin();
         initRegister();
 
-        Button skipButton = getView().findViewById(R.id.login_skip_button);
-        skipButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                User user = new User("tester", "99999999", "testereiei@mail.com");
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("User object", user);
-                Fragment searchFragment = new SearchFragment();
-                searchFragment.setArguments(bundle);
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.main_view, searchFragment).commit();
-            }
-        });
+//        Button skipButton = getView().findViewById(R.id.login_skip_button);
+//        skipButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                User user = new User("tester", "99999999", "testereiei@mail.com");
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("User object", user);
+//                Fragment searchFragment = new SearchFragment();
+//                searchFragment.setArguments(bundle);
+//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                ft.replace(R.id.main_view, searchFragment).commit();
+//            }
+//        });
     }
     public void initLogin(){
 

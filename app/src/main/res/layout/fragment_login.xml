@@ -33,7 +33,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/login_email"
             android:layout_width="300dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
@@ -43,10 +43,11 @@
             android:inputType="textEmailAddress"
             android:paddingLeft="16dp"
             android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"/>
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/login_password"
             android:layout_width="300dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
@@ -56,10 +57,11 @@
             android:inputType="textPassword"
             android:paddingLeft="16dp"
             android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"/>
 
         <Button
-            android:id="@+id/loginBtn"
+            android:id="@+id/login_login_button"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
@@ -108,7 +110,7 @@
 
 
         <Button
-            android:id="@+id/newAccount"
+            android:id="@+id/login_new_account"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
