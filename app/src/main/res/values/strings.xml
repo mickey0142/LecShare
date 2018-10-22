@@ -6,7 +6,8 @@
     <string name="email">Email</string>
     <string name="register">Register</string>
     <string name="idNumber">Student\'s ID number</string>
-    <string name="login">Login</string>
-    <string name="newAccount">Create a new account.</string>
+    <string name="login">Sign in</string>
+    <string name="newAccount">Sign up here!</string>
     <string name="forgotPassword">Forgot your password?</string>
+    <string name="welcome">Welcome to LecShare</string>
 </resources>
