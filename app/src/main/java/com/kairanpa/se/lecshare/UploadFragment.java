@@ -255,41 +255,25 @@ public class UploadFragment extends Fragment{
 
     public void uploadLecNote(String collectionName, String documentName, final LecNote lecNote)
     {
-        DocumentReference doc = fbStore.collection(collectionName).document(documentName);
-        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        fbStore.collection("LecNote").add(lecNote)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("test", "add lecNote to firebase success");
+                        Toast.makeText(getContext(), "add success", Toast.LENGTH_SHORT).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("User object", user);
+                        Fragment searchFragment = new SearchFragment();
+                        searchFragment.setArguments(bundle);
+                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ft.replace(R.id.main_view, searchFragment).commit();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot snapshot = task.getResult();
-                if(snapshot.exists())
-                {
-                    Toast.makeText(getContext(), "title already exists", Toast.LENGTH_SHORT).show();
-                    Log.d("test", "lecnote title already exists");
-                }
-                else
-                {
-                    Log.d("test", "inside upload method");
-                    fbStore.collection("LecNote").document(lecNote.getTitle()).set(lecNote)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("test", "add lecNote to firebase success");
-                                    Toast.makeText(getContext(), "add success", Toast.LENGTH_SHORT).show();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("User object", user);
-                                    Fragment searchFragment = new SearchFragment();
-                                    searchFragment.setArguments(bundle);
-                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                    ft.replace(R.id.main_view, searchFragment).commit();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("test", "add lecNote to firebase failed. Error : " + e.getMessage());
-                            Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+            public void onFailure(@NonNull Exception e) {
+                Log.d("test", "add lecNote to firebase failed. Error : " + e.getMessage());
+                Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

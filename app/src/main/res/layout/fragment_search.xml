@@ -67,6 +67,12 @@
                     android:layout_height="wrap_content"
                     android:text="time" />
 
+                <ImageView
+                    android:id="@+id/search_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ico_refresh"/>
+
             </LinearLayout>
 
             <Button

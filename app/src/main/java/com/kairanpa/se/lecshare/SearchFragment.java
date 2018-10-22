@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -123,38 +124,7 @@ public class SearchFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText searchTitle = getView().findViewById(R.id.search_search_title);
-                String searchTitleStr = searchTitle.getText().toString();
-                String searchSubjectStr = searchSubject.getText().toString();
-                String searchOwnerStr = searchOwner.getText().toString();
-                final ArrayList<LecNote> lecNoteList = new ArrayList<>();
-                for (int i = 0; i < allNote.size(); i++)
-                {
-                    String title = allNote.get(i).getTitle();
-                    String subject = allNote.get(i).getSubject();
-                    String owner = allNote.get(i).getOwner();
-                    if(title.contains(searchTitleStr) && subject.contains(searchSubjectStr) && owner.contains(searchOwnerStr))
-                    {
-                        lecNoteList.add(allNote.get(i));
-                    }
-                }
-                LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, lecNoteList);
-                ListView lecNoteListView = getView().findViewById(R.id.search_lec_note_list);
-                lecNoteListView.setAdapter(lecNoteListAdapter);
-                lecNoteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Fragment viewFragment = new ViewFragment();
-                        Bundle bundle = new Bundle();
-                        Log.d("test", lecNoteList.get(position).toString());
-                        bundle.putSerializable("LecNote object", lecNoteList.get(position));
-                        bundle.putSerializable("User object", user);
-                        viewFragment.setArguments(bundle);
-                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        ft.replace(R.id.main_view, viewFragment).commit();
-                    }
-                });
+                searchAllNote();
             }
         });
 
@@ -172,7 +142,14 @@ public class SearchFragment extends Fragment {
             }
         });
 
-
+        ImageView refreshButton = getView().findViewById(R.id.search_refresh);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queryOrderBy();
+                searchAllNote();
+            }
+        });
     }
 
     @Override
@@ -214,26 +191,65 @@ public class SearchFragment extends Fragment {
                         LecNote lecNote = document.toObject(LecNote.class);
                         lecNoteList.add(lecNote);
                     }
-                    allNote = (ArrayList<LecNote>) lecNoteList.clone();// make refresh button and set allNote again maybe move that into new function too
-                    // maybe refactor this by copy all this about adapter into function
-                    LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, lecNoteList);
-                    ListView lecNoteListView = getView().findViewById(R.id.search_lec_note_list);
-                    lecNoteListView.setAdapter(lecNoteListAdapter);
-                    lecNoteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Fragment viewFragment = new ViewFragment();
-                            Bundle bundle = new Bundle();
-                            Log.d("test", lecNoteList.get(position).toString());
-                            bundle.putSerializable("LecNote object", lecNoteList.get(position));
-                            bundle.putSerializable("User object", user);
-                            viewFragment.setArguments(bundle);
-                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                            ft.replace(R.id.main_view, viewFragment).commit();
-                        }
-                    });
+                    allNote = (ArrayList<LecNote>) lecNoteList.clone();
+                    searchAllNote();
+//                    LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, lecNoteList);
+//                    ListView lecNoteListView = getView().findViewById(R.id.search_lec_note_list);
+//                    lecNoteListView.setAdapter(lecNoteListAdapter);
+//                    lecNoteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                            Fragment viewFragment = new ViewFragment();
+//                            Bundle bundle = new Bundle();
+//                            Log.d("test", lecNoteList.get(position).toString());
+//                            bundle.putSerializable("LecNote object", lecNoteList.get(position));
+//                            bundle.putSerializable("User object", user);
+//                            viewFragment.setArguments(bundle);
+//                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                            ft.replace(R.id.main_view, viewFragment).commit();
+//                        }
+//                    });
                 }
+            }
+        });
+    }
+
+    public void searchAllNote()
+    {
+        EditText searchTitle = getView().findViewById(R.id.search_search_title);
+        EditText searchSubject = getView().findViewById(R.id.search_search_subject);
+        EditText searchOwner = getView().findViewById(R.id.search_search_owner);
+        String searchTitleStr = searchTitle.getText().toString();
+        String searchSubjectStr = searchSubject.getText().toString();
+        String searchOwnerStr = searchOwner.getText().toString();
+
+        final ArrayList<LecNote> lecNoteList = new ArrayList<>();
+        for (int i = 0; i < allNote.size(); i++)
+        {
+            String title = allNote.get(i).getTitle();
+            String subject = allNote.get(i).getSubject();
+            String owner = allNote.get(i).getOwner();
+            if(title.contains(searchTitleStr) && subject.contains(searchSubjectStr) && owner.contains(searchOwnerStr))
+            {
+                lecNoteList.add(allNote.get(i));
+            }
+        }
+        LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, lecNoteList);
+        ListView lecNoteListView = getView().findViewById(R.id.search_lec_note_list);
+        lecNoteListView.setAdapter(lecNoteListAdapter);
+        lecNoteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Fragment viewFragment = new ViewFragment();
+                Bundle bundle = new Bundle();
+                Log.d("test", lecNoteList.get(position).toString());
+                bundle.putSerializable("LecNote object", lecNoteList.get(position));
+                bundle.putSerializable("User object", user);
+                viewFragment.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.main_view, viewFragment).commit();
             }
         });
     }
