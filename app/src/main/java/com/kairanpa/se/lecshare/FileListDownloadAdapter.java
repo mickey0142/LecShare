@@ -54,11 +54,11 @@ public class FileListDownloadAdapter extends ArrayAdapter {
                 downloadCompleted.setVisibility(View.INVISIBLE);
                 try
                 {
-                    // add asking for permission somewhere around here
                     File directory = new File(Environment.getExternalStorageDirectory(), "LectureNote");
                     if(!directory.exists())
                     {
-                        directory.mkdir();
+                        boolean check = directory.mkdir();
+                        Log.d("test", "make directory : " + check);
                     }
                     final File file = new File(directory, fileList.get(pos));
                     FirebaseStorage fbStorage = FirebaseStorage.getInstance();

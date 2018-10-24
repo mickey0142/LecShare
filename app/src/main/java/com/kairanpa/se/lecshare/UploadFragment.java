@@ -1,16 +1,12 @@
 package com.kairanpa.se.lecshare;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +18,9 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -184,10 +176,6 @@ public class UploadFragment extends Fragment{
         chooseFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-                }
                 Intent chooseFile;
                 Intent intent;
                 chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
@@ -206,11 +194,11 @@ public class UploadFragment extends Fragment{
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("User object", user);
-                Fragment searchFragment = new SearchFragment();
-                searchFragment.setArguments(bundle);
+                Fragment homeFragment = new HomeFragment();
+                homeFragment.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.main_view, searchFragment).commit();
+                ft.replace(R.id.main_view, homeFragment).commit();
             }
         });
     }
@@ -263,11 +251,11 @@ public class UploadFragment extends Fragment{
                         Toast.makeText(getContext(), "add success", Toast.LENGTH_SHORT).show();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("User object", user);
-                        Fragment searchFragment = new SearchFragment();
-                        searchFragment.setArguments(bundle);
+                        Fragment homeFragment = new HomeFragment();
+                        homeFragment.setArguments(bundle);
                         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        ft.replace(R.id.main_view, searchFragment).commit();
+                        ft.replace(R.id.main_view, homeFragment).commit();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

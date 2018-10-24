@@ -1,11 +1,9 @@
 package com.kairanpa.se.lecshare;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,22 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.module.AppGlideModule;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import model.LecNote;
@@ -40,8 +25,6 @@ import model.User;
 public class ViewFragment extends Fragment{
 
     FirebaseStorage fbStorage = FirebaseStorage.getInstance();
-    FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
-    StorageReference storageRef = fbStorage.getReference();
     LecNote lecNote;
     User user;
 
@@ -73,13 +56,7 @@ public class ViewFragment extends Fragment{
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("User object", user);
-                Fragment searchFragment = new SearchFragment();
-                searchFragment.setArguments(bundle);
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.main_view, searchFragment).commit();
+                getFragmentManager().popBackStack();
             }
         });
 

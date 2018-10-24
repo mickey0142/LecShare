@@ -68,6 +68,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/login"
             android:textColor="#FFFFFF"
+
             android:background="@drawable/login_btn"
             />
 
@@ -130,6 +131,12 @@
             android:textColorHint="#8E2C84"
             android:textSize="15dp"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/login_skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="skip"/>
 
 
 </android.support.constraint.ConstraintLayout>

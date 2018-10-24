@@ -1,10 +1,14 @@
 package com.kairanpa.se.lecshare;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,20 +45,29 @@ public class LoginFragment extends Fragment {
         initLogin();
         initRegister();
 
-//        Button skipButton = getView().findViewById(R.id.login_skip_button);
-//        skipButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                User user = new User("tester", "99999999", "testereiei@mail.com");
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("User object", user);
-//                Fragment searchFragment = new SearchFragment();
-//                searchFragment.setArguments(bundle);
-//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//                ft.replace(R.id.main_view, searchFragment).commit();
-//            }
-//        });
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+        }
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+
+        Button skipButton = getView().findViewById(R.id.login_skip_button);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User user = new User("tester", "99999999", "testereiei@mail.com");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("User object", user);
+                Fragment homeFragment = new HomeFragment();
+                        homeFragment.setArguments(bundle);
+                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ft.replace(R.id.main_view, homeFragment).commit();
+            }
+        });
     }
     public void initLogin(){
 
@@ -93,11 +106,11 @@ public class LoginFragment extends Fragment {
                                                     User user = document.toObject(User.class);
                                                     Bundle bundle = new Bundle();
                                                     bundle.putSerializable("User object", user);
-                                                    Fragment searchFragment = new SearchFragment();
-                                                    searchFragment.setArguments(bundle);
+                                                    Fragment homeFragment = new HomeFragment();
+                                                    homeFragment.setArguments(bundle);
                                                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                                                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                                    ft.replace(R.id.main_view, searchFragment).commit();
+                                                    ft.replace(R.id.main_view, homeFragment).commit();
                                                 }
                                             }
                                             else

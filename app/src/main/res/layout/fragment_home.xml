@@ -11,42 +11,46 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Search page"/>
-
             <EditText
-                android:id="@+id/search_search_title"
+                android:id="@+id/home_search_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Search title"/>
 
-            <EditText
-                android:id="@+id/search_search_subject"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search subject"
-                />
-
-            <EditText
-                android:id="@+id/search_search_owner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search owner"
-                />
-
             <Button
-                android:id="@+id/search_search_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Search"/>
-
-            <Button
-                android:id="@+id/search_back_button"
+                android:id="@+id/home_search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="back"/>
+                android:text="search"/>
+
+            <Button
+                android:id="@+id/home_advance_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="advance search"/>
+
+            <ImageView
+                android:id="@+id/home_refresh_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_refresh"/>
+
+            <ListView
+                android:id="@+id/home_lec_note_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+
+            <Button
+                android:id="@+id/home_upload_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="upload"/>
+
+            <Button
+                android:id="@+id/home_log_out_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="log out"/>
 
         </LinearLayout>
     </ScrollView>
