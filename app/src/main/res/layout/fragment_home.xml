@@ -1,58 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2D3047">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
-            <EditText
-                android:id="@+id/home_search_title"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search title"/>
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/home_search_button"
+                <TextView
+                    android:layout_width="384dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:hint="Home"
+                    android:paddingLeft="150dp"
+                    android:textColorHint="#FFFFFF"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="53dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_search" />
+
+                <EditText
+                    android:id="@+id/home_search_title"
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Search here"
+                    android:textColorHint="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/home_refresh_button"
+                    android:layout_width="53dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_reset" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="search"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/home_advance_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="advance search"/>
+                <Button
 
-            <ImageView
-                android:id="@+id/home_refresh_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ico_refresh"/>
+                    android:id="@+id/home_search_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/login_btn"
+                    android:text="Search"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/home_advance_search"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/login_btn"
+                    android:text="Advance search"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
 
             <ListView
                 android:id="@+id/home_lec_note_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login_border"
+                android:paddingLeft="16dp"></ListView>
 
             <Button
                 android:id="@+id/home_upload_button"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="upload"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/login_btn"
+                android:hint="Upload"
+                android:textColorHint="#FFFFFF" />
 
             <Button
                 android:id="@+id/home_log_out_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="log out"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/login_signup"
+                android:hint="Sign out"
+                android:textColorHint="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
