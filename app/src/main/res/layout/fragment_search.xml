@@ -44,36 +44,18 @@
                 android:text="more option"
                 android:layout_gravity="right"/>
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/search_refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:src="@drawable/ico_refresh"/>
 
-                <Button
-                    android:id="@+id/search_order_by_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="title" />
-
-                <Button
-                    android:id="@+id/search_order_by_subject"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="subject" />
-
-                <Button
-                    android:id="@+id/search_order_by_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="time" />
-
-                <ImageView
-                    android:id="@+id/search_refresh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ico_refresh"/>
-
-            </LinearLayout>
+            <Spinner
+                android:id="@+id/search_drop_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown">
+            </Spinner>
 
             <Button
                 android:id="@+id/search_search_button"
@@ -91,6 +73,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="upload new lecture note"/>
+
+            <Button
+                android:id="@+id/search_log_out_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="log out"/>
 
         </LinearLayout>
     </ScrollView>

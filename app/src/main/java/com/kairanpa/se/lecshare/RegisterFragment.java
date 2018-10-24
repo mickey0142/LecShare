@@ -80,7 +80,7 @@ public class RegisterFragment extends Fragment {
                                 public void onSuccess(Void aVoid) {
                                     sendVerifyEmail(authUser);
                                     Toast.makeText(getContext(), "register success", Toast.LENGTH_SHORT).show();
-                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).addToBackStack(null).commit();
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
                                 }
                             });
                         }

@@ -11,14 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -31,6 +34,7 @@ import model.User;
 
 public class SearchFragment extends Fragment {
 
+    FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
     ArrayList<LecNote> allNote;
     String orderBy = "title";
@@ -57,43 +61,33 @@ public class SearchFragment extends Fragment {
 
         queryOrderBy();
 
-        final Button orderByTitleButton = getView().findViewById(R.id.search_order_by_title);
-        final Button orderBySubjectButton = getView().findViewById(R.id.search_order_by_subject);
-        final Button orderByTimeButton = getView().findViewById(R.id.search_order_by_time);
-        orderByTitleButton.setBackgroundColor(Color.CYAN);
-        orderBySubjectButton.setBackgroundColor(Color.LTGRAY);
-        orderByTimeButton.setBackgroundColor(Color.LTGRAY);
-
-        orderByTitleButton.setOnClickListener(new View.OnClickListener() {
+        Spinner dropDown = getView().findViewById(R.id.search_drop_down);
+        String[] orderType = new String[]{"title", "subject", "time"};
+        ArrayAdapter<String> orderAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, orderType);
+        dropDown.setAdapter(orderAdapter);
+        dropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                orderBy = "title";
-                orderByTitleButton.setBackgroundColor(Color.CYAN);
-                orderBySubjectButton.setBackgroundColor(Color.LTGRAY);
-                orderByTimeButton.setBackgroundColor(Color.LTGRAY);
-                queryOrderBy();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0)
+                {
+                    orderBy = "title";
+                    queryOrderBy();
+                }
+                else if (position == 1)
+                {
+                    orderBy = "subject";
+                    queryOrderBy();
+                }
+                else if (position == 2)
+                {
+                    orderBy = "time";
+                    queryOrderBy();
+                }
             }
-        });
 
-        orderBySubjectButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                orderBy = "subject";
-                orderByTitleButton.setBackgroundColor(Color.LTGRAY);
-                orderBySubjectButton.setBackgroundColor(Color.CYAN);
-                orderByTimeButton.setBackgroundColor(Color.LTGRAY);
-                queryOrderBy();
-            }
-        });
+            public void onNothingSelected(AdapterView<?> parent) {
 
-        orderByTimeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orderBy = "time";
-                orderBySubjectButton.setBackgroundColor(Color.LTGRAY);
-                orderByTitleButton.setBackgroundColor(Color.LTGRAY);
-                orderByTimeButton.setBackgroundColor(Color.CYAN);
-                queryOrderBy();
             }
         });
 
@@ -138,7 +132,7 @@ public class SearchFragment extends Fragment {
                 uploadFragment.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.main_view, uploadFragment).commit();
+                ft.replace(R.id.main_view, uploadFragment).addToBackStack(null).commit();
             }
         });
 
@@ -148,6 +142,18 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 queryOrderBy();
                 searchAllNote();
+            }
+        });
+
+        Button logOutButton = getView().findViewById(R.id.search_log_out_button);
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fbAuth.signOut();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new LoginFragment())
+                        .commit();
             }
         });
     }
@@ -249,7 +255,7 @@ public class SearchFragment extends Fragment {
                 viewFragment.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.main_view, viewFragment).commit();
+                ft.replace(R.id.main_view, viewFragment).addToBackStack(null).commit();
             }
         });
     }
