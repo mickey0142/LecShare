@@ -59,7 +59,7 @@ public class LoginFragment extends Fragment {
     public void initLogin(){
 
         mAuth = FirebaseAuth.getInstance();
-        Button loginBtn = getView().findViewById(R.id.login_login_button);
+        final Button loginBtn = getView().findViewById(R.id.login_login_button);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +73,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(), "Please fill E-mail and Password.", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    loginBtn.setEnabled(false);
                     mAuth.signInWithEmailAndPassword(_emailStr, _passwordStr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -86,6 +87,7 @@ public class LoginFragment extends Fragment {
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             if (task.isSuccessful())
                                             {
+                                                Log.d("test", "get user info from firestore");
                                                 for (QueryDocumentSnapshot document : task.getResult())
                                                 {
                                                     User user = document.toObject(User.class);
@@ -101,16 +103,20 @@ public class LoginFragment extends Fragment {
                                             else
                                             {
                                                 Log.d("test", "get user from firestore failed");
+                                                loginBtn.setEnabled(true);
                                             }
                                         }
                                     });
-
                                 }
                                 else
+                                {
                                     Toast.makeText(getActivity(), "Please verify your email.", Toast.LENGTH_SHORT).show();
+                                    loginBtn.setEnabled(true);
+                                }
                             }
                             else{
                                 Toast.makeText(getActivity(), "Please enter correct your E-mail and Password.", Toast.LENGTH_SHORT).show();
+                                loginBtn.setEnabled(true);
                             }
                         }
                     });
@@ -124,8 +130,8 @@ public class LoginFragment extends Fragment {
         _registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new RegisterFragment()).addToBackStack(null).commit();
                 Log.e("LOGIN", "Go to register");
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new RegisterFragment()).addToBackStack(null).commit();
             }
         });
     }

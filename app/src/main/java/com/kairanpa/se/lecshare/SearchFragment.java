@@ -221,42 +221,47 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    public void searchAllNote()
-    {
-        EditText searchTitle = getView().findViewById(R.id.search_search_title);
-        EditText searchSubject = getView().findViewById(R.id.search_search_subject);
-        EditText searchOwner = getView().findViewById(R.id.search_search_owner);
-        String searchTitleStr = searchTitle.getText().toString();
-        String searchSubjectStr = searchSubject.getText().toString();
-        String searchOwnerStr = searchOwner.getText().toString();
-
-        final ArrayList<LecNote> lecNoteList = new ArrayList<>();
-        for (int i = 0; i < allNote.size(); i++)
+    public void searchAllNote() {
+        try
         {
-            String title = allNote.get(i).getTitle();
-            String subject = allNote.get(i).getSubject();
-            String owner = allNote.get(i).getOwner();
-            if(title.contains(searchTitleStr) && subject.contains(searchSubjectStr) && owner.contains(searchOwnerStr))
-            {
-                lecNoteList.add(allNote.get(i));
+            EditText searchTitle = getView().findViewById(R.id.search_search_title);
+            EditText searchSubject = getView().findViewById(R.id.search_search_subject);
+            EditText searchOwner = getView().findViewById(R.id.search_search_owner);
+            String searchTitleStr = searchTitle.getText().toString();
+            String searchSubjectStr = searchSubject.getText().toString();
+            String searchOwnerStr = searchOwner.getText().toString();
+
+            final ArrayList<LecNote> lecNoteList = new ArrayList<>();
+            for (int i = 0; i < allNote.size(); i++) {
+                String title = allNote.get(i).getTitle();
+                String subject = allNote.get(i).getSubject();
+                String owner = allNote.get(i).getOwner();
+                if (title.contains(searchTitleStr) && subject.contains(searchSubjectStr) && owner.contains(searchOwnerStr)) {
+                    lecNoteList.add(allNote.get(i));
+                }
             }
+            LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, lecNoteList);
+            ListView lecNoteListView = getView().findViewById(R.id.search_lec_note_list);
+            lecNoteListView.setAdapter(lecNoteListAdapter);
+            lecNoteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Fragment viewFragment = new ViewFragment();
+                    Bundle bundle = new Bundle();
+                    Log.d("test", lecNoteList.get(position).toString());
+                    bundle.putSerializable("LecNote object", lecNoteList.get(position));
+                    bundle.putSerializable("User object", user);
+                    viewFragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, viewFragment).addToBackStack(null).commit();
+                }
+            });
         }
-        LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, lecNoteList);
-        ListView lecNoteListView = getView().findViewById(R.id.search_lec_note_list);
-        lecNoteListView.setAdapter(lecNoteListAdapter);
-        lecNoteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Fragment viewFragment = new ViewFragment();
-                Bundle bundle = new Bundle();
-                Log.d("test", lecNoteList.get(position).toString());
-                bundle.putSerializable("LecNote object", lecNoteList.get(position));
-                bundle.putSerializable("User object", user);
-                viewFragment.setArguments(bundle);
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.main_view, viewFragment).addToBackStack(null).commit();
-            }
-        });
+        catch (NullPointerException e)
+        {
+            Log.d("test", "catch null exception : " + e.getMessage());
+            return;
+        }
     }
 }
