@@ -10,4 +10,9 @@
     <string name="newAccount">Sign up here!</string>
     <string name="forgotPassword">Forgot your password?</string>
     <string name="welcome">Welcome to LecShare</string>
+    <string name="resetPass">Reset password.</string>
+    <string name="titleResetPass">Forgot password.</string>
+    <string name="text_logout">Logout</string>
+    <string name="text_home">Home</string>
+    <string name="text_profile">Profile</string>
 </resources>
