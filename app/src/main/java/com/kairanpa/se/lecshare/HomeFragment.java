@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -64,6 +66,8 @@ public class HomeFragment extends Fragment {
 
     public void showLecNoteList()
     {
+        final ProgressBar progressBar = getView().findViewById(R.id.home_progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
         fbStore.collection("LecNote").orderBy("title", Query.Direction.ASCENDING)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -95,11 +99,20 @@ public class HomeFragment extends Fragment {
                         });
                         ImageView refreshButton = getView().findViewById(R.id.home_refresh_button);
                         refreshButton.setEnabled(true);
+                        progressBar.setVisibility(View.GONE);
                     }
                     catch (NullPointerException e)
                     {
                         Log.d("test", "catch NullPointerException : " + e.getMessage());
                     }
+                }
+                else
+                {
+                    ImageView refreshButton = getView().findViewById(R.id.home_refresh_button);
+                    refreshButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                    Log.d("test", "get lecnote error : " + task.getException().getMessage());
+                    Toast.makeText(getContext(), "get lecnote error : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -123,6 +136,11 @@ public class HomeFragment extends Fragment {
         advanceSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (allNote == null)
+                {
+                    Log.d("test", "return");
+                    return;
+                }
                 Fragment searchFragment = new SearchFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("User object", user);
@@ -174,6 +192,11 @@ public class HomeFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (allNote == null)
+                {
+                    Log.d("test", "return");
+                    return;
+                }
                 EditText searchTitle = getView().findViewById(R.id.home_search_title);
                 String searchTitleStr = searchTitle.getText().toString();
                 Bundle bundle = new Bundle();

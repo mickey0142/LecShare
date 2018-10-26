@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -164,6 +165,8 @@ public class SearchResultFragment extends Fragment {
     public void queryOrderBy(String orderBy)
     {
         try {
+            final ProgressBar progressBar = getView().findViewById(R.id.search_result_progress_bar);
+            progressBar.setVisibility(View.VISIBLE);
             Query query = fbStore.collection("LecNote");
 //        if (orderBy.equals("score"))
 //        {
@@ -192,6 +195,7 @@ public class SearchResultFragment extends Fragment {
                         allNote = (ArrayList<LecNote>) lecNoteList.clone();
                         showSearchResult();
                     }
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         }
