@@ -231,10 +231,13 @@ public class HomeFragment extends Fragment {
                 if (itemId == R.id.menu_home)
                 {
                     Log.d("test", "press home");
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.main_view, new HomeFragment())
-                            .addToBackStack(null).commit();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment homeFragment = new HomeFragment();
+                    homeFragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, homeFragment).commit();
                 }
                 else if (itemId == R.id.menu_profile)
                 {
