@@ -44,6 +44,12 @@ public class SearchFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initSearchButton();
+        initBackButton();
+    }
+
+    public void initSearchButton()
+    {
         Button searchButton = getView().findViewById(R.id.search_search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +74,10 @@ public class SearchFragment extends Fragment {
                 ft.replace(R.id.main_view, searchResultFragment).addToBackStack(null).commit();
             }
         });
+    }
 
+    public void initBackButton()
+    {
         Button backButton = getView().findViewById(R.id.search_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,5 +92,4 @@ public class SearchFragment extends Fragment {
             }
         });
     }
-
 }

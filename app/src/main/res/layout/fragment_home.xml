@@ -7,13 +7,13 @@
     android:background="#2D3047">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/home_toolbar"
         style="@style/HeaderBar"
         android:elevation="4dp"
-        android:id="@+id/menu_item"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        app:title="Home"/>
 
     <ScrollView
         android:layout_width="match_parent"

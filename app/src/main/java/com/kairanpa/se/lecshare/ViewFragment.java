@@ -47,11 +47,22 @@ public class ViewFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setTextBox();
+        initBackButton();
+        showFileList();
+        showImage();
+    }
+
+    public void setTextBox()
+    {
         TextView titleBox = getView().findViewById(R.id.view_lec_note_title);
         TextView descriptionBox = getView().findViewById(R.id.view_lec_note_description);
         titleBox.setText(lecNote.getTitle());
         descriptionBox.setText(lecNote.getDescription());
+    }
 
+    public void initBackButton()
+    {
         Button backButton = getView().findViewById(R.id.view_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,12 +70,18 @@ public class ViewFragment extends Fragment{
                 getFragmentManager().popBackStack();
             }
         });
+    }
 
+    public void showFileList()
+    {
         ArrayList<String> fileName = lecNote.getFilesName();
         FileListDownloadAdapter nameAdapter = new FileListDownloadAdapter(getActivity(), R.layout.fragment_view, fileName);
         ListView fileList = getView().findViewById(R.id.view_file_list);
         fileList.setAdapter(nameAdapter);
+    }
 
+    public void showImage()
+    {
         for (int i = 0; i < lecNote.getFilesName().size(); i++)
         {
             if (lecNote.getFilesName().get(i).endsWith(".pdf"))

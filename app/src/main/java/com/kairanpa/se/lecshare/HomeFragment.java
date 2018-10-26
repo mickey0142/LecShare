@@ -37,7 +37,6 @@ import model.LecNotePack;
 import model.User;
 
 public class HomeFragment extends Fragment {
-    private Toolbar mTool;
     FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
     ArrayList<LecNote> allNote;
@@ -50,8 +49,6 @@ public class HomeFragment extends Fragment {
         Bundle bundle = getArguments();
         user = (User) bundle.getSerializable("User object");
         Log.d("test", "user : " + user);
-        mTool = getActivity().findViewById(R.id.menu_item);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(mTool);
     }
 
     @Nullable
@@ -65,11 +62,12 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         showLecNoteList();
-        initSearchButton();
         initRefreshButton();
         initAdvanceSearchButton();
         initUploadButton();
         initLogOutButton();
+        initSearchButton();
+        initToolbar();
     }
 
     public void showLecNoteList()
@@ -221,21 +219,39 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.fragment_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-
-        if (itemId == R.id.menu_home)
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new HomeFragment()).addToBackStack(null).commit();
-        else if (itemId == R.id.menu_profile)
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new ProfileFragment()).addToBackStack(null).commit();
-        else if (itemId == R.id.menu_logout)
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).addToBackStack(null).commit();
-        return super.onOptionsItemSelected(item);
+    public void initToolbar()
+    {
+        Toolbar mTool = getView().findViewById(R.id.home_toolbar);
+        mTool.inflateMenu(R.menu.fragment_menu);
+        mTool.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                int itemId = menuItem.getItemId();
+                Log.d("test", "itemId : " + itemId);
+                if (itemId == R.id.menu_home)
+                {
+                    Log.d("test", "press home");
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_view, new HomeFragment())
+                            .addToBackStack(null).commit();
+                }
+                else if (itemId == R.id.menu_profile)
+                {
+                    Log.d("test", "press profile");
+                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
+                }
+                else if (itemId == R.id.menu_logout)
+                {
+                    Log.d("test", "press logout");
+                    fbAuth.signOut();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_view, new LoginFragment())
+                            .commit();
+                }
+                return false;
+            }
+        });
     }
 }
