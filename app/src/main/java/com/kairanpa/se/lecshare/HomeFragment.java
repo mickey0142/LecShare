@@ -5,8 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,6 +35,7 @@ import model.LecNotePack;
 import model.User;
 
 public class HomeFragment extends Fragment {
+    private Toolbar mTool;
     FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
     ArrayList<LecNote> allNote;
@@ -42,6 +48,8 @@ public class HomeFragment extends Fragment {
         Bundle bundle = getArguments();
         user = (User) bundle.getSerializable("User object");
         Log.d("test", "user : " + user);
+        mTool = getActivity().findViewById(R.id.menu_item);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(mTool);
     }
 
     @Nullable
@@ -188,5 +196,23 @@ public class HomeFragment extends Fragment {
                 ft.replace(R.id.main_view, searchResultFragment).addToBackStack(null).commit();
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menu_home)
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new HomeFragment()).addToBackStack(null).commit();
+        else if (itemId == R.id.menu_profile)
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new ProfileFragment()).addToBackStack(null).commit();
+        else if (itemId == R.id.menu_logout)
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).addToBackStack(null).commit();
+        return super.onOptionsItemSelected(item);
     }
 }
