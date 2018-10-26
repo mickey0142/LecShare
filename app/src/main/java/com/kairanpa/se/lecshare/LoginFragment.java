@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,7 @@ public class LoginFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         final Button loginBtn = getView().findViewById(R.id.login_login_button);
+        final ProgressBar progressBar = getView().findViewById(R.id.login_progress_bar);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +89,7 @@ public class LoginFragment extends Fragment {
                 }
                 else {
                     loginBtn.setEnabled(false);
+                    progressBar.setVisibility(View.VISIBLE);
                     mAuth.signInWithEmailAndPassword(_emailStr, _passwordStr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -117,6 +120,7 @@ public class LoginFragment extends Fragment {
                                             {
                                                 Log.d("test", "get user from firestore failed");
                                                 loginBtn.setEnabled(true);
+                                                progressBar.setVisibility(View.GONE);
                                             }
                                         }
                                     });
@@ -125,11 +129,13 @@ public class LoginFragment extends Fragment {
                                 {
                                     Toast.makeText(getActivity(), "Please verify your email.", Toast.LENGTH_SHORT).show();
                                     loginBtn.setEnabled(true);
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             }
                             else{
                                 Toast.makeText(getActivity(), "Please enter correct your E-mail and Password.", Toast.LENGTH_SHORT).show();
                                 loginBtn.setEnabled(true);
+                                progressBar.setVisibility(View.GONE);
                             }
                         }
                     });
