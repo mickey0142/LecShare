@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#2D3047">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,41 +13,85 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search page"/>
-
-            <EditText
-                android:id="@+id/search_search_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search title"/>
-
-            <EditText
-                android:id="@+id/search_search_subject"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search subject"
+                android:text="Search page"
+                android:textSize="30dp"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"
                 />
-
-            <EditText
-                android:id="@+id/search_search_owner"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search owner"
-                />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="53dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_search" />
+
+                <EditText
+                    android:id="@+id/home_search_title"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Search title"
+                    android:textColorHint="#FFFFFF" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="53dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_search" />
+
+                <EditText
+                    android:id="@+id/home_search_subject"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Search subject"
+                    android:textColorHint="#FFFFFF" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="53dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ico_search" />
+
+                <EditText
+                    android:id="@+id/home_search_owner"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Search owner"
+                    android:textColorHint="#FFFFFF" />
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/search_search_button"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search"/>
+                android:text="Search"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login_btn"/>
 
             <Button
+                android:layout_gravity="center"
                 android:id="@+id/search_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="back"/>
+                android:text="back"
+                android:layout_marginTop="10dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/login_btn"/>
 
         </LinearLayout>
     </ScrollView>
