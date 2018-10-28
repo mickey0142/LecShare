@@ -5,16 +5,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -82,6 +86,7 @@ public class SearchResultFragment extends Fragment {
         initOrderBy();
         showSearchResult();
         initBackButton();
+        initToolbar();
     }
 
     public void initOrderBy()
@@ -153,7 +158,7 @@ public class SearchResultFragment extends Fragment {
 
     public void initBackButton()
     {
-        Button backButton = getView().findViewById(R.id.search_result_back_button);
+        ImageView backButton = getView().findViewById(R.id.search_result_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,5 +209,44 @@ public class SearchResultFragment extends Fragment {
             Log.d("test", "catch null exception : " + e.getMessage());
             return;
         }
+    }
+
+    public void initToolbar()
+    {
+        Toolbar mTool = getView().findViewById(R.id.search_result_toolbar);
+        mTool.inflateMenu(R.menu.fragment_menu);
+        mTool.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                int itemId = menuItem.getItemId();
+                Log.d("test", "itemId : " + itemId);
+                if (itemId == R.id.menu_home)
+                {
+                    Log.d("test", "press home");
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment homeFragment = new HomeFragment();
+                    homeFragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, homeFragment).addToBackStack(null).commit();
+                }
+                else if (itemId == R.id.menu_profile)
+                {
+                    Log.d("test", "press profile");
+                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
+                }
+                else if (itemId == R.id.menu_logout)
+                {
+                    Log.d("test", "press logout");
+                    fbAuth.signOut();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_view, new LoginFragment())
+                            .commit();
+                }
+                return false;
+            }
+        });
     }
 }

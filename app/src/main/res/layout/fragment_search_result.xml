@@ -5,25 +5,50 @@
     android:layout_height="match_parent"
     android:background="#2D3047">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_result_toolbar"
+        style="@style/HeaderBar"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/search_result_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_back"
+            />
+
+        <TextView
+            android:text="Search Result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+
+    </android.support.v7.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="76dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ico_back" />
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/search_result_back_button"-->
+                    <!--android:layout_width="76dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:src="@drawable/ico_back" />-->
 
                 <TextView
                     android:layout_width="384dp"
@@ -36,7 +61,9 @@
                     android:textColorHint="#FFFFFF"
                     android:textSize="30sp"
                     android:textStyle="bold" />
+
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -54,9 +81,17 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:spinnerMode="dropdown"></Spinner>
-            </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/search_result_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Base.Widget.AppCompat.ProgressBar"
+                    android:visibility="gone"
+                    android:layout_gravity="center"/>
             </LinearLayout>
 
+        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

@@ -237,7 +237,7 @@ public class HomeFragment extends Fragment {
                     homeFragment.setArguments(bundle);
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.replace(R.id.main_view, homeFragment).commit();
+                    ft.replace(R.id.main_view, homeFragment).addToBackStack(null).commit();
                 }
                 else if (itemId == R.id.menu_profile)
                 {

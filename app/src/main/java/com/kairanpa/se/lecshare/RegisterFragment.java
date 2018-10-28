@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,6 +36,7 @@ public class RegisterFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         fbAuth = FirebaseAuth.getInstance();
         initRegister();
+        initBackButton();
     }
 
     private void initRegister(){
@@ -79,8 +81,6 @@ public class RegisterFragment extends Fragment {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     sendVerifyEmail(authUser);
-                                    Toast.makeText(getContext(), "register success", Toast.LENGTH_SHORT).show();
-                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
                                 }
                             });
                         }
@@ -101,11 +101,24 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.e("REGISTER", "send email success");
+                Toast.makeText(getContext(), "register success", Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new LoginFragment()).commit();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e("REGISTER", "send email fail : " + e.getMessage());
+            }
+        });
+    }
+
+    public void initBackButton()
+    {
+        ImageView backButton = getView().findViewById(R.id.register_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
             }
         });
     }

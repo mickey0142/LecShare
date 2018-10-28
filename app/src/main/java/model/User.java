@@ -6,6 +6,7 @@ public class User implements Serializable{
     private String username;
     private String studentNumber;
     private String email;
+    private String nickname;
 
     public User()
     {
@@ -17,6 +18,7 @@ public class User implements Serializable{
         this.username = username;
         this.studentNumber = studentNumber;
         this.email = email;
+        this.nickname = "";
     }
 
     public String getUsername() {
@@ -41,5 +43,13 @@ public class User implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

@@ -4,6 +4,30 @@
     android:layout_height="match_parent"
     android:background="#2D3047">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/upload_toolbar"
+        style="@style/HeaderBar"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/upload_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_back"
+            />
+
+        <TextView
+            android:text="Upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+
+    </android.support.v7.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -105,15 +129,15 @@
                 android:layout_gravity="center"
                 android:textColor="#FFFFFF"/>
 
-            <Button
-                android:id="@+id/upload_back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="back to search page"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/login_btn"
-                android:layout_gravity="center"
-                android:textColor="#FFFFFF"/>
+            <!--<Button-->
+                <!--android:id="@+id/upload_back_button"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="back to search page"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:background="@drawable/login_btn"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textColor="#FFFFFF"/>-->
         </LinearLayout>
     </ScrollView>
 

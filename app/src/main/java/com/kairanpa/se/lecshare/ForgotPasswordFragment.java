@@ -33,10 +33,21 @@ public class ForgotPasswordFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mAuth = FirebaseAuth.getInstance();
-        _resetBtn = getActivity().findViewById(R.id.resetBtn);
-        _sendMail = getActivity().findViewById(R.id.sendMail);
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        initResetButton();
+    }
+
+    public void initResetButton()
+    {
+        _resetBtn = getView().findViewById(R.id.resetBtn);
+        _sendMail = getView().findViewById(R.id.sendMail);
 
         _resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +63,7 @@ public class ForgotPasswordFragment extends Fragment{
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful())
                                 Toast.makeText(getActivity(), "Please check your email account.", Toast.LENGTH_SHORT).show();
+
                             else{
                                 String message = task.getException().getMessage();
                                 Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();

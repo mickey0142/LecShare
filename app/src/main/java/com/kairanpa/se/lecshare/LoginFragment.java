@@ -45,6 +45,7 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initLogin();
         initRegister();
+        initForgotPassword();
 
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
@@ -150,7 +151,24 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.e("LOGIN", "Go to register");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_view, new RegisterFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new RegisterFragment())
+                        .addToBackStack(null).commit();
+            }
+        });
+    }
+
+    public void initForgotPassword()
+    {
+        TextView forgotPassword = getView().findViewById(R.id.login_forgot_password);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new ForgotPasswordFragment())
+                        .addToBackStack(null).commit();
             }
         });
     }

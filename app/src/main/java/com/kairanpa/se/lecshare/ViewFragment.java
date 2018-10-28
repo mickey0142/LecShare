@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -24,6 +29,7 @@ import model.User;
 
 public class ViewFragment extends Fragment{
 
+    FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     FirebaseStorage fbStorage = FirebaseStorage.getInstance();
     LecNote lecNote;
     User user;
@@ -51,6 +57,7 @@ public class ViewFragment extends Fragment{
         initBackButton();
         showFileList();
         showImage();
+        initToolbar();
     }
 
     public void setTextBox()
@@ -63,7 +70,7 @@ public class ViewFragment extends Fragment{
 
     public void initBackButton()
     {
-        Button backButton = getView().findViewById(R.id.view_back_button);
+        ImageView backButton = getView().findViewById(R.id.view_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,5 +103,46 @@ public class ViewFragment extends Fragment{
             StorageReference imageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child(lecNote.getFilesName().get(i));
             GlideApp.with(getContext()).load(imageRef).into(fileImage);
         }
+    }
+
+    public void initToolbar()
+    {
+        Toolbar mTool = getView().findViewById(R.id.view_toolbar);
+        mTool.inflateMenu(R.menu.fragment_menu);
+        mTool.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                int itemId = menuItem.getItemId();
+                Log.d("test", "itemId : " + itemId);
+                if (itemId == R.id.menu_home)
+                {
+                    Log.d("test", "press home");
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment homeFragment = new HomeFragment();
+                    homeFragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, homeFragment).addToBackStack(null).commit();
+                }
+                else if (itemId == R.id.menu_profile)
+                {
+                    Log.d("test", "press profile");
+                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
+                }
+                else if (itemId == R.id.menu_logout)
+                {
+                    Log.d("test", "press logout");
+                    fbAuth.signOut();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_view, new LoginFragment())
+                            .commit();
+                }
+                return false;
+            }
+        });
+        TextView titleText = getView().findViewById(R.id.view_title_text);
+        titleText.setText(lecNote.getTitle());
     }
 }

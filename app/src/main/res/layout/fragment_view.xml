@@ -3,6 +3,31 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/view_toolbar"
+        style="@style/HeaderBar"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/view_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_back"
+            />
+
+        <TextView
+            android:id="@+id/view_title_text"
+            android:text="View"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+
+    </android.support.v7.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -29,11 +54,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"></ListView>
 
-            <Button
-                android:id="@+id/view_back_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="back"/>
+            <!--<Button-->
+                <!--android:id="@+id/view_back_button"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="back"/>-->
 
         </LinearLayout>
     </ScrollView>
