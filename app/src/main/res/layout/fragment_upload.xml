@@ -1,143 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2D3047">
+    android:background="#2D3047"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/upload_toolbar"
         style="@style/HeaderBar"
-        android:elevation="4dp"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:background="@color/colorPrimary"
+        android:elevation="4dp">
 
         <ImageView
             android:id="@+id/upload_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ico_back"
-            />
+            android:src="@drawable/ico_back" />
 
         <TextView
-            android:text="Upload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="Upload" />
 
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/upload_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:paddingLeft="16dp">
+
                 <ImageView
                     android:layout_width="53dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ico_title"/>
+                    android:src="@drawable/ico_title" />
+
                 <EditText
                     android:id="@+id/upload_title"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="Enter title here..."
                     android:inputType="text"
-                    android:textColorHint="#FFFFFF"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF" />
             </LinearLayout>
 
             <!--temporary fix please add upload subject here-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:paddingLeft="16dp">
+
                 <ImageView
                     android:layout_width="53dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ico_title"/>
+                    android:src="@drawable/ico_title" />
+
                 <EditText
                     android:id="@+id/upload_subject"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="Enter subject here..."
                     android:inputType="text"
-                    android:textColorHint="#FFFFFF"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:paddingLeft="16dp">
+
                 <ImageView
                     android:layout_width="53dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ico_message"/>
+                    android:src="@drawable/ico_message" />
+
                 <EditText
                     android:id="@+id/upload_description"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="Enter message here..."
                     android:inputType="text"
-                    android:textColorHint="#FFFFFF"
                     android:textColor="#FFFFFF"
-                    />
+                    android:textColorHint="#FFFFFF" />
             </LinearLayout>
 
             <ListView
-                android:layout_marginTop="10dp"
                 android:id="@+id/upload_file_list"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/login_border"
-                android:paddingLeft="16dp"
-                android:layout_gravity="center">
+                android:paddingLeft="16dp">
 
             </ListView>
 
             <Button
                 android:id="@+id/upload_choose_file_button"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
-                android:text="choose file"
-                android:background="@drawable/login_btn"
                 android:layout_gravity="center"
-                android:textColor="#FFFFFF"/>
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login_btn"
+                android:text="choose file"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/upload_upload_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="upload"
-                android:background="@drawable/login_btn"
                 android:layout_gravity="center"
-                android:textColor="#FFFFFF"/>
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login_btn"
+                android:text="upload"
+                android:textColor="#FFFFFF" />
 
             <!--<Button-->
-                <!--android:id="@+id/upload_back_button"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="back to search page"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:background="@drawable/login_btn"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:textColor="#FFFFFF"/>-->
+            <!--android:id="@+id/upload_back_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="back to search page"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@drawable/login_btn"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:textColor="#FFFFFF"/>-->
         </LinearLayout>
     </ScrollView>
 

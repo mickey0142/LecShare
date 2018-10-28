@@ -4,20 +4,22 @@
     android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="#2D3047">
+
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:id="@+id/register_back_button"
                     android:layout_width="76dp"
@@ -39,78 +41,83 @@
             </LinearLayout>
 
             <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="30dp"
+                android:id="@+id/register_username"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/login_border"
+                android:hint="@string/username"
+                android:inputType="textPersonName"
                 android:paddingLeft="16dp"
-                    android:background="@drawable/login_border"
-                    android:layout_gravity="center"
-                    android:inputType="textPersonName"
-                android:textColorHint="#FFFFFF"
-                    android:hint="@string/username"
-                    android:id="@+id/register_username" android:layout_weight="1"/>
+                android:textColorHint="#FFFFFF" />
+
             <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
+                android:id="@+id/register_std_number"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/login_border"
+                android:ems="8"
+                android:hint="@string/idNumber"
+                android:inputType="number"
                 android:paddingLeft="16dp"
-                    android:background="@drawable/login_border"
-                    android:inputType="number"
-                    android:hint="@string/idNumber"
-                android:textColorHint="#FFFFFF"
-                    android:ems="8"
-                    android:id="@+id/register_std_number" android:layout_weight="1"/>
+                android:textColorHint="#FFFFFF" />
 
             <EditText
                 android:id="@+id/register_email"
                 android:layout_width="300dp"
                 android:layout_height="30dp"
-                android:background="@drawable/login_border"
-                android:paddingLeft="16dp"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
-                android:textColorHint="#FFFFFF"
-                android:layout_weight="1"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress" />
-            <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="30dp"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
                 android:background="@drawable/login_border"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
                 android:paddingLeft="16dp"
-                    android:layout_gravity="center"
-                android:textColorHint="#FFFFFF"
-                    android:inputType="textPassword"
-                    android:hint="@string/password"
-                    android:ems="15"
-                    android:id="@+id/register_password" android:layout_weight="1"/>
+                android:textColorHint="#FFFFFF" />
+
+            <EditText
+                android:id="@+id/register_password"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/login_border"
+                android:ems="15"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingLeft="16dp"
+                android:textColorHint="#FFFFFF" />
 
             <EditText
                 android:id="@+id/register_rePassword"
                 android:layout_width="300dp"
-                android:background="@drawable/login_border"
                 android:layout_height="30dp"
-                android:paddingLeft="16dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:textColorHint="#FFFFFF"
                 android:layout_weight="1"
+                android:background="@drawable/login_border"
                 android:ems="15"
                 android:hint="@string/rePassword"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:paddingLeft="16dp"
+                android:textColorHint="#FFFFFF" />
 
             <Button
                 android:id="@+id/register_register_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/login_btn"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:textColorHint="#FFFFFF"
                 android:layout_weight="1"
-                android:hint="@string/register" />
+                android:background="@drawable/login_btn"
+                android:hint="@string/register"
+                android:textColorHint="#FFFFFF" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
