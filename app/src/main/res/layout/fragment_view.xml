@@ -1,69 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view_linear_layout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2D3047"
-    android:orientation="vertical"
-    tools:layout_editor_absoluteY="25dp">
-
-    <TextView
-        android:layout_width="393dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@android:color/holo_orange_light"
-        android:hint="Download"
-        android:paddingLeft="80dp"
-        android:textColorHint="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="0dp" />
-
-
-    <ImageView
-        android:id="@+id/view_back_button"
-        android:layout_width="47dp"
-        android:layout_height="40dp"
-        android:layout_weight="1"
-        android:background="@android:color/holo_orange_light"
-        android:src="@drawable/ico_back" />
-
-    <TextView
-        android:id="@+id/view_lec_note_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingLeft="28dp"
-        android:text="TextView"
-        android:textColor="@android:color/background_light"
-        android:textSize="30dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="54dp"
-        tools:text="Description" />
-
-    <ListView
-        android:id="@+id/view_file_list"
-        android:layout_width="380dp"
-        android:layout_height="205dp"
-        android:paddingLeft="25dp"
-        android:paddingTop="10dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="116dp">
-    </ListView>
-
-        <!--<Button-->
-        <!--android:id="@+id/view_back_button"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="back"/>-->
-
-
+    android:background="#2D3047">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/view_toolbar"
+        android:id="@+id/search_result_toolbar"
         style="@style/HeaderBar"
         android:elevation="4dp"
         android:background="@color/colorPrimary"
@@ -71,9 +14,15 @@
         android:layout_height="wrap_content"
         >
 
+        <ImageView
+            android:id="@+id/view_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_back"
+            />
+
         <TextView
-            android:id="@+id/view_title_text"
-            android:text="View"
+            android:text="Search Result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"/>
@@ -83,8 +32,60 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                android:id="@+id/search_result_back_button"
+                android:layout_width="76dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:src="@drawable/ico_back" />
+
+                <TextView
+                    android:layout_width="384dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:hint="Dowload"
+                    android:paddingLeft="80dp"
+                    android:textColorHint="#FFFFFF"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="491dp">
+
+                <ListView
+                    android:id="@+id/search_result_lec_note_list"
+                    android:layout_width="339dp"
+                    android:layout_height="453dp"
+                    android:layout_marginLeft="25dp"
+                    android:background="@drawable/login_border"></ListView>
+
+
+                <ProgressBar
+                    android:id="@+id/view_file_list"
+                    style="@style/Base.Widget.AppCompat.ProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
 
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
