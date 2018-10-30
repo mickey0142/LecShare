@@ -62,9 +62,7 @@ public class ViewFragment extends Fragment{
 
     public void setTextBox()
     {
-        TextView titleBox = getView().findViewById(R.id.view_lec_note_title);
         TextView descriptionBox = getView().findViewById(R.id.view_lec_note_description);
-        titleBox.setText(lecNote.getTitle());
         descriptionBox.setText(lecNote.getDescription());
     }
 
@@ -97,7 +95,7 @@ public class ViewFragment extends Fragment{
                 continue;
             }
             ImageView fileImage = new ImageView(getContext());
-            LinearLayout linearLayout = getView().findViewById(R.id.view_linear_layout);
+            LinearLayout linearLayout = getView().findViewById(R.id.view_picture_linear_layout);
             linearLayout.addView(fileImage);
             Log.d("test", "file name : " + lecNote.getFilesName().get(0));
             StorageReference imageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child(lecNote.getFilesName().get(i));
@@ -125,11 +123,11 @@ public class ViewFragment extends Fragment{
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.replace(R.id.main_view, homeFragment).addToBackStack(null).commit();
                 }
-                else if (itemId == R.id.menu_profile)
-                {
-                    Log.d("test", "press profile");
-                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
-                }
+//                else if (itemId == R.id.menu_profile)
+//                {
+//                    Log.d("test", "press profile");
+//                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
+//                }
                 else if (itemId == R.id.menu_logout)
                 {
                     Log.d("test", "press logout");

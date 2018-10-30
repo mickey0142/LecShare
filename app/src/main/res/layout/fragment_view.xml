@@ -6,7 +6,7 @@
     android:background="#2D3047">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/search_result_toolbar"
+        android:id="@+id/view_toolbar"
         style="@style/HeaderBar"
         android:elevation="4dp"
         android:background="@color/colorPrimary"
@@ -22,7 +22,7 @@
             />
 
         <TextView
-            android:text="Search Result"
+            android:id="@+id/view_title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"/>
@@ -38,51 +38,25 @@
             android:orientation="vertical"
             android:layout_marginTop="10dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/view_lec_note_description"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                android:id="@+id/search_result_back_button"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:src="@drawable/ico_back" />
-
-                <TextView
-                    android:layout_width="384dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:hint="Dowload"
-                    android:paddingLeft="80dp"
-                    android:textColorHint="#FFFFFF"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+            <ListView
+                android:id="@+id/view_file_list"
+                android:layout_width="339dp"
+                android:layout_height="453dp"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:background="@drawable/login_border"></ListView>
 
             <LinearLayout
+                android:id="@+id/view_picture_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="491dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <ListView
-                    android:id="@+id/search_result_lec_note_list"
-                    android:layout_width="339dp"
-                    android:layout_height="453dp"
-                    android:layout_marginLeft="25dp"
-                    android:background="@drawable/login_border"></ListView>
-
-
-                <ProgressBar
-                    android:id="@+id/view_file_list"
-                    style="@style/Base.Widget.AppCompat.ProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone" />
             </LinearLayout>
 
         </LinearLayout>

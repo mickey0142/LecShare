@@ -231,11 +231,11 @@ public class SearchResultFragment extends Fragment {
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.replace(R.id.main_view, homeFragment).addToBackStack(null).commit();
                 }
-                else if (itemId == R.id.menu_profile)
-                {
-                    Log.d("test", "press profile");
-                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
-                }
+//                else if (itemId == R.id.menu_profile)
+//                {
+//                    Log.d("test", "press profile");
+//                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
+//                }
                 else if (itemId == R.id.menu_logout)
                 {
                     Log.d("test", "press logout");
