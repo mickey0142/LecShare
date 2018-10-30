@@ -67,11 +67,9 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="@string/login"
-            android:textColor="#FFFFFF"
-
             android:background="@drawable/login_btn"
-            />
+            android:text="@string/login"
+            android:textColor="#FFFFFF" />
 
         <ProgressBar
             android:id="@+id/login_progress_bar"

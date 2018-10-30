@@ -59,6 +59,7 @@
                 android:layout_height="203dp"
                 android:layout_gravity="center"
                 android:background="@drawable/view_border"
+                android:elevation="10dp"
                 android:padding="5dp"></ListView>
 
             <LinearLayout
