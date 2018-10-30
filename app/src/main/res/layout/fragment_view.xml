@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2D3047">
+    android:background="##738F9B">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/view_toolbar"
@@ -25,7 +26,10 @@
             android:id="@+id/view_title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:background="@color/Wooden"
+            android:gravity="center"
+            android:text="Download"
+            android:textColor="@android:color/background_light" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -41,21 +45,28 @@
             <TextView
                 android:id="@+id/view_lec_note_description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+
+                android:fontFamily="sans-serif-smallcaps"
+                android:paddingLeft="30dp"
+                android:text="Description"
+                android:textColor="#B32C0A"
+                android:textSize="18dp" />
 
             <ListView
                 android:id="@+id/view_file_list"
                 android:layout_width="339dp"
-                android:layout_height="453dp"
+                android:layout_height="203dp"
                 android:layout_gravity="center"
-                android:padding="5dp"
-                android:background="@drawable/login_border"></ListView>
+                android:background="@drawable/view_border"
+                android:padding="5dp"></ListView>
 
             <LinearLayout
                 android:id="@+id/view_picture_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="341dp"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
 
             </LinearLayout>
 

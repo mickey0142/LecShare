@@ -7,7 +7,9 @@
         android:id="@+id/file_download_list_item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-20dp"/>/>
+        android:layout_marginBottom="-20dp"
+
+        android:textStyle="italic" />
 
     <ImageView
         android:id="@+id/file_list_item_download_button"

@@ -30,7 +30,8 @@
             android:textAlignment="center"
             android:textColorHint="#FFFFFF"
             android:textSize="35sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
         <EditText
             android:id="@+id/login_email"
