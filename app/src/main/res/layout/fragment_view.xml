@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="##738F9B">
+    android:background="#738F9B">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/view_toolbar"
@@ -40,36 +40,53 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/view_lec_note_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="sans-serif-smallcaps"
-                android:paddingLeft="30dp"
                 android:text="Description"
                 android:textColor="#B32C0A"
                 android:textSize="18dp" />
 
-            <ListView
-                android:id="@+id/view_file_list"
-                android:layout_width="339dp"
-                android:layout_height="203dp"
-                android:layout_gravity="center"
-                android:background="@drawable/view_border"
-                android:elevation="10dp"
-                android:padding="5dp"></ListView>
+            <Button
+                android:id="@+id/view_download_all_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="download all"/>
+
+            <ProgressBar
+                android:id="@+id/view_download_all_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:visibility="gone"/>
+
+            <!--
+                DANGER ZONE !!!
+                PLEASE DO NOT EDIT ANYTHING IN THIS ZONE.
+                changing anything outside such as outer (or parent) LinearLayout padding can break
+                this zone so please do it with caution.
+                IT IS RECOMMENDED TO RUN THIS PAGE TO SEE THE REAL RESULT. JUST SEEING RESULT IN
+                PREVIEW IS NOT ENOUGH.
+                but you can move this zone up or down safely.
+            -->
 
             <LinearLayout
                 android:id="@+id/view_picture_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="341dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="10dp">
+                android:layout_gravity="center">
 
             </LinearLayout>
+
+            <!--
+                END OF DANGER ZONE
+            -->
 
         </LinearLayout>
     </ScrollView>

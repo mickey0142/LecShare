@@ -1,27 +1,37 @@
 package com.kairanpa.se.lecshare;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import model.LecNote;
@@ -55,9 +65,9 @@ public class ViewFragment extends Fragment{
 
         setTextBox();
         initBackButton();
-        showFileList();
         showImage();
         initToolbar();
+        initDownloadAllButton();
     }
 
     public void setTextBox()
@@ -77,14 +87,6 @@ public class ViewFragment extends Fragment{
         });
     }
 
-    public void showFileList()
-    {
-        ArrayList<String> fileName = lecNote.getFilesName();
-        FileListDownloadAdapter nameAdapter = new FileListDownloadAdapter(getActivity(), R.layout.fragment_view, fileName);
-        ListView fileList = getView().findViewById(R.id.view_file_list);
-        fileList.setAdapter(nameAdapter);
-    }
-
     public void showImage()
     {
         for (int i = 0; i < lecNote.getFilesName().size(); i++)
@@ -94,9 +96,105 @@ public class ViewFragment extends Fragment{
                 Log.d("test", "it is pdf skipped loop");
                 continue;
             }
+            final int pos = i;
+            int temp = convertToPixel(50);
+
             ImageView fileImage = new ImageView(getContext());
-            LinearLayout linearLayout = getView().findViewById(R.id.view_picture_linear_layout);
-            linearLayout.addView(fileImage);
+            LinearLayout imageLinearLayout = getView().findViewById(R.id.view_picture_linear_layout);
+            imageLinearLayout.addView(fileImage);
+
+            LinearLayout bottomLinearLayout = new LinearLayout(getContext());
+            bottomLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, temp));
+            bottomLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
+            TextView imageName = new TextView(getContext());
+            DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+            float scale = getContext().getResources().getDisplayMetrics().density;
+            int textSize = (int) ((dpWidth*0.87) * scale + 0.5f);
+            imageName.setLayoutParams(new LinearLayout.LayoutParams(textSize, ViewGroup.LayoutParams.WRAP_CONTENT));
+            imageName.setText(lecNote.getFilesName().get(i));
+            imageName.setGravity(Gravity.CENTER_VERTICAL);
+            bottomLinearLayout.addView(imageName);
+
+            final ProgressBar progressBar = new ProgressBar(getContext());
+            LinearLayout.LayoutParams progressParam = new LinearLayout.LayoutParams(temp, temp);
+            progressParam.gravity = Gravity.END;
+            progressParam.topMargin = -(convertToPixel(20));
+            progressBar.setLayoutParams(progressParam);
+            progressBar.setVisibility(View.GONE);
+            bottomLinearLayout.addView(progressBar);
+
+            final ImageView downloadCompleted = new ImageView(getContext());
+            LinearLayout.LayoutParams completedParam = new LinearLayout.LayoutParams(temp, temp);
+            completedParam.gravity = Gravity.END;
+            completedParam.topMargin = -(convertToPixel(20));
+            downloadCompleted.setLayoutParams(completedParam);
+            downloadCompleted.setImageResource(R.drawable.ico_yes);
+            downloadCompleted.setVisibility(View.GONE);
+            bottomLinearLayout.addView(downloadCompleted);
+
+            final ImageView downloadButton = new ImageView(getContext());
+            temp = convertToPixel(35);
+            LinearLayout.LayoutParams downloadParam = new LinearLayout.LayoutParams(temp, temp);
+            downloadParam.gravity = Gravity.END;
+            downloadParam.topMargin = -(convertToPixel(20));
+            downloadButton.setLayoutParams(downloadParam);
+            downloadButton.setImageResource(R.drawable.ico_download);
+            downloadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    downloadCompleted.setVisibility(View.INVISIBLE);
+                    downloadButton.setVisibility(View.GONE);
+                    try
+                    {
+                        File directory = new File(Environment.getExternalStorageDirectory(), "LectureNote");
+                        if(!directory.exists())
+                        {
+                            boolean check = directory.mkdir();
+                            Log.d("test", "make directory : " + check);
+                        }
+                        final File file = new File(directory, lecNote.getFilesName().get(pos));
+                        FirebaseStorage fbStorage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com")
+                                .child(lecNote.getFilesName().get(pos));
+                        storageRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                Log.d("test", "download success");
+                                Log.d("test", "create at : " + file.toString());
+                                Toast.makeText(getContext(), "download " + lecNote.getFilesName().get(pos) + " completed", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("test", "download failed");
+                                Toast.makeText(getContext(), "download error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                                int progressInt = (int) progress;
+                                progressBar.setProgress(progressInt);
+                                if (progressInt == 100)
+                                {
+                                    progressBar.setVisibility(View.GONE);
+                                    downloadCompleted.setVisibility(View.VISIBLE);
+                                    downloadButton.setVisibility(View.GONE);
+                                }
+                            }
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        Log.d("test", "error from filelistdownloadadapter : " + e.getMessage());
+                    }
+                }
+            });
+            bottomLinearLayout.addView(downloadButton);
+            imageLinearLayout.addView(bottomLinearLayout);
             Log.d("test", "file name : " + lecNote.getFilesName().get(0));
             StorageReference imageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child(lecNote.getFilesName().get(i));
             GlideApp.with(getContext()).load(imageRef).into(fileImage);
@@ -142,5 +240,82 @@ public class ViewFragment extends Fragment{
         });
         TextView titleText = getView().findViewById(R.id.view_title_text);
         titleText.setText(lecNote.getTitle());
+    }
+
+    public int convertToPixel(double dp)
+    {
+        float scale = getContext().getResources().getDisplayMetrics().density;
+        int pixel = (int) (dp * scale + 0.5f);
+        return pixel;
+    }
+
+    public void initDownloadAllButton()
+    {
+        final ProgressBar progressBar = getView().findViewById(R.id.view_download_all_progress_bar);
+        final Button downloadAllButton = getView().findViewById(R.id.view_download_all_button);
+        downloadAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ArrayList<Integer> allProgress = new ArrayList<>();
+                progressBar.setVisibility(View.VISIBLE);
+                for (int i = 0; i < lecNote.getFilesName().size(); i++)
+                {
+                    allProgress.add(0);
+                }
+                for (int i = 0; i < lecNote.getFilesName().size(); i++)
+                {
+                    try {
+                        File directory = new File(Environment.getExternalStorageDirectory(), "LectureNote");
+                        if (!directory.exists()) {
+                            boolean check = directory.mkdir();
+                            Log.d("test", "make directory : " + check);
+                        }
+                        final int temp = i;
+                        final File file = new File(directory, lecNote.getFilesName().get(i));
+                        FirebaseStorage fbStorage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com")
+                                .child(lecNote.getFilesName().get(i));
+                        storageRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                Log.d("test", "download success");
+                                Log.d("test", "create at : " + file.toString());
+                                Toast.makeText(getContext(), "download " + lecNote.getFilesName().get(temp) + " completed", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("test", "download failed");
+                                Toast.makeText(getContext(), "download error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                                int progressInt = (int) progress;
+                                allProgress.set(temp, progressInt);
+                                int sumProgress = 0;
+                                for (int j = 0; j < allProgress.size(); j++)
+                                {
+                                    sumProgress += allProgress.get(j);
+                                }
+                                sumProgress /= allProgress.size();
+                                progressBar.setProgress(sumProgress);
+                                if (sumProgress == 100)
+                                {
+                                    progressBar.setVisibility(View.GONE);
+                                    downloadAllButton.setEnabled(false);
+                                    downloadAllButton.setText("Download completed");
+                                }
+                            }
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        Log.d("test", "download error : " + e.getMessage());
+                    }
+                }
+            }
+        });
     }
 }
