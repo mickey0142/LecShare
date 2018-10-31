@@ -4,13 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#738F9B">
+    android:background="#D5A253">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/view_toolbar"
         style="@style/HeaderBar"
         android:elevation="4dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/Wooden"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -49,14 +49,16 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="Description"
-                android:textColor="#B32C0A"
+                android:textColor="#F5F5F5"
                 android:textSize="18dp" />
 
             <Button
                 android:id="@+id/view_download_all_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="download all"/>
+                android:background="@drawable/view_border"
+                android:textColor="#F5F5F5"
+                android:text="download all" />
 
             <ProgressBar
                 android:id="@+id/view_download_all_progress_bar"

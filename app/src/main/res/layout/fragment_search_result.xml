@@ -3,13 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2D3047">
+    android:background="#D5A253">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/search_result_toolbar"
         style="@style/HeaderBar"
         android:elevation="4dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/Wooden"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -44,7 +44,7 @@
                 android:text="Result"
                 android:textSize="30dp"
                 android:layout_gravity="center"
-                android:textColor="#ffffff"
+                android:textColor="#F5F5F5"
                 android:layout_marginTop="10dp"
                 />
 
@@ -58,7 +58,7 @@
                     android:layout_width="300dp"
                     android:layout_height="465dp"
                     android:layout_marginLeft="25dp"
-                    android:background="@drawable/login_border"
+                    android:background="@drawable/search_result_border"
                     android:layout_weight="3">
                 </ListView>
 

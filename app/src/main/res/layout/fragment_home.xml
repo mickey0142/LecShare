@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#2D3047">
+    android:background="#D5A253">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/home_toolbar"
         style="@style/HeaderBar"
         android:elevation="4dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/Wooden"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search here"
-                    android:textColorHint="#FFFFFF"
+                    android:textColorHint="#F5F5F5"
                     android:layout_weight="3"/>
 
                 <ImageView
@@ -105,7 +105,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/login_btn"
                     android:text="Search"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#F5F5F5" />
 
                 <Button
                     android:id="@+id/home_advance_search"
@@ -116,7 +116,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/login_btn"
                     android:text="Advance search"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#F5F5F5" />
             </LinearLayout>
 
             <ProgressBar
@@ -133,7 +133,7 @@
                 android:layout_height="325dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/login_border"
+                android:background="@drawable/search_result_border"
                 android:paddingLeft="16dp"/>
 
             <Button
@@ -145,7 +145,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/login_btn"
                 android:hint="Upload"
-                android:textColorHint="#FFFFFF" />
+                android:textColorHint="#F5F5F5" />
 
             <Button
                 android:id="@+id/home_log_out_button"

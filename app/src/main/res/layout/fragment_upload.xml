@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2D3047"
+    android:background="#D5A253"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -10,7 +10,7 @@
         style="@style/HeaderBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/Wooden"
         android:elevation="4dp">
 
         <ImageView
@@ -55,8 +55,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter title here..."
                     android:inputType="text"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#FFFFFF" />
+                    android:textColor="#F5F5F5"
+                    android:textColorHint="#F5F5F5" />
             </LinearLayout>
 
             <!--temporary fix please add upload subject here-->
@@ -78,8 +78,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter subject here..."
                     android:inputType="text"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#FFFFFF" />
+                    android:textColor="#F5F5F5"
+                    android:textColorHint="#F5F5F5" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,8 +100,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter message here..."
                     android:inputType="text"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#FFFFFF" />
+                    android:textColor="#F5F5F5"
+                    android:textColorHint="#F5F5F5" />
             </LinearLayout>
 
             <ListView
@@ -123,7 +123,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/login_btn"
                 android:text="choose file"
-                android:textColor="#FFFFFF" />
+                android:textColor="#F5F5F5" />
 
             <Button
                 android:id="@+id/upload_upload_button"
@@ -131,9 +131,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/login_btn"
+                android:background="@drawable/login_signup"
                 android:text="upload"
-                android:textColor="#FFFFFF" />
+                android:textColor="#F5F5F5" />
 
             <!--<Button-->
             <!--android:id="@+id/upload_back_button"-->

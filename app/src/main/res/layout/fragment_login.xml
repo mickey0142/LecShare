@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="#2D3047"
+        android:background="#D5A253"
         android:orientation="vertical"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
@@ -26,7 +26,7 @@
             android:layout_marginTop="30dp"
             android:hint="@string/welcome"
             android:textAlignment="center"
-            android:textColorHint="#FFFFFF"
+            android:textColorHint="#F5F5F5"
             android:textSize="35sp"
             android:textStyle="bold"
             />
@@ -41,8 +41,8 @@
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:paddingLeft="16dp"
-            android:textColorHint="#FFFFFF"
-            android:textColor="#FFFFFF"
+            android:textColorHint="#F5F5F5"
+            android:textColor="#F5F5F5"
             android:textStyle="bold"/>
 
         <EditText
@@ -67,7 +67,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/login_btn"
             android:text="@string/login"
-            android:textColor="#FFFFFF" />
+            android:textColor="#F5F5F5" />
 
         <ProgressBar
             android:id="@+id/login_progress_bar"
@@ -122,7 +122,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:text="@string/newAccount"
-            android:textColor="#FFFFFF"
+            android:textColor="#F5F5F5"
             android:background="@drawable/login_signup"
             />
 
@@ -133,7 +133,7 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:hint="@string/forgotPassword"
-            android:textColorHint="#8E2C84"
+            android:textColorHint="#B85750"
             android:textSize="15dp"/>
 
     </LinearLayout>
