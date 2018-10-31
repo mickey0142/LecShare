@@ -89,18 +89,20 @@ public class ViewFragment extends Fragment{
 
     public void showImage()
     {
+        final ArrayList<String> pdfList = new ArrayList<>();
+        LinearLayout imageLinearLayout = getView().findViewById(R.id.view_picture_linear_layout);
         for (int i = 0; i < lecNote.getFilesName().size(); i++)
         {
             if (lecNote.getFilesName().get(i).endsWith(".pdf"))
             {
-                Log.d("test", "it is pdf skipped loop");
+                pdfList.add(lecNote.getFilesName().get(i));
+                Log.d("test", "it is pdf add to arraylist");
                 continue;
             }
             final int pos = i;
             int temp = convertToPixel(50);
 
             ImageView fileImage = new ImageView(getContext());
-            LinearLayout imageLinearLayout = getView().findViewById(R.id.view_picture_linear_layout);
             imageLinearLayout.addView(fileImage);
 
             LinearLayout bottomLinearLayout = new LinearLayout(getContext());
@@ -198,6 +200,103 @@ public class ViewFragment extends Fragment{
             Log.d("test", "file name : " + lecNote.getFilesName().get(0));
             StorageReference imageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com").child(lecNote.getFilesName().get(i));
             GlideApp.with(getContext()).load(imageRef).into(fileImage);
+        }
+        for (int i = 0; i < pdfList.size(); i++)
+        {
+            int temp = convertToPixel(50);
+            final int pos = i;
+            LinearLayout bottomLinearLayout = new LinearLayout(getContext());
+            bottomLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, temp));
+            bottomLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
+            TextView pdfName = new TextView(getContext());
+            DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+            float scale = getContext().getResources().getDisplayMetrics().density;
+            int textSize = (int) ((dpWidth*0.87) * scale + 0.5f);
+            pdfName.setLayoutParams(new LinearLayout.LayoutParams(textSize, ViewGroup.LayoutParams.WRAP_CONTENT));
+            pdfName.setText(pdfList.get(i));
+            pdfName.setGravity(Gravity.CENTER_VERTICAL);
+            bottomLinearLayout.addView(pdfName);
+
+            final ProgressBar progressBar = new ProgressBar(getContext());
+            LinearLayout.LayoutParams progressParam = new LinearLayout.LayoutParams(temp, temp);
+            progressParam.gravity = Gravity.END;
+            progressParam.topMargin = -(convertToPixel(20));
+            progressBar.setLayoutParams(progressParam);
+            progressBar.setVisibility(View.GONE);
+            bottomLinearLayout.addView(progressBar);
+
+            final ImageView downloadCompleted = new ImageView(getContext());
+            LinearLayout.LayoutParams completedParam = new LinearLayout.LayoutParams(temp, temp);
+            completedParam.gravity = Gravity.END;
+            completedParam.topMargin = -(convertToPixel(20));
+            downloadCompleted.setLayoutParams(completedParam);
+            downloadCompleted.setImageResource(R.drawable.ico_yes);
+            downloadCompleted.setVisibility(View.GONE);
+            bottomLinearLayout.addView(downloadCompleted);
+
+            final ImageView downloadButton = new ImageView(getContext());
+            temp = convertToPixel(35);
+            LinearLayout.LayoutParams downloadParam = new LinearLayout.LayoutParams(temp, temp);
+            downloadParam.gravity = Gravity.END;
+            downloadParam.topMargin = -(convertToPixel(20));
+            downloadButton.setLayoutParams(downloadParam);
+            downloadButton.setImageResource(R.drawable.ico_download);
+            downloadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    downloadCompleted.setVisibility(View.INVISIBLE);
+                    downloadButton.setVisibility(View.GONE);
+                    try
+                    {
+                        File directory = new File(Environment.getExternalStorageDirectory(), "LectureNote");
+                        if(!directory.exists())
+                        {
+                            boolean check = directory.mkdir();
+                            Log.d("test", "make directory : " + check);
+                        }
+                        final File file = new File(directory, pdfList.get(pos));
+                        FirebaseStorage fbStorage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = fbStorage.getReferenceFromUrl("gs://lecshare-44a6a.appspot.com")
+                                .child(pdfList.get(pos));
+                        storageRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                Log.d("test", "download success");
+                                Log.d("test", "create at : " + file.toString());
+                                Toast.makeText(getContext(), "download " + pdfList.get(pos) + " completed", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("test", "download failed");
+                                Toast.makeText(getContext(), "download error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                                int progressInt = (int) progress;
+                                progressBar.setProgress(progressInt);
+                                if (progressInt == 100)
+                                {
+                                    progressBar.setVisibility(View.GONE);
+                                    downloadCompleted.setVisibility(View.VISIBLE);
+                                    downloadButton.setVisibility(View.GONE);
+                                }
+                            }
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        Log.d("test", "error from filelistdownloadadapter : " + e.getMessage());
+                    }
+                }
+            });
+            bottomLinearLayout.addView(downloadButton);
+            imageLinearLayout.addView(bottomLinearLayout);
         }
     }
 
