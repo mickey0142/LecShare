@@ -47,7 +47,7 @@
 
                 <ImageView
                     android:layout_width="53dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ico_title" />
 
                 <EditText
@@ -56,8 +56,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter title here..."
                     android:inputType="text"
-                    android:textColor="#F5F5F5"
-                    android:textColorHint="#F5F5F5" />
+                    android:background="#FFF8BB"
+                    android:textColor="#505050"
+                    android:textColorHint="#828282" />
             </LinearLayout>
 
             <!--temporary fix please add upload subject here-->
@@ -70,7 +71,7 @@
 
                 <ImageView
                     android:layout_width="53dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ico_title" />
 
                 <EditText
@@ -79,8 +80,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter subject here..."
                     android:inputType="text"
-                    android:textColor="#F5F5F5"
-                    android:textColorHint="#F5F5F5" />
+                    android:background="#FFF8BB"
+                    android:textColor="#505050"
+                    android:textColorHint="#828282" />
             </LinearLayout>
 
             <LinearLayout
@@ -92,7 +94,7 @@
 
                 <ImageView
                     android:layout_width="53dp"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ico_message" />
 
                 <EditText
@@ -101,8 +103,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter message here..."
                     android:inputType="textMultiLine"
-                    android:textColor="#F5F5F5"
-                    android:textColorHint="#F5F5F5" />
+                    android:background="#FFF8BB"
+                    android:textColor="#505050"
+                    android:textColorHint="#828282" />
             </LinearLayout>
 
             <LinearLayout

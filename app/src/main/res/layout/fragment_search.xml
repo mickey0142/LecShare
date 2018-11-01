@@ -63,7 +63,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search title"
-                    android:textColorHint="#F5F5F5"
+                    android:background="#FFF8BB"
+                    android:textColor="#505050"
+                    android:textColorHint="#828282"
                     android:inputType="text"/>
 
             </LinearLayout>
@@ -84,7 +86,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search subject"
-                    android:textColorHint="#F5F5F5"
+                    android:background="#FFF8BB"
+                    android:textColor="#505050"
+                    android:textColorHint="#828282"
                     android:inputType="text"/>
 
             </LinearLayout>
@@ -105,7 +109,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search owner"
-                    android:textColorHint="#F5F5F5"
+                    android:background="#FFF8BB"
+                    android:textColor="#505050"
+                    android:textColorHint="#828282"
                     android:inputType="text"/>
 
             </LinearLayout>
