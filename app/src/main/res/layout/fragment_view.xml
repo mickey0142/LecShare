@@ -8,7 +8,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/view_toolbar"
-        style="@style/HeaderBar"
+        android:theme="@style/HeaderBar"
         android:elevation="4dp"
         android:background="@color/Wooden"
         android:layout_width="match_parent"
@@ -44,13 +44,38 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/view_lec_note_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Description"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:background="@drawable/text_box"/>
+
+            <TextView
+                android:id="@+id/view_lec_note_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Description"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:background="@drawable/text_box"/>
+
+            <TextView
                 android:id="@+id/view_lec_note_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="Description"
-                android:textColor="#F5F5F5"
-                android:textSize="18dp" />
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/text_box"/>
 
             <Button
                 android:id="@+id/view_download_all_button"
@@ -58,7 +83,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/view_border"
                 android:textColor="#F5F5F5"
-                android:text="download all" />
+                android:text="download all"
+                android:padding="5dp"
+                android:layout_marginBottom="5dp"/>
 
             <ProgressBar
                 android:id="@+id/view_download_all_progress_bar"

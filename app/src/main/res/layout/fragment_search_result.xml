@@ -7,7 +7,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/search_result_toolbar"
-        style="@style/HeaderBar"
+        android:theme="@style/HeaderBar"
         android:elevation="4dp"
         android:background="@color/Wooden"
         android:layout_width="match_parent"
@@ -39,29 +39,17 @@
             android:orientation="vertical"
             android:layout_margin="10dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Result"
-                android:textSize="30dp"
-                android:layout_gravity="center"
-                android:textColor="#F5F5F5"
-                android:layout_marginTop="10dp"
-                />
+                android:orientation="horizontal"
+                android:paddingLeft="15dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp">
-
-                <ListView
-                    android:id="@+id/search_result_lec_note_list"
-                    android:layout_width="300dp"
-                    android:layout_height="465dp"
-                    android:layout_marginLeft="25dp"
-                    android:background="@drawable/search_result_border"
-                    android:layout_weight="3">
-                </ListView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sort by : "
+                    android:layout_gravity="center_vertical"/>
 
                 <Spinner
                     android:id="@+id/search_result_drop_down"
@@ -71,14 +59,35 @@
                     android:spinnerMode="dropdown"
                     android:layout_weight="0.25"></Spinner>
 
-                <ProgressBar
-                    android:id="@+id/search_result_progress_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Base.Widget.AppCompat.ProgressBar"
-                    android:visibility="gone"
-                    android:layout_gravity="center"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/search_result_lec_note_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="465dp"
+                    android:layout_gravity="center"
+                    android:padding="15dp"
+                    android:background="@drawable/search_result_border"
+                    android:layout_weight="3"
+                    android:nestedScrollingEnabled="true">
+                </ListView>
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/search_result_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.ProgressBar"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
     </ScrollView>

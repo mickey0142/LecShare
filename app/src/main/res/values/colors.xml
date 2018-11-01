@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#AA65AA</color>
-    <color name="colorAccent">#ff4081</color>
+    <color name="colorPrimaryDark">#D5A253</color>
+    <color name="colorAccent">#4172F8</color>
     <color name="colorBtn">#4172F8</color>
     <color name="Wooden">#2f1205</color>
     <color name="Lavender">#e6e6fa</color>

@@ -72,8 +72,12 @@ public class ViewFragment extends Fragment{
 
     public void setTextBox()
     {
+        TextView titleBox = getView().findViewById(R.id.view_lec_note_title);
+        titleBox.setText("Title : " + lecNote.getTitle());
+        TextView ownerBox = getView().findViewById(R.id.view_lec_note_owner);
+        ownerBox.setText("Author : " + lecNote.getOwner());
         TextView descriptionBox = getView().findViewById(R.id.view_lec_note_description);
-        descriptionBox.setText(lecNote.getDescription());
+        descriptionBox.setText("Description : " + lecNote.getDescription());
     }
 
     public void initBackButton()
@@ -100,7 +104,7 @@ public class ViewFragment extends Fragment{
                 continue;
             }
             final int pos = i;
-            int temp = convertToPixel(50);
+            int temp = convertToPixel(30);
 
             ImageView fileImage = new ImageView(getContext());
             imageLinearLayout.addView(fileImage);
@@ -109,6 +113,7 @@ public class ViewFragment extends Fragment{
             bottomLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, temp));
             bottomLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
+            temp = convertToPixel(50);
             TextView imageName = new TextView(getContext());
             DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
             float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
@@ -203,12 +208,13 @@ public class ViewFragment extends Fragment{
         }
         for (int i = 0; i < pdfList.size(); i++)
         {
-            int temp = convertToPixel(50);
+            int temp = convertToPixel(30);
             final int pos = i;
             LinearLayout bottomLinearLayout = new LinearLayout(getContext());
             bottomLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, temp));
             bottomLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
+            temp = convertToPixel(50);
             TextView pdfName = new TextView(getContext());
             DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
             float dpWidth = displayMetrics.widthPixels / displayMetrics.density;

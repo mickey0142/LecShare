@@ -7,7 +7,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/upload_toolbar"
-        style="@style/HeaderBar"
+        android:theme="@style/HeaderBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Wooden"

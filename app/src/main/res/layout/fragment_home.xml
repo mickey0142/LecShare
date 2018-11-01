@@ -8,7 +8,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/home_toolbar"
-        style="@style/HeaderBar"
+        android:theme="@style/HeaderBar"
         android:elevation="4dp"
         android:background="@color/Wooden"
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="10dp">
+            android:padding="10dp">
 
 
             <LinearLayout
@@ -70,18 +70,21 @@
 
                 <EditText
                     android:id="@+id/home_search_title"
+                    android:paddingStart="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search here"
-                    android:textColorHint="#F5F5F5"
-                    android:layout_weight="3"/>
+                    android:textColorHint="#000000"
+                    android:background="#FFFFFF"
+
+                    android:layout_weight="3" />
 
                 <ImageView
                     android:id="@+id/home_search_button"
-                    android:layout_width="53dp"
+                    android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/ico_search"
-                    android:background="@drawable/login_btn"
+                    android:background="@drawable/button_box"
                     android:layout_weight="1"/>
 
 
@@ -122,17 +125,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.ProgressBar"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_gravity="center"/>
 
-            <ListView
-                android:id="@+id/home_lec_note_list"
-                android:layout_width="300dp"
-                android:layout_height="325dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/search_result_border"
-                android:paddingLeft="16dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/home_lec_note_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="325dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/search_result_border"
+                    android:padding="15dp"
+                    android:nestedScrollingEnabled="true"/>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/home_upload_button"
@@ -144,17 +157,6 @@
                 android:background="@drawable/login_btn"
                 android:hint="Upload"
                 android:textColorHint="#F5F5F5" />
-
-            <Button
-                android:id="@+id/home_log_out_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/login_signup"
-                android:hint="Sign out"
-                android:textColorHint="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>

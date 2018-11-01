@@ -172,6 +172,8 @@ public class SearchResultFragment extends Fragment {
         try {
             final ProgressBar progressBar = getView().findViewById(R.id.search_result_progress_bar);
             progressBar.setVisibility(View.VISIBLE);
+            final ListView resultListView = getView().findViewById(R.id.search_result_lec_note_list);
+            resultListView.setVisibility(View.GONE);
             Query query = fbStore.collection("LecNote");
 //        if (orderBy.equals("score"))
 //        {
@@ -201,6 +203,7 @@ public class SearchResultFragment extends Fragment {
                         showSearchResult();
                     }
                     progressBar.setVisibility(View.GONE);
+                    resultListView.setVisibility(View.VISIBLE);
                 }
             });
         }

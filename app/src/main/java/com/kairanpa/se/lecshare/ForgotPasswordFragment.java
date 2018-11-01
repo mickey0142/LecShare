@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -42,6 +43,7 @@ public class ForgotPasswordFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
 
         initResetButton();
+        initBackButton();
     }
 
     public void initResetButton()
@@ -71,6 +73,17 @@ public class ForgotPasswordFragment extends Fragment{
                         }
                     });
                 }
+            }
+        });
+    }
+
+    public void initBackButton()
+    {
+        ImageView backButton = getView().findViewById(R.id.forgot_password_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
             }
         });
     }

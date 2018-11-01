@@ -6,7 +6,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/search_toolbar"
-        style="@style/HeaderBar"
+        android:theme="@style/HeaderBar"
         android:elevation="4dp"
         android:background="@color/Wooden"
         android:layout_width="match_parent"
@@ -63,7 +63,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search title"
-                    android:textColorHint="#F5F5F5" />
+                    android:textColorHint="#F5F5F5"
+                    android:inputType="text"/>
 
             </LinearLayout>
 
@@ -83,7 +84,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search subject"
-                    android:textColorHint="#F5F5F5" />
+                    android:textColorHint="#F5F5F5"
+                    android:inputType="text"/>
 
             </LinearLayout>
 
@@ -103,7 +105,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search owner"
-                    android:textColorHint="#F5F5F5" />
+                    android:textColorHint="#F5F5F5"
+                    android:inputType="text"/>
 
             </LinearLayout>
 
