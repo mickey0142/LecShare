@@ -114,12 +114,12 @@ public class RegisterFragment extends Fragment {
 
     public void initBackButton()
     {
-        ImageView backButton = getView().findViewById(R.id.register_back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().popBackStack();
-            }
-        });
+//        ImageView backButton = getView().findViewById(R.id.register_back_button);
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getFragmentManager().popBackStack();
+//            }
+//        });
     }
 }
