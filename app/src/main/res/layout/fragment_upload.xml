@@ -92,7 +92,7 @@
 
                 <ImageView
                     android:layout_width="53dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="53dp"
                     android:src="@drawable/ico_message" />
 
                 <EditText
@@ -100,7 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter message here..."
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:textColor="#F5F5F5"
                     android:textColorHint="#F5F5F5" />
             </LinearLayout>

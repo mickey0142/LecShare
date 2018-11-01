@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -138,7 +139,7 @@ public class HomeFragment extends Fragment {
 
     public void initAdvanceSearchButton()
     {
-        Button advanceSearchButton = getView().findViewById(R.id.home_advance_search);
+       TextView advanceSearchButton = getView().findViewById(R.id.home_advance_search);
         advanceSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,7 +195,7 @@ public class HomeFragment extends Fragment {
 
     public void initSearchButton()
     {
-        Button searchButton = getView().findViewById(R.id.home_search_button);
+        ImageView searchButton = getView().findViewById(R.id.home_search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
