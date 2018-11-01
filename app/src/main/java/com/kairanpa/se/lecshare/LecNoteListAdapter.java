@@ -1,6 +1,7 @@
 package com.kairanpa.se.lecshare;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -34,11 +35,14 @@ public class LecNoteListAdapter extends ArrayAdapter {
         TextView owner = lecNoteItem.findViewById(R.id.lec_note_list_item_owner);
 //        TextView score = lecNoteItem.findViewById(R.id.lec_note_list_item_score);
         TextView date = lecNoteItem.findViewById(R.id.lec_note_list_item_date);
-
+        if (position %2 == 1)
+        {
+            lecNoteItem.setBackgroundColor(Color.parseColor("#D3D3D3"));
+        }
         title.setText(lecNote.get(position).getTitle());
         subject.setText(lecNote.get(position).getSubject());
         owner.setText(lecNote.get(position).getOwner());
-        date.setText(lecNote.get(position).getUploadTimeStamp());
+        date.setText(lecNote.get(position).UploadTimeReverse());
         return lecNoteItem;
     }
 }

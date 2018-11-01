@@ -239,6 +239,16 @@ public class SearchResultFragment extends Fragment {
 //                    Log.d("test", "press profile");
 //                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
 //                }
+                else if (itemId == R.id.menu_upload)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment uploadFragment = new UploadFragment();
+                    uploadFragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, uploadFragment).addToBackStack(null).commit();
+                }
                 else if (itemId == R.id.menu_logout)
                 {
                     Log.d("test", "press logout");
