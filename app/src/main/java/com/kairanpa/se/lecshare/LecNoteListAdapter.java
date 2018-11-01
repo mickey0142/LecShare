@@ -38,7 +38,7 @@ public class LecNoteListAdapter extends ArrayAdapter {
         title.setText(lecNote.get(position).getTitle());
         subject.setText(lecNote.get(position).getSubject());
         owner.setText(lecNote.get(position).getOwner());
-        date.setText(lecNote.get(position).getUploadTimeStamp());
+        date.setText(lecNote.get(position).UploadTimeReverse());
         return lecNoteItem;
     }
 }

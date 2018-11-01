@@ -124,7 +124,7 @@ public class UploadFragment extends Fragment{
         outState.putSerializable("filePath", filePath);
     }
 
-    public void uploadLecNote(String collectionName, String documentName, final LecNote lecNote)
+    public void uploadLecNote(final LecNote lecNote)
     {
         fbStore.collection("LecNote").add(lecNote)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -172,9 +172,14 @@ public class UploadFragment extends Fragment{
                 lecNote.setTitle(title);
                 lecNote.setSubject(subject);
                 lecNote.setUploadTimeStamp();
+                Log.d("test", "ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh : " + lecNote.getUploadTimeStamp());
                 lecNote.setOwner(user.getUsername());
 
-
+                if (fileName.size() == 0)
+                {
+                    uploadLecNote(lecNote);
+                    return;
+                }
                 Uri file;
                 StorageReference fileRef;
                 UploadTask uploadTask;
@@ -240,7 +245,7 @@ public class UploadFragment extends Fragment{
                             if(check)
                             {
                                 Log.d("test", "starting upload lecnote");
-                                uploadLecNote("LecNote", lecNote.getTitle(), lecNote);
+                                uploadLecNote(lecNote);
                             }
                         }
                     });
@@ -311,6 +316,16 @@ public class UploadFragment extends Fragment{
 //                    Log.d("test", "press profile");
 //                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
 //                }
+                else if (itemId == R.id.menu_upload)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment uploadFragment = new UploadFragment();
+                    uploadFragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, uploadFragment).addToBackStack(null).commit();
+                }
                 else if (itemId == R.id.menu_logout)
                 {
                     Log.d("test", "press logout");

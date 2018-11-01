@@ -75,6 +75,7 @@ public class HomeFragment extends Fragment {
         final ProgressBar progressBar = getView().findViewById(R.id.home_progress_bar);
         progressBar.setVisibility(View.VISIBLE);
         final ListView lecNoteListView = getView().findViewById(R.id.home_lec_note_list);
+        lecNoteListView.setVisibility(View.GONE);
         fbStore.collection("LecNote").orderBy("title", Query.Direction.ASCENDING)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -130,13 +131,11 @@ public class HomeFragment extends Fragment {
     public void initRefreshButton()
     {
         final ImageView refreshButton = getView().findViewById(R.id.home_refresh_button);
-        final ListView lecNoteListView = getView().findViewById(R.id.home_lec_note_list);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLecNoteList();
                 refreshButton.setEnabled(false);
-                lecNoteListView.setVisibility(View.GONE);
             }
         });
     }
@@ -234,15 +233,6 @@ public class HomeFragment extends Fragment {
 //                    Log.d("test", "press profile");
 //                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
 //                }
-                else if (itemId == R.id.menu_logout)
-                {
-                    Log.d("test", "press logout");
-                    fbAuth.signOut();
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.main_view, new LoginFragment())
-                            .commit();
-                }
                 else if (itemId == R.id.menu_upload)
                 {
                     Bundle bundle = new Bundle();
@@ -252,6 +242,15 @@ public class HomeFragment extends Fragment {
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.replace(R.id.main_view, uploadFragment).addToBackStack(null).commit();
+                }
+                else if (itemId == R.id.menu_logout)
+                {
+                    Log.d("test", "press logout");
+                    fbAuth.signOut();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main_view, new LoginFragment())
+                            .commit();
                 }
                 return false;
             }

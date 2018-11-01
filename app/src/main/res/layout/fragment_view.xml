@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/view_border"
                 android:textColor="#F5F5F5"
-                android:text="download all"
+                android:text="download all file"
                 android:padding="5dp"
                 android:layout_marginBottom="5dp"/>
 

@@ -105,16 +105,35 @@
                     android:textColorHint="#F5F5F5" />
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/upload_file_list"
-                android:layout_width="300dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/login_border"
-                android:paddingLeft="16dp">
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:orientation="vertical">
 
-            </ListView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="File list"
+                    android:layout_gravity="center"
+                    android:textColor="#F5F5F5"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <ListView
+                    android:id="@+id/upload_file_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/text_box"
+                    android:padding="15dp"
+                    android:divider="#000000"
+                    android:dividerHeight="2dp">
+
+                </ListView>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/upload_choose_file_button"
@@ -132,19 +151,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/login_signup"
                 android:text="upload"
                 android:textColor="#F5F5F5" />
 
-            <!--<Button-->
-            <!--android:id="@+id/upload_back_button"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="back to search page"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:background="@drawable/login_btn"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:textColor="#FFFFFF"/>-->
         </LinearLayout>
     </ScrollView>
 

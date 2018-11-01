@@ -143,7 +143,9 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/search_result_border"
                     android:padding="15dp"
-                    android:nestedScrollingEnabled="true"/>
+                    android:nestedScrollingEnabled="true"
+                    android:divider="#000000"
+                    android:dividerHeight="2dp"/>
 
             </LinearLayout>
 
