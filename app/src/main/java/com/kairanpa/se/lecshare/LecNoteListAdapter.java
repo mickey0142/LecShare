@@ -37,7 +37,7 @@ public class LecNoteListAdapter extends ArrayAdapter {
         TextView date = lecNoteItem.findViewById(R.id.lec_note_list_item_date);
         if (position %2 == 1)
         {
-            lecNoteItem.setBackgroundColor(Color.parseColor("#D3D3D3"));
+            lecNoteItem.setBackgroundColor(Color.parseColor("#FCDF91"));
         }
         title.setText(lecNote.get(position).getTitle());
         subject.setText(lecNote.get(position).getSubject());

@@ -155,18 +155,18 @@ public class UploadFragment extends Fragment{
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "uploading... please wait", Toast.LENGTH_SHORT).show();
                 final EditText titleBox = getView().findViewById(R.id.upload_title);
                 final EditText subjectBox = getView().findViewById(R.id.upload_subject);
                 final EditText descriptionBox = getView().findViewById(R.id.upload_description);
                 String title = titleBox.getText().toString();
                 String subject = subjectBox.getText().toString();
                 String description = descriptionBox.getText().toString();
-                if (title.equals(""))
+                if (title.equals("") || subject.equals("") || description.equals(""))
                 {
-                    Toast.makeText(getContext(), "note title is empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "some field is empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                Toast.makeText(getContext(), "uploading... please wait", Toast.LENGTH_SHORT).show();
                 final LecNote lecNote = new LecNote();
                 lecNote.setDescription(description);
                 lecNote.setTitle(title);
@@ -256,7 +256,7 @@ public class UploadFragment extends Fragment{
 
     public void initChooseFileButton()
     {
-        Button chooseFileButton = getView().findViewById(R.id.upload_choose_file_button);
+        ImageView chooseFileButton = getView().findViewById(R.id.upload_choose_file_button);
         chooseFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -110,7 +110,9 @@ public class ViewFragment extends Fragment{
             imageLinearLayout.addView(fileImage);
 
             LinearLayout bottomLinearLayout = new LinearLayout(getContext());
-            bottomLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, temp));
+            LinearLayout.LayoutParams bottomLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            bottomLayoutParam.setMargins(0, 0, 0, convertToPixel(10));
+            bottomLinearLayout.setLayoutParams(bottomLayoutParam);
             bottomLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             temp = convertToPixel(50);
@@ -211,7 +213,9 @@ public class ViewFragment extends Fragment{
             int temp = convertToPixel(30);
             final int pos = i;
             LinearLayout bottomLinearLayout = new LinearLayout(getContext());
-            bottomLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, temp));
+            LinearLayout.LayoutParams bottomLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            bottomLayoutParam.setMargins(0, 0, 0, convertToPixel(10));
+            bottomLinearLayout.setLayoutParams(bottomLayoutParam);
             bottomLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
             temp = convertToPixel(50);

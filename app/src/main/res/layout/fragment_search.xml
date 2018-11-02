@@ -51,7 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:paddingRight="15dp">
 
                 <ImageView
                     android:layout_width="53dp"
@@ -62,6 +63,7 @@
                     android:id="@+id/search_search_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:hint="Search title"
                     android:background="#FFF8BB"
                     android:textColor="#505050"
@@ -74,7 +76,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:paddingRight="15dp">
 
                 <ImageView
                     android:layout_width="53dp"
@@ -85,6 +88,7 @@
                     android:id="@+id/search_search_subject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:hint="Search subject"
                     android:background="#FFF8BB"
                     android:textColor="#505050"
@@ -97,7 +101,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:paddingRight="15dp">
 
                 <ImageView
                     android:layout_width="53dp"
@@ -108,6 +113,7 @@
                     android:id="@+id/search_search_owner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:hint="Search owner"
                     android:background="#FFF8BB"
                     android:textColor="#505050"
