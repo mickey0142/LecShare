@@ -22,8 +22,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -86,7 +89,7 @@ public class LoginFragment extends Fragment {
 
                 if (_emailStr.isEmpty() || _passwordStr.isEmpty()){
                     Log.e("LOGIN", "Email or Password is empty");
-                    Toast.makeText(getActivity(), "Please fill E-mail and Password.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please enter E-mail and Password.", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     loginBtn.setEnabled(false);
@@ -134,9 +137,45 @@ public class LoginFragment extends Fragment {
                                 }
                             }
                             else{
-                                Toast.makeText(getActivity(), "Please enter correct your E-mail and Password.", Toast.LENGTH_SHORT).show();
-                                loginBtn.setEnabled(true);
-                                progressBar.setVisibility(View.GONE);
+                                try
+                                {
+                                    throw task.getException();
+                                }
+                                catch (FirebaseAuthInvalidUserException e)
+                                {
+                                    Log.d("test", "error : " + task.getException());
+                                    Toast.makeText(getActivity(), "Invalid user", Toast.LENGTH_SHORT).show();
+                                    loginBtn.setEnabled(true);
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                catch (FirebaseAuthInvalidCredentialsException e)
+                                {
+                                    Log.d("test", "error : " + task.getException() + " code : " + e.getErrorCode());
+                                    if (e.getErrorCode().equals("ERROR_INVALID_EMAIL"))
+                                    {
+                                        Toast.makeText(getActivity(), "Email is not valid", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if (e.getErrorCode().equals("ERROR_WRONG_PASSWORD"))
+                                    {
+                                        Toast.makeText(getActivity(), "Wrong password", Toast.LENGTH_SHORT).show();
+                                    }
+                                    loginBtn.setEnabled(true);
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                catch (FirebaseNetworkException e)
+                                {
+                                    Log.d("test", "error : " + task.getException());
+                                    Toast.makeText(getActivity(), "Network error please check your internet connection", Toast.LENGTH_SHORT).show();
+                                    loginBtn.setEnabled(true);
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.d("test", "Error : " + task.getException());
+                                    Toast.makeText(getActivity(), "error : " + task.getException(), Toast.LENGTH_SHORT).show();
+                                    loginBtn.setEnabled(true);
+                                    progressBar.setVisibility(View.GONE);
+                                }
                             }
                         }
                     });

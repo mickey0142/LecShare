@@ -172,7 +172,6 @@ public class UploadFragment extends Fragment{
                 lecNote.setTitle(title);
                 lecNote.setSubject(subject);
                 lecNote.setUploadTimeStamp();
-                Log.d("test", "ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh : " + lecNote.getUploadTimeStamp());
                 lecNote.setOwner(user.getUsername());
 
                 if (fileName.size() == 0)
