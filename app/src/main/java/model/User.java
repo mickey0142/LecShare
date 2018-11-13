@@ -4,19 +4,23 @@ import java.io.Serializable;
 
 public class User implements Serializable{
     private String username;
-    private String studentNumber;
+    private String aboutMe;
     private String email;
+    private double averageScore;
+    private int money;
 
     public User()
     {
 
     }
 
-    public User(String username, String studentNumber, String email)
+    public User(String username, String aboutMe, String email)
     {
         this.username = username;
-        this.studentNumber = studentNumber;
+        this.aboutMe = aboutMe;
         this.email = email;
+        this.averageScore = 0;
+        this.setMoney(0);
     }
 
     public String getUsername() {
@@ -27,12 +31,12 @@ public class User implements Serializable{
         this.username = username;
     }
 
-    public String getStudentNumber() {
-        return studentNumber;
+    public String getAboutMe() {
+        return aboutMe;
     }
 
-    public void setStudentNumber(String studentNumber) {
-        this.studentNumber = studentNumber;
+    public void setAboutMe(String studentNumber) {
+        this.aboutMe = studentNumber;
     }
 
     public String getEmail() {
@@ -41,5 +45,21 @@ public class User implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public double getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(double averageScore) {
+        this.averageScore = averageScore;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

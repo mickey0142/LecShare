@@ -46,17 +46,15 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
                 EditText _username = getView().findViewById(R.id.register_username);
                 final EditText _email = getView().findViewById(R.id.register_email);
-                EditText _stdNumber = getView().findViewById(R.id.register_std_number);
                 EditText _password = getView().findViewById(R.id.register_password);
                 EditText _rePassword = getView().findViewById(R.id.register_rePassword);
 
                 final String _usernameStr = _username.getText().toString();
                 final String _emailStr = _email.getText().toString();
-                final String _stdNumberStr = _stdNumber.getText().toString();
                 String _passwordStr = _password.getText().toString();
                 String _repasswordStr = _rePassword.getText().toString();
 
-                if(_usernameStr.isEmpty() || _emailStr.isEmpty() || _stdNumberStr.isEmpty() || _passwordStr.isEmpty() || _repasswordStr.isEmpty())
+                if(_usernameStr.isEmpty() || _emailStr.isEmpty() || _passwordStr.isEmpty() || _repasswordStr.isEmpty())
                 {
                     Toast.makeText(getActivity(), "Can't be blank", Toast.LENGTH_LONG).show();
                     Log.e("REGISTER", "Can't be blank.");
@@ -75,7 +73,7 @@ public class RegisterFragment extends Fragment {
                     fbAuth.createUserWithEmailAndPassword(_emailStr, _passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            User user = new User(_usernameStr, _stdNumberStr, _emailStr);
+                            User user = new User(_usernameStr, "aboutMe", _emailStr);
                             final FirebaseUser authUser = authResult.getUser();
                             fbStore.collection("User").document(_usernameStr).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

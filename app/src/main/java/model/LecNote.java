@@ -1,13 +1,12 @@
 package model;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class LecNote implements Serializable{
     private String title;
@@ -16,13 +15,13 @@ public class LecNote implements Serializable{
     private String owner;
     private String uploadTimeStamp;
     private String subject;
-    //double point;
+    private double score = 0;
+    private HashMap<String, Integer> vote = new HashMap<>();
 
     public LecNote()
     {
 
     }
-
 
     public String getDescription() {
         return description;
@@ -98,5 +97,47 @@ public class LecNote implements Serializable{
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public double getScore() {
+        calculateAverageScore();
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public void addVote(String username, int score)
+    {
+        vote.put(username, score);
+        calculateAverageScore();
+    }
+
+    private void calculateAverageScore()
+    {
+        int totalScore = 0;
+        for (String key : vote.keySet())
+        {
+            totalScore += vote.get(key);
+        }
+        if (vote.size() > 0)
+        {
+            score = totalScore / vote.size();
+        }
+        else
+        {
+            score = 0;
+        }
+    }
+
+
+    public HashMap<String, Integer> getVote() {
+        return vote;
+    }
+
+    public void setVote(HashMap<String, Integer> vote) {
+        this.vote = vote;
+        calculateAverageScore();
     }
 }

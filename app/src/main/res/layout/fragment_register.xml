@@ -60,20 +60,6 @@
                 android:textColorHint="#FFFFFF" />
 
             <EditText
-                android:id="@+id/register_std_number"
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/login_border"
-                android:ems="8"
-                android:hint="@string/idNumber"
-                android:inputType="number"
-                android:paddingLeft="16dp"
-                android:textColorHint="#FFFFFF" />
-
-            <EditText
                 android:id="@+id/register_email"
                 android:layout_width="300dp"
                 android:layout_height="30dp"

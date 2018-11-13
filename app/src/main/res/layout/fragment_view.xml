@@ -114,6 +114,15 @@
                 END OF DANGER ZONE
             -->
 
+            <RatingBar
+                android:id="@+id/view_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:max="5"
+                android:stepSize="0.5"
+                android:layout_gravity="center"
+                android:numStars="5"/>
+
         </LinearLayout>
     </ScrollView>
 

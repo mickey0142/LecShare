@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +69,7 @@ public class ViewFragment extends Fragment{
         showImage();
         initToolbar();
         initDownloadAllButton();
+        initVoteStar();
     }
 
     public void setTextBox()
@@ -440,5 +442,14 @@ public class ViewFragment extends Fragment{
                 }
             }
         });
+    }
+
+    void initVoteStar()
+    {
+        RatingBar voteStar = getView().findViewById(R.id.view_score);
+        // add another textview to show current average score
+        // set rating if user already vote
+        // add another button to update vote
+        // try update method in firestore
     }
 }
