@@ -16,7 +16,8 @@ public class LecNote implements Serializable{
     private String uploadTimeStamp;
     private String subject;
     private double score = 0;
-    private HashMap<String, Integer> vote = new HashMap<>();
+    private HashMap<String, Float> vote = new HashMap<>();
+    private String documentId;
 
     public LecNote()
     {
@@ -108,7 +109,7 @@ public class LecNote implements Serializable{
         this.score = score;
     }
 
-    public void addVote(String username, int score)
+    public void addVote(String username, float score)
     {
         vote.put(username, score);
         calculateAverageScore();
@@ -116,7 +117,7 @@ public class LecNote implements Serializable{
 
     private void calculateAverageScore()
     {
-        int totalScore = 0;
+        float totalScore = 0;
         for (String key : vote.keySet())
         {
             totalScore += vote.get(key);
@@ -132,12 +133,20 @@ public class LecNote implements Serializable{
     }
 
 
-    public HashMap<String, Integer> getVote() {
+    public HashMap<String, Float> getVote() {
         return vote;
     }
 
-    public void setVote(HashMap<String, Integer> vote) {
+    public void setVote(HashMap<String, Float> vote) {
         this.vote = vote;
         calculateAverageScore();
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 }

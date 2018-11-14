@@ -24,9 +24,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -34,6 +39,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.LecNote;
 import model.User;
@@ -42,6 +48,7 @@ public class ViewFragment extends Fragment{
 
     FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     FirebaseStorage fbStorage = FirebaseStorage.getInstance();
+    FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
     LecNote lecNote;
     User user;
 
@@ -446,10 +453,130 @@ public class ViewFragment extends Fragment{
 
     void initVoteStar()
     {
-        RatingBar voteStar = getView().findViewById(R.id.view_score);
-        // add another textview to show current average score
-        // set rating if user already vote
-        // add another button to update vote
-        // try update method in firestore
+        LinearLayout voteLayout = getView().findViewById(R.id.view_vote_linear_layout);
+        if (lecNote.getOwner().equals(user.getUsername()))
+        {
+            voteLayout.setVisibility(View.GONE);
+        }
+        final RatingBar voteStar = getView().findViewById(R.id.view_score);
+        final TextView averageScore = getView().findViewById(R.id.view_average_score);
+        averageScore.setText("Average score : " + lecNote.getScore());
+        if (lecNote.getVote().get(user.getUsername()) != null)
+        {
+            voteStar.setRating(lecNote.getVote().get(user.getUsername()));
+        }
+        Button voteButton = getView().findViewById(R.id.view_vote_button);
+        voteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (lecNote.getVote().get(user.getUsername()) == null)
+                {
+                    user.addMoney(10);
+                    fbStore.collection("User").document(user.getUsername()).update("money", user.getMoney())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("test", "money added");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("test", "money add failed : " + e.getMessage());
+                        }
+                    });
+                    fbStore.collection("User").document(lecNote.getOwner()).get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    Log.d("test", "documentSnapshot : " + documentSnapshot);
+                                    Log.d("test", "username : " + documentSnapshot.getString("username"));
+                                    Log.d("test", "username(object) : " + documentSnapshot.get("username"));
+                                    Log.d("test", "money : " + documentSnapshot.get("money"));
+                                    Log.d("test", "money(double) : " + documentSnapshot.getDouble("money"));
+                                    Double doubleMoney = documentSnapshot.getDouble("money");
+                                    int ownerMoney = doubleMoney.intValue();
+                                    ownerMoney += 10 * voteStar.getRating();
+                                    fbStore.collection("User").document(lecNote.getOwner())
+                                            .update("money", ownerMoney)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d("test", "add money for owner success");
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("test", "add money for owner fail : " + e.getMessage());
+                                        }
+                                    });
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("test", "get owner fail : " + e.getMessage());
+                        }
+                    });
+                }
+                lecNote.addVote(user.getUsername(), voteStar.getRating());
+                fbStore.collection("LecNote").document(lecNote.getDocumentId())
+                        .set(lecNote)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("test", "vote success");
+                                Toast.makeText(getContext(), "Vote Success", Toast.LENGTH_SHORT).show();
+                                averageScore.setText("Average score : " + lecNote.getScore());
+                                calculateUserAverageScore(lecNote.getOwner());
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("test", "vote error : " + e.getMessage());
+                        Toast.makeText(getContext(), "Vote Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
+    void calculateUserAverageScore(final String username)
+    {
+        fbStore.collection("LecNote").whereEqualTo("owner", username).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            double sumScore = 0;
+                            int count = 0;
+                            for (DocumentSnapshot doc : task.getResult())
+                            {
+                                Log.d("test", "score in loop : " + doc.getDouble("score"));
+                                sumScore += doc.getDouble("score");
+                                count += 1;
+                            }
+                            Log.d("test", "sum score = " + sumScore + " count = " + count);
+                            double averageScore = sumScore / count;
+                            Log.d("test", "averageScore : " + averageScore);
+                            fbStore.collection("User").document(username)
+                                    .update("averageScore", averageScore)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("test", "update owner average score success");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("test", "update owner average score fail : " + e.getMessage());
+                                }
+                            });
+                        }
+                        else
+                        {
+                            Log.d("test", "get user average score error : " + task.getException());
+                        }
+                    }
+                });
     }
 }

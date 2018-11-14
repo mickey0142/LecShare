@@ -62,4 +62,9 @@ public class User implements Serializable{
     public void setMoney(int money) {
         this.money = money;
     }
+
+    public void addMoney(int money)
+    {
+        this.money += money;
+    }
 }

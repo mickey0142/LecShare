@@ -114,14 +114,40 @@
                 END OF DANGER ZONE
             -->
 
-            <RatingBar
-                android:id="@+id/view_score"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/view_vote_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="5"
-                android:stepSize="0.5"
-                android:layout_gravity="center"
-                android:numStars="5"/>
+                android:orientation="vertical">
+
+                <RatingBar
+                    android:id="@+id/view_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:max="5"
+                    android:stepSize="0.5"
+                    android:layout_gravity="center"
+                    android:numStars="5"
+                    android:layout_margin="7dp"/>
+
+                <TextView
+                    android:id="@+id/view_average_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="average score : "
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/view_vote_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="vote"
+                    android:textColor="#F5F5F5"
+                    android:background="@drawable/login_btn"
+                    android:layout_gravity="center"
+                    android:layout_margin="7dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
