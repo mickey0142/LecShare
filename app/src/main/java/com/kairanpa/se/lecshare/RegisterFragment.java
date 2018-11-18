@@ -12,12 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import model.User;
 
@@ -51,7 +57,7 @@ public class RegisterFragment extends Fragment {
 
                 final String _usernameStr = _username.getText().toString();
                 final String _emailStr = _email.getText().toString();
-                String _passwordStr = _password.getText().toString();
+                final String _passwordStr = _password.getText().toString();
                 String _repasswordStr = _rePassword.getText().toString();
 
                 if(_usernameStr.isEmpty() || _emailStr.isEmpty() || _passwordStr.isEmpty() || _repasswordStr.isEmpty())
@@ -70,25 +76,66 @@ public class RegisterFragment extends Fragment {
                 }
                 else{
                     Toast.makeText(getContext(), "please wait...", Toast.LENGTH_SHORT).show();
-                    fbAuth.createUserWithEmailAndPassword(_emailStr, _passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-                            User user = new User(_usernameStr, "aboutMe", _emailStr);
-                            final FirebaseUser authUser = authResult.getUser();
-                            fbStore.collection("User").document(_usernameStr).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    fbStore.collection("User").whereEqualTo("username", _usernameStr).get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
-                                public void onSuccess(Void aVoid) {
-                                    sendVerifyEmail(authUser);
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful())
+                                    {
+                                        boolean duplicate = false;
+                                        for (DocumentSnapshot doc : task.getResult())
+                                        {
+                                            duplicate = true;
+                                            break;
+                                        }
+                                        if (duplicate)
+                                        {
+                                            Log.d("test", "username already exist");
+                                            Toast.makeText(getContext(), "username already exist", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else
+                                        {
+                                            fbAuth.createUserWithEmailAndPassword(_emailStr, _passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                                @Override
+                                                public void onSuccess(AuthResult authResult) {
+                                                    User user = new User(_usernameStr, "aboutMe", _emailStr);
+                                                    final FirebaseUser authUser = authResult.getUser();
+                                                    fbStore.collection("User").add(user)
+                                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                @Override
+                                                                public void onSuccess(DocumentReference documentReference) {
+                                                                    fbStore.collection("User").document(documentReference.getId())
+                                                                            .update("documentId", documentReference.getId())
+                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                @Override
+                                                                                public void onSuccess(Void aVoid) {
+                                                                                    Log.d("cafe", "set document id for user success");
+                                                                                }
+                                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            Log.d("cafe", "set document id for user fail : " + e.getMessage());
+                                                                        }
+                                                                    });
+                                                                    sendVerifyEmail(authUser);
+                                                                }
+                                                            });
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("REGISTER", "Register fail : " + e.getMessage());
+                                                    Toast.makeText(getContext(), "error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Log.d("test", "get user to check username fail");
+                                    }
                                 }
                             });
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.e("REGISTER", "Register fail : " + e.getMessage());
-                            Toast.makeText(getContext(), "error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
                 }
             }
         });

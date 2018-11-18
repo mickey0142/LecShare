@@ -1,6 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#D5A253"
+    android:padding="10dp"
+    >
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/profile_toolbar"
+        android:theme="@style/HeaderBar"
+        android:elevation="4dp"
+        android:background="@color/Wooden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/profile_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ico_back"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:text="Profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor = "#FFFFFF"
+            android:gravity="center"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Username :"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"/>
+
+                <EditText
+                    android:id="@+id/profile_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF8BB"
+                    android:textColor="#505050"
+                    android:textColorHint="#828282"
+                    android:padding="5dp"
+                    android:hint="username"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="About me :"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"/>
+
+                <EditText
+                    android:id="@+id/profile_about_me"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF8BB"
+                    android:textColor="#505050"
+                    android:textColorHint="#828282"
+                    android:padding="5dp"
+                    android:hint="about me"/>
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/profile_update_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.ProgressBar"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/profile_update_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="update"/>
+
+            <TextView
+                android:id="@+id/profile_average_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="average score : 1"/>
+
+            <TextView
+                android:id="@+id/profile_ranking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="score ranking : 2"/>
+
+            <ProgressBar
+                android:id="@+id/profile_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.ProgressBar"
+                android:visibility="visible"
+                android:layout_gravity="center"/>
+
+            <ListView
+                android:id="@+id/profile_lec_note_list"
+                android:layout_width="match_parent"
+                android:layout_height="325dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/search_result_border"
+                android:padding="15dp"
+                android:nestedScrollingEnabled="true"
+                android:divider="#000000"
+                android:dividerHeight="2dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

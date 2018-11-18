@@ -8,6 +8,7 @@ public class User implements Serializable{
     private String email;
     private double averageScore;
     private int money;
+    private String documentId;
 
     public User()
     {
@@ -66,5 +67,13 @@ public class User implements Serializable{
     public void addMoney(int money)
     {
         this.money += money;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 }

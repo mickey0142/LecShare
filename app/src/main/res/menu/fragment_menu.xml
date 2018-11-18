@@ -8,11 +8,11 @@
         android:title="@string/text_home"
         app:showAsAction="collapseActionView"
         />
-    <!--<item-->
-        <!--android:id="@+id/menu_profile"-->
-        <!--android:title="@string/text_profile"-->
-        <!--app:showAsAction="collapseActionView"-->
-        <!--/>-->
+    <item
+        android:id="@+id/menu_profile"
+        android:title="@string/text_profile"
+        app:showAsAction="collapseActionView"
+        />
     <item
         android:id="@+id/menu_upload"
         android:title="Upload"

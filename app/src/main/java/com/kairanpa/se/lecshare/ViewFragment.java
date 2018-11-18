@@ -339,11 +339,17 @@ public class ViewFragment extends Fragment{
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.replace(R.id.main_view, homeFragment).addToBackStack(null).commit();
                 }
-//                else if (itemId == R.id.menu_profile)
-//                {
-//                    Log.d("test", "press profile");
-//                    Toast.makeText(getContext(), "page is not exist yet :3", Toast.LENGTH_SHORT).show();
-//                }
+                else if (itemId == R.id.menu_profile)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    bundle.putSerializable("Target object", user);
+                    Fragment fragment = new ProfileFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+                }
                 else if (itemId == R.id.menu_upload)
                 {
                     Bundle bundle = new Bundle();
