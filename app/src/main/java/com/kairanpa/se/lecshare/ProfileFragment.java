@@ -1,5 +1,6 @@
 package com.kairanpa.se.lecshare;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -134,6 +136,8 @@ public class ProfileFragment extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 progressBar.setVisibility(View.VISIBLE);
                 EditText username = getView().findViewById(R.id.profile_username);
                 EditText aboutMe = getView().findViewById(R.id.profile_about_me);
@@ -142,7 +146,7 @@ public class ProfileFragment extends Fragment {
                 final String oldUsername = user.getUsername();
                 user.setUsername(usernameStr);
                 user.setAboutMe(aboutMeStr);
-                fbStore.collection("user").document(user.getDocumentId()).set(user)
+                fbStore.collection("User").document(user.getDocumentId()).set(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -162,6 +166,7 @@ public class ProfileFragment extends Fragment {
                                                                     public void onSuccess(Void aVoid) {
                                                                         Toast.makeText(getContext(), "update success", Toast.LENGTH_SHORT).show();
                                                                         Log.d("test", "update profile success");
+                                                                        initLecNoteList();
                                                                     }
                                                                 }).addOnFailureListener(new OnFailureListener() {
                                                             @Override

@@ -50,7 +50,7 @@
                     android:text="Username :"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:layout_weight="2" />
 
                 <EditText
                     android:id="@+id/profile_username"
@@ -61,7 +61,8 @@
                     android:textColor="#505050"
                     android:textColorHint="#828282"
                     android:padding="5dp"
-                    android:hint="username"/>
+                    android:hint="username"
+                    android:inputType="text"/>
 
             </LinearLayout>
 
@@ -85,7 +86,7 @@
                     android:textColor="#505050"
                     android:textColorHint="#828282"
                     android:padding="5dp"
-                    android:hint="about me"/>
+                    android:hint="about me" />
 
             </LinearLayout>
 
