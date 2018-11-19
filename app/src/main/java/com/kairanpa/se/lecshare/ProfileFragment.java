@@ -245,7 +245,7 @@ public class ProfileFragment extends Fragment {
 
     public void initToolbar()
     {
-        Toolbar mTool = getView().findViewById(R.id.home_toolbar);
+        Toolbar mTool = getView().findViewById(R.id.profile_toolbar);
         mTool.inflateMenu(R.menu.fragment_menu);
         mTool.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

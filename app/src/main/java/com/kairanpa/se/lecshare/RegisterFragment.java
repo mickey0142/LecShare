@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -75,6 +76,8 @@ public class RegisterFragment extends Fragment {
                     Log.e("REGISTER", "Password at least 6 or more.");
                 }
                 else{
+                    final ProgressBar progressBar = getView().findViewById(R.id.register_progress_bar);
+                    progressBar.setVisibility(View.VISIBLE);
                     Toast.makeText(getContext(), "please wait...", Toast.LENGTH_SHORT).show();
                     fbStore.collection("User").whereEqualTo("username", _usernameStr).get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -90,6 +93,7 @@ public class RegisterFragment extends Fragment {
                                         }
                                         if (duplicate)
                                         {
+                                            progressBar.setVisibility(View.GONE);
                                             Log.d("test", "username already exist");
                                             Toast.makeText(getContext(), "username already exist", Toast.LENGTH_SHORT).show();
                                         }
@@ -114,6 +118,7 @@ public class RegisterFragment extends Fragment {
                                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                         @Override
                                                                         public void onFailure(@NonNull Exception e) {
+                                                                            progressBar.setVisibility(View.GONE);
                                                                             Log.d("cafe", "set document id for user fail : " + e.getMessage());
                                                                         }
                                                                     });
@@ -124,6 +129,7 @@ public class RegisterFragment extends Fragment {
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
+                                                    progressBar.setVisibility(View.GONE);
                                                     Log.e("REGISTER", "Register fail : " + e.getMessage());
                                                     Toast.makeText(getContext(), "error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
@@ -132,6 +138,7 @@ public class RegisterFragment extends Fragment {
                                     }
                                     else
                                     {
+                                        progressBar.setVisibility(View.GONE);
                                         Log.d("test", "get user to check username fail");
                                     }
                                 }
@@ -142,6 +149,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void sendVerifyEmail(FirebaseUser _email){
+        final ProgressBar progressBar = getView().findViewById(R.id.register_progress_bar);
         _email.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -152,6 +160,7 @@ public class RegisterFragment extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.GONE);
                 Log.e("REGISTER", "send email fail : " + e.getMessage());
             }
         });

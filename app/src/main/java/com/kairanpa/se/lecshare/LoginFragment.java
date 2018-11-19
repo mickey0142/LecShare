@@ -10,9 +10,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -46,6 +48,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initEnterPressed();
         initLogin();
         initRegister();
         initForgotPassword();
@@ -74,6 +77,23 @@ public class LoginFragment extends Fragment {
             }
         });
     }
+
+    void initEnterPressed()
+    {
+        EditText password = getView().findViewById(R.id.login_password);
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE))
+                {
+                    Button loginButton = getView().findViewById(R.id.login_login_button);
+                    loginButton.performClick();
+                }
+                return false;
+            }
+        });
+    }
+
     public void initLogin(){
 
         mAuth = FirebaseAuth.getInstance();
@@ -99,7 +119,8 @@ public class LoginFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful())
                             {
-                                if (mAuth.getCurrentUser().isEmailVerified()) {
+                                // or true here change later
+                                if (mAuth.getCurrentUser().isEmailVerified() || true) {
                                     Log.e("LOGIN", "Login: successful");
                                     fbStore.collection("User").whereEqualTo("email", mAuth.getCurrentUser().getEmail())
                                             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

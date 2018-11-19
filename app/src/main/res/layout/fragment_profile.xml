@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#D5A253"
-    android:padding="10dp"
     >
 
     <android.support.v7.widget.Toolbar

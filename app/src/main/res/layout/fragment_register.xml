@@ -57,7 +57,8 @@
                 android:hint="@string/username"
                 android:inputType="textPersonName"
                 android:paddingLeft="16dp"
-                android:textColorHint="#FFFFFF" />
+                android:textColorHint="#FFFFFF"
+                android:textColor="#FFFFFF"/>
 
             <EditText
                 android:id="@+id/register_email"
@@ -70,7 +71,8 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="16dp"
-                android:textColorHint="#FFFFFF" />
+                android:textColorHint="#FFFFFF"
+                android:textColor="#FFFFFF"/>
 
             <EditText
                 android:id="@+id/register_password"
@@ -84,7 +86,8 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingLeft="16dp"
-                android:textColorHint="#FFFFFF" />
+                android:textColorHint="#FFFFFF"
+                android:textColor="#FFFFFF"/>
 
             <EditText
                 android:id="@+id/register_rePassword"
@@ -98,7 +101,16 @@
                 android:hint="@string/rePassword"
                 android:inputType="textPassword"
                 android:paddingLeft="16dp"
-                android:textColorHint="#FFFFFF" />
+                android:textColorHint="#FFFFFF"
+                android:textColor="#FFFFFF"/>
+
+            <ProgressBar
+                android:id="@+id/register_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/register_register_button"
