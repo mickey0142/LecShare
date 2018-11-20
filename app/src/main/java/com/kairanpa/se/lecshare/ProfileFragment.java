@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -127,6 +128,8 @@ public class ProfileFragment extends Fragment {
                         }
                     }
                 });
+        TextView money = getView().findViewById(R.id.profile_money);
+        money.setText("Money : " + target.getMoney());
     }
 
     void initUpdateButton()
@@ -288,6 +291,16 @@ public class ProfileFragment extends Fragment {
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.replace(R.id.main_view, uploadFragment).addToBackStack(null).commit();
+                }
+                else if (itemId == R.id.menu_search_user)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment fragment = new SearchUserFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
                 }
                 else if (itemId == R.id.menu_logout)
                 {

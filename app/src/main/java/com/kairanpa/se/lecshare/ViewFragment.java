@@ -360,6 +360,16 @@ public class ViewFragment extends Fragment{
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.replace(R.id.main_view, uploadFragment).addToBackStack(null).commit();
                 }
+                else if (itemId == R.id.menu_search_user)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment fragment = new SearchUserFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+                }
                 else if (itemId == R.id.menu_logout)
                 {
                     Log.d("test", "press logout");
@@ -460,7 +470,7 @@ public class ViewFragment extends Fragment{
     void initVoteStar()
     {
         LinearLayout voteLayout = getView().findViewById(R.id.view_vote_linear_layout);
-        if (lecNote.getOwner().equals(user.getUsername()))
+        if (lecNote.getOwnerId().equals(user.getDocumentId()))
         {
             voteLayout.setVisibility(View.GONE);
         }
@@ -471,10 +481,12 @@ public class ViewFragment extends Fragment{
         {
             voteStar.setRating(lecNote.getVote().get(user.getUsername()));
         }
+        final ProgressBar progressBar = getView().findViewById(R.id.view_vote_progress_bar);
         Button voteButton = getView().findViewById(R.id.view_vote_button);
         voteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 if (lecNote.getVote().get(user.getUsername()) == null)
                 {
                     user.addMoney(10);
@@ -488,9 +500,10 @@ public class ViewFragment extends Fragment{
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.d("test", "money add failed : " + e.getMessage());
+                            progressBar.setVisibility(View.GONE);
                         }
                     });
-                    fbStore.collection("User").document(lecNote.getOwner()).get()
+                    fbStore.collection("User").document(lecNote.getOwnerId()).get()
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -502,7 +515,7 @@ public class ViewFragment extends Fragment{
                                     Double doubleMoney = documentSnapshot.getDouble("money");
                                     int ownerMoney = doubleMoney.intValue();
                                     ownerMoney += 10 * voteStar.getRating();
-                                    fbStore.collection("User").document(lecNote.getOwner())
+                                    fbStore.collection("User").document(lecNote.getOwnerId())
                                             .update("money", ownerMoney)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
@@ -512,6 +525,7 @@ public class ViewFragment extends Fragment{
                                             }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
+                                            progressBar.setVisibility(View.GONE);
                                             Log.d("test", "add money for owner fail : " + e.getMessage());
                                         }
                                     });
@@ -519,6 +533,7 @@ public class ViewFragment extends Fragment{
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            progressBar.setVisibility(View.GONE);
                             Log.d("test", "get owner fail : " + e.getMessage());
                         }
                     });
@@ -529,14 +544,16 @@ public class ViewFragment extends Fragment{
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                progressBar.setVisibility(View.GONE);
                                 Log.d("test", "vote success");
                                 Toast.makeText(getContext(), "Vote Success", Toast.LENGTH_SHORT).show();
                                 averageScore.setText("Average score : " + lecNote.getScore());
-                                calculateUserAverageScore(lecNote.getOwner());
+                                calculateUserAverageScore(lecNote.getOwnerId());
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
                         Log.d("test", "vote error : " + e.getMessage());
                         Toast.makeText(getContext(), "Vote Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -545,9 +562,9 @@ public class ViewFragment extends Fragment{
         });
     }
 
-    void calculateUserAverageScore(final String username)
+    void calculateUserAverageScore(final String userId)
     {
-        fbStore.collection("LecNote").whereEqualTo("owner", username).get()
+        fbStore.collection("LecNote").whereEqualTo("ownerId", userId).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -564,7 +581,7 @@ public class ViewFragment extends Fragment{
                             Log.d("test", "sum score = " + sumScore + " count = " + count);
                             double averageScore = sumScore / count;
                             Log.d("test", "averageScore : " + averageScore);
-                            fbStore.collection("User").document(username)
+                            fbStore.collection("User").document(userId)// over here
                                     .update("averageScore", averageScore)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override

@@ -19,6 +19,11 @@
         app:showAsAction="collapseActionView"
         />
     <item
+        android:id="@+id/menu_search_user"
+        android:title="Search User"
+        app:showAsAction="collapseActionView"
+        />
+    <item
         android:id="@+id/menu_logout"
         android:title="@string/text_logout"
         app:showAsAction="collapseActionView"

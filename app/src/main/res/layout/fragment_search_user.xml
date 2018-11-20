@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#D5A253">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/home_toolbar"
+        android:id="@+id/search_user_toolbar"
         android:theme="@style/HeaderBar"
         android:elevation="4dp"
         android:background="@color/Wooden"
@@ -16,7 +16,7 @@
         >
 
         <ImageView
-            android:id="@+id/home_back_button"
+            android:id="@+id/search_user_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ico_back"
@@ -24,7 +24,7 @@
             />
 
         <TextView
-            android:text="Home"
+            android:text="Search User"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor = "#FFFFFF"
@@ -49,7 +49,7 @@
                 >
 
                 <EditText
-                    android:id="@+id/home_search_title"
+                    android:id="@+id/search_user_username"
                     android:paddingStart="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                     android:layout_weight="3" />
 
                 <ImageView
-                    android:id="@+id/home_search_button"
+                    android:id="@+id/search_user_search_button"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/ico_search"
@@ -69,37 +69,8 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:paddingRight="15dp"
-                android:paddingLeft="15dp"
-                android:orientation="vertical">
-
-
-                <ImageView
-                    android:id="@+id/home_refresh_button"
-                    android:layout_width="53dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ico_reset"
-                    android:layout_gravity="start"
-                    />
-
-                <TextView
-                    android:id="@+id/home_advance_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:text="Advance search"
-                    android:textColor="#F5F5F5"
-                    android:layout_marginTop="-25dp"/>
-
-            </LinearLayout>
-
             <ProgressBar
-                android:id="@+id/home_progress_bar"
+                android:id="@+id/search_user_progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.ProgressBar"
@@ -114,7 +85,7 @@
                 android:orientation="vertical">
 
                 <ListView
-                    android:id="@+id/home_lec_note_list"
+                    android:id="@+id/search_user_user_list"
                     android:layout_width="match_parent"
                     android:layout_height="325dp"
                     android:layout_gravity="center"
@@ -126,17 +97,6 @@
                     android:dividerHeight="2dp"/>
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/home_upload_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/login_btn"
-                android:hint="Upload"
-                android:textColorHint="#F5F5F5" />
 
         </LinearLayout>
     </ScrollView>

@@ -116,6 +116,12 @@
                 android:layout_height="wrap_content"
                 android:text="score ranking : 2"/>
 
+            <TextView
+                android:id="@+id/profile_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Money : 100"/>
+
             <ProgressBar
                 android:id="@+id/profile_progress_bar"
                 android:layout_width="wrap_content"

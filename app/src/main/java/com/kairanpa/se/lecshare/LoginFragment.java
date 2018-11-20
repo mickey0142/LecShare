@@ -64,18 +64,40 @@ public class LoginFragment extends Fragment {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
 
+        final Button loginBtn = getView().findViewById(R.id.login_login_button);
+        final ProgressBar progressBar = getView().findViewById(R.id.login_progress_bar);
         Button skipButton = getView().findViewById(R.id.login_skip_button);
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = new User("tester", "99999999", "testereiei@mail.com");
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("User object", user);
-                Fragment homeFragment = new HomeFragment();
-                        homeFragment.setArguments(bundle);
-                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        ft.replace(R.id.main_view, homeFragment).commit();
+                fbStore.collection("User").whereEqualTo("email", "59070142@it.kmitl.ac.th")
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            Log.d("test", "get user info from firestore");
+                            for (QueryDocumentSnapshot document : task.getResult())
+                            {
+                                User user = document.toObject(User.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("User object", user);
+                                Fragment homeFragment = new HomeFragment();
+                                homeFragment.setArguments(bundle);
+                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                ft.replace(R.id.main_view, homeFragment).commit();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                            Log.d("test", "get user from firestore failed");
+                            loginBtn.setEnabled(true);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
             }
         });
     }
@@ -147,6 +169,7 @@ public class LoginFragment extends Fragment {
                                             }
                                             else
                                             {
+                                                Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
                                                 Log.d("test", "get user from firestore failed");
                                                 loginBtn.setEnabled(true);
                                                 progressBar.setVisibility(View.GONE);

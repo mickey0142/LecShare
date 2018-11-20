@@ -92,7 +92,7 @@ public class SearchResultFragment extends Fragment {
     public void initOrderBy()
     {
         Spinner dropDown = getView().findViewById(R.id.search_result_drop_down);
-        String[] orderType = new String[]{"title", "subject", "time"};
+        String[] orderType = new String[]{"title", "subject", "time", "score"};
         ArrayAdapter<String> orderAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, orderType);
         dropDown.setAdapter(orderAdapter);
         dropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -109,6 +109,10 @@ public class SearchResultFragment extends Fragment {
                 else if (position == 2)
                 {
                     queryOrderBy("time");
+                }
+                else if (position == 3)
+                {
+                    queryOrderBy("score");
                 }
             }
 
@@ -175,14 +179,14 @@ public class SearchResultFragment extends Fragment {
             final ListView resultListView = getView().findViewById(R.id.search_result_lec_note_list);
             resultListView.setVisibility(View.GONE);
             Query query = fbStore.collection("LecNote");
-//        if (orderBy.equals("score"))
-//        {
-//            query = fbStore.collection("LecNote")
-//                    .orderBy("score", Query.Direction.DESCENDING)
-//                    .orderBy("uploadTimeStamp", Query.Direction.DESCENDING)
-//                    .orderBy("title", Query.Direction.ASCENDING);
-//        }
-            if (orderBy.equals("subject")) {
+            if (orderBy.equals("score"))
+            {
+                query = fbStore.collection("LecNote")
+                        .orderBy("score", Query.Direction.DESCENDING)
+                        .orderBy("uploadTimeStamp", Query.Direction.DESCENDING)
+                        .orderBy("title", Query.Direction.ASCENDING);
+            }
+            else if (orderBy.equals("subject")) {
                 query = fbStore.collection("LecNote").orderBy("subject", Query.Direction.ASCENDING);
             } else if (orderBy.equals("title")) {
                 query = fbStore.collection("LecNote").orderBy("title", Query.Direction.ASCENDING);
@@ -254,6 +258,16 @@ public class SearchResultFragment extends Fragment {
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.replace(R.id.main_view, uploadFragment).addToBackStack(null).commit();
+                }
+                else if (itemId == R.id.menu_search_user)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment fragment = new SearchUserFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
                 }
                 else if (itemId == R.id.menu_logout)
                 {

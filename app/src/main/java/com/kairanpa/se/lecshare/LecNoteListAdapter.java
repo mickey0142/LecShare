@@ -33,7 +33,7 @@ public class LecNoteListAdapter extends ArrayAdapter {
         TextView title = lecNoteItem.findViewById(R.id.lec_note_list_item_title);
         TextView subject = lecNoteItem.findViewById(R.id.lec_note_list_item_subject);
         TextView owner = lecNoteItem.findViewById(R.id.lec_note_list_item_owner);
-//        TextView score = lecNoteItem.findViewById(R.id.lec_note_list_item_score);
+        TextView score = lecNoteItem.findViewById(R.id.lec_note_list_item_score);
         TextView date = lecNoteItem.findViewById(R.id.lec_note_list_item_date);
         if (position %2 == 1)
         {
@@ -43,6 +43,7 @@ public class LecNoteListAdapter extends ArrayAdapter {
         subject.setText(lecNote.get(position).getSubject());
         owner.setText(lecNote.get(position).getOwner());
         date.setText(lecNote.get(position).UploadTimeReverse());
+        score.setText(lecNote.get(position).getScore() + "");
         return lecNoteItem;
     }
 }

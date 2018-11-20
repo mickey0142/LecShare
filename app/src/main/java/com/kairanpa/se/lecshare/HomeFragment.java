@@ -249,6 +249,16 @@ public class HomeFragment extends Fragment {
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.replace(R.id.main_view, uploadFragment).addToBackStack(null).commit();
                 }
+                else if (itemId == R.id.menu_search_user)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment fragment = new SearchUserFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+                }
                 else if (itemId == R.id.menu_logout)
                 {
                     Log.d("test", "press logout");

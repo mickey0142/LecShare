@@ -18,6 +18,7 @@ public class LecNote implements Serializable{
     private double score = 0;
     private HashMap<String, Float> vote = new HashMap<>();
     private String documentId;
+    private String ownerId;
 
     public LecNote()
     {
@@ -148,5 +149,13 @@ public class LecNote implements Serializable{
 
     public void setDocumentId(String documentId) {
         this.documentId = documentId;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }
