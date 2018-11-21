@@ -65,10 +65,49 @@ public class ProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initAvatar();
         initText();
         initUpdateButton();
         initLecNoteList();
+        initBackButton();
         initToolbar();
+    }
+
+    void initAvatar()
+    {
+        ImageView avatar = getView().findViewById(R.id.profile_avatar);
+        if (user.getDocumentId().equals(target.getDocumentId()))
+        {
+            avatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment fragment = new AvatarFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+                }
+            });
+        }
+        String pictureName = target.getAvatar() + target.getAccessory();
+        Log.d("test", "picture name is " + pictureName);
+        switch (pictureName)
+        {
+            case "blue":
+                avatar.setImageResource(R.drawable.avatar_blue);
+                break;
+            case "green":
+                avatar.setImageResource(R.drawable.avatar_green);
+                break;
+            case "grey":
+                avatar.setImageResource(R.drawable.avatar_grey);
+                break;
+            case "red":
+                avatar.setImageResource(R.drawable.avatar_red);
+                break;
+        }
     }
 
     void initText()
@@ -247,6 +286,17 @@ public class ProfileFragment extends Fragment {
                     Log.d("test", "get lec note list fail : " + task.getException());
                     Toast.makeText(getContext(), "Error : " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    void initBackButton()
+    {
+        ImageView backButton = getView().findViewById(R.id.profile_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
             }
         });
     }

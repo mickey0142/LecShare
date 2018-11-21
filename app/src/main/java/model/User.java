@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 public class User implements Serializable{
     private String username;
@@ -9,19 +10,30 @@ public class User implements Serializable{
     private double averageScore;
     private int money;
     private String documentId;
+    private String avatar;
+    private String accessory;
+    private HashMap<String, Boolean> inventory;
 
     public User()
     {
 
     }
 
-    public User(String username, String aboutMe, String email)
+    public User(String username, String aboutMe, String email, String avatar)
     {
         this.username = username;
         this.aboutMe = aboutMe;
         this.email = email;
         this.averageScore = 0;
         this.setMoney(0);
+        this.inventory = new HashMap<>();
+        getInventory().put("blue", false);
+        getInventory().put("green", false);
+        getInventory().put("grey", false);
+        getInventory().put("red", false);
+        getInventory().put(avatar, true);
+        this.avatar = avatar;
+        this.accessory = "";
     }
 
     public String getUsername() {
@@ -75,5 +87,29 @@ public class User implements Serializable{
 
     public void setDocumentId(String documentId) {
         this.documentId = documentId;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getAccessory() {
+        return accessory;
+    }
+
+    public void setAccessory(String accessory) {
+        this.accessory = accessory;
+    }
+
+    public HashMap<String, Boolean> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(HashMap<String, Boolean> inventory) {
+        this.inventory = inventory;
     }
 }

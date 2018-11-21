@@ -57,6 +57,7 @@ public class SearchUserFragment extends Fragment {
 
         showUserList();
         initSearchButton();
+        initBackButton();
         initToolbar();
     }
 
@@ -147,6 +148,17 @@ public class SearchUserFragment extends Fragment {
                 {
                     Log.d("test", "catch NullPointerException : " + e.getMessage());
                 }
+            }
+        });
+    }
+
+    void initBackButton()
+    {
+        ImageView backButton = getView().findViewById(R.id.search_user_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
             }
         });
     }

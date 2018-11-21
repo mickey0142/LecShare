@@ -90,13 +90,6 @@ public class SearchFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("User object", user);
-//                Fragment homeFragment = new HomeFragment();
-//                homeFragment.setArguments(bundle);
-//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//                ft.replace(R.id.main_view, homeFragment).commit();
                 getFragmentManager().popBackStack();
             }
         });

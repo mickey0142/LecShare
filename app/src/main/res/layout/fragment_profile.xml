@@ -20,7 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ico_back"
-            android:visibility="gone"
             />
 
         <TextView
@@ -40,6 +39,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/profile_avatar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/avatar_blue"
+                android:layout_gravity="center"
+                android:background="@drawable/text_box"
+                android:layout_margin="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

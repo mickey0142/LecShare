@@ -31,6 +31,7 @@ import model.User;
 public class RegisterFragment extends Fragment {
     private FirebaseAuth fbAuth;
     FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
+    String avatarName = "blue";
 
     @Nullable
     @Override
@@ -44,6 +45,7 @@ public class RegisterFragment extends Fragment {
         fbAuth = FirebaseAuth.getInstance();
         initRegister();
         initBackButton();
+        initChooseAvatar();
     }
 
     private void initRegister(){
@@ -102,7 +104,7 @@ public class RegisterFragment extends Fragment {
                                             fbAuth.createUserWithEmailAndPassword(_emailStr, _passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                                 @Override
                                                 public void onSuccess(AuthResult authResult) {
-                                                    User user = new User(_usernameStr, "aboutMe", _emailStr);
+                                                    User user = new User(_usernameStr, "aboutMe", _emailStr, avatarName);
                                                     final FirebaseUser authUser = authResult.getUser();
                                                     fbStore.collection("User").add(user)
                                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -173,6 +175,61 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStack();
+            }
+        });
+    }
+
+    void initChooseAvatar()
+    {
+        final ImageView avatar = getView().findViewById(R.id.register_avatar);
+        ImageView leftButton = getView().findViewById(R.id.register_avatar_left);
+        ImageView rightButton = getView().findViewById(R.id.register_avatar_right);
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (avatarName)
+                {
+                    case "blue":
+                        avatar.setImageResource(R.drawable.avatar_green);
+                        avatarName = "green";
+                        break;
+                    case "green":
+                        avatar.setImageResource(R.drawable.avatar_grey);
+                        avatarName = "grey";
+                        break;
+                    case "grey":
+                        avatar.setImageResource(R.drawable.avatar_red);
+                        avatarName = "red";
+                        break;
+                    case "red":
+                        avatar.setImageResource(R.drawable.avatar_blue);
+                        avatarName = "blue";
+                        break;
+                }
+            }
+        });
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (avatarName)
+                {
+                    case "blue":
+                        avatar.setImageResource(R.drawable.avatar_red);
+                        avatarName = "red";
+                        break;
+                    case "green":
+                        avatar.setImageResource(R.drawable.avatar_blue);
+                        avatarName = "blue";
+                        break;
+                    case "grey":
+                        avatar.setImageResource(R.drawable.avatar_green);
+                        avatarName = "green";
+                        break;
+                    case "red":
+                        avatar.setImageResource(R.drawable.avatar_grey);
+                        avatarName = "grey";
+                        break;
+                }
             }
         });
     }
