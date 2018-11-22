@@ -73,6 +73,7 @@ public class ViewFragment extends Fragment{
 
         setTextBox();
         initBackButton();
+        initEditButton();
         showImage();
         initToolbar();
         initDownloadAllButton();
@@ -98,6 +99,31 @@ public class ViewFragment extends Fragment{
                 getFragmentManager().popBackStack();
             }
         });
+    }
+
+    public void initEditButton()
+    {
+        TextView _editButton = getView().findViewById(R.id.view_edit_post_button);
+        _editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("User object", user);
+                bundle.putSerializable("LecNote object", lecNote);
+                Fragment uploadFragment = new UploadFragment();
+                uploadFragment.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.main_view, uploadFragment).commit();
+            }
+        });
+        if (user.getDocumentId().equals(lecNote.getOwnerId())){
+            _editButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            _editButton.setVisibility(View.GONE);
+
+        }
     }
 
     public void showImage()

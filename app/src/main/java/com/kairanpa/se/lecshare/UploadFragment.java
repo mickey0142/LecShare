@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -51,6 +52,8 @@ public class UploadFragment extends Fragment{
     ArrayList<String> fileName = new ArrayList<>();
     ProgressBar progressBar;
     User user;
+    LecNote lecNote;
+    String type = "Upload";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +63,23 @@ public class UploadFragment extends Fragment{
         Bundle bundle = getArguments();
         user = (User) bundle.getSerializable("User object");
         Log.d("test", "user : " + user);
+        try
+        {
+            lecNote = (LecNote) bundle.getSerializable("LecNote object");
+            Log.d("test", "edit : lecnote = " + lecNote);
+            type = "Edit";
+        }
+        catch (NullPointerException e)
+        {
+            type = "Upload";
+            Log.d("test", "upload");
+        }
+        if (lecNote == null)
+        {
+
+            Log.d("test", "upload");
+            type = "Upload";
+        }
     }
 
     @Nullable
@@ -88,6 +108,8 @@ public class UploadFragment extends Fragment{
         initChooseFileButton();
         initBackButton();
         initToolbar();
+        initDeleteButton();
+        initSetText();
     }
 
     @Override
@@ -130,40 +152,66 @@ public class UploadFragment extends Fragment{
 
     public void uploadLecNote(final LecNote lecNote)
     {
-        fbStore.collection("LecNote").add(lecNote)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        fbStore.collection("LecNote").document(documentReference.getId())
-                                .update("documentId", documentReference.getId())
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("test", "add lecNote to firebase success");
-                                Toast.makeText(getContext(), "add success", Toast.LENGTH_SHORT).show();
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("User object", user);
-                                Fragment homeFragment = new HomeFragment();
-                                homeFragment.setArguments(bundle);
-                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                ft.replace(R.id.main_view, homeFragment).commit();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("test", "add documentId to firebase failed. Error : " + e.getMessage());
-                                Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("test", "add lecNote to firebase failed. Error : " + e.getMessage());
-                Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (type.equals("Upload")) {
+            fbStore.collection("LecNote").add(lecNote)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            fbStore.collection("LecNote").document(documentReference.getId())
+                                    .update("documentId", documentReference.getId())
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("test", "add lecNote to firebase success");
+                                            Toast.makeText(getContext(), "add success", Toast.LENGTH_SHORT).show();
+                                            Bundle bundle = new Bundle();
+                                            bundle.putSerializable("User object", user);
+                                            Fragment homeFragment = new HomeFragment();
+                                            homeFragment.setArguments(bundle);
+                                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                            ft.replace(R.id.main_view, homeFragment).commit();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("test", "add documentId to firebase failed. Error : " + e.getMessage());
+                                    Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("test", "add lecNote to firebase failed. Error : " + e.getMessage());
+                    Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else if (type.equals("Edit"))
+        {
+            fbStore.collection("LecNote").document(lecNote.getDocumentId()).set(lecNote)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("test", "update lecNote to firebase success");
+                            Toast.makeText(getContext(), "update success", Toast.LENGTH_SHORT).show();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("User object", user);
+                            Fragment homeFragment = new HomeFragment();
+                            homeFragment.setArguments(bundle);
+                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            ft.replace(R.id.main_view, homeFragment).commit();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("test", "update lecNote to firebase failed. Error : " + e.getMessage());
+                    Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     public void initUploadButton()
@@ -184,13 +232,18 @@ public class UploadFragment extends Fragment{
                     return;
                 }
                 Toast.makeText(getContext(), "uploading... please wait", Toast.LENGTH_SHORT).show();
-                final LecNote lecNote = new LecNote();
-                lecNote.setDescription(description);
-                lecNote.setTitle(title);
-                lecNote.setSubject(subject);
-                lecNote.setUploadTimeStamp();
-                lecNote.setOwner(user.getUsername());
-                lecNote.setOwnerId(user.getDocumentId());
+                if (type.equals("Upload"))
+                {
+                    final LecNote lecNote2 = new LecNote();
+                    lecNote2.setDescription(description);
+                    lecNote2.setTitle(title);
+                    lecNote2.setSubject(subject);
+                    lecNote2.setUploadTimeStamp();
+                    lecNote2.setOwner(user.getUsername());
+                    lecNote2.setOwnerId(user.getDocumentId());
+                    lecNote = lecNote2;
+                }
+
 
                 if (fileName.size() == 0)
                 {
@@ -203,10 +256,18 @@ public class UploadFragment extends Fragment{
                 final ArrayList<Integer> allProgress = new ArrayList<>();
                 for(int i = 0; i < fileName.size(); i++)
                 {
+                    if (filePath.get(i).equals("lecnote"))
+                    {
+                        continue;
+                    }
                     allProgress.add(0);
                 }
                 for (int i = 0; i < fileName.size(); i++)
                 {
+                    if (filePath.get(i).equals("lecnote"))
+                    {
+                        continue;
+                    }
                     file = Uri.fromFile(new File(filePath.get(i)));
                     fileRef = storageRef.child(file.getLastPathSegment());
                     uploadTask = fileRef.putFile(file);
@@ -372,4 +433,67 @@ public class UploadFragment extends Fragment{
             }
         });
     }
+
+    void initDeleteButton ()
+    {
+        final Button _deleteButton = getView().findViewById(R.id.upload_delete_button);
+        _deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _deleteButton.setEnabled(false);
+                fbStore.collection("LecNote").document(lecNote.getDocumentId()).delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                _deleteButton.setEnabled(true);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("User object", user);
+                                Fragment homeFragment = new HomeFragment();
+                                homeFragment.setArguments(bundle);
+                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                ft.replace(R.id.main_view, homeFragment).commit();
+                                Toast.makeText(getContext(), "Delete Success", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        _deleteButton.setEnabled(true);
+                        Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("test","delete error " + e.getMessage());
+                    }
+                });
+            }
+        });
+        if (type.equals("Upload")){
+            _deleteButton.setVisibility(View.GONE);
+        }
+        else {
+            _deleteButton.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    void initSetText()
+    {
+        if (type.equals("Edit"))
+        {
+            final EditText titleBox = getView().findViewById(R.id.upload_title);
+            final EditText subjectBox = getView().findViewById(R.id.upload_subject);
+            final EditText descriptionBox = getView().findViewById(R.id.upload_description);
+            titleBox.setText(lecNote.getTitle());
+            subjectBox.setText(lecNote.getSubject());
+            descriptionBox.setText(lecNote.getDescription());
+            ArrayList<String> fileNameImagine = lecNote.getFilesName();
+            for (int i=0; i<fileNameImagine.size();i++)
+            {
+                filePath.add("lecnote");
+                fileName.add(fileNameImagine.get(i));
+            }
+            FileListAdapter nameAdapter = new FileListAdapter(getActivity(), R.layout.fragment_file_list_item, fileName, filePath);
+            ListView fileList = getView().findViewById(R.id.upload_file_list);
+            fileList.setAdapter(nameAdapter);
+        }
+    }
+
 }
