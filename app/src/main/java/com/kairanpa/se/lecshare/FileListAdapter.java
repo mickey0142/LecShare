@@ -17,12 +17,14 @@ public class FileListAdapter extends ArrayAdapter {
 
     Context context;
     ArrayList<String> fileList;
+    ArrayList<String> filePath;
 
-    public FileListAdapter(Context context, int  resource, ArrayList<String> objects)
+    public FileListAdapter(Context context, int  resource, ArrayList<String> objects, ArrayList<String> filePath)
     {
         super(context, resource, objects);
         this.context = context;
         this.fileList =  objects;
+        this.filePath = filePath;
     }
 
     @NonNull
@@ -37,6 +39,7 @@ public class FileListAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 fileList.remove(pos);
+                filePath.remove(pos);
                 temp.notifyDataSetChanged();
             }
         });
