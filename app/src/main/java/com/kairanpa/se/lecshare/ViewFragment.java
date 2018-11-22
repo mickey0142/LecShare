@@ -110,11 +110,11 @@ public class ViewFragment extends Fragment{
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("User object", user);
                 bundle.putSerializable("LecNote object", lecNote);
-                Fragment uploadFragment = new UploadFragment();
-                uploadFragment.setArguments(bundle);
+                Fragment fragment = new EditFragment();
+                fragment.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.main_view, uploadFragment).commit();
+                ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
             }
         });
         if (user.getDocumentId().equals(lecNote.getOwnerId())){

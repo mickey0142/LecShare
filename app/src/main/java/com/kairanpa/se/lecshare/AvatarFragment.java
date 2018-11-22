@@ -108,6 +108,7 @@ public class AvatarFragment extends Fragment {
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buyButton.setEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
                 if (user.getInventory().get(name))
                 {
@@ -123,6 +124,7 @@ public class AvatarFragment extends Fragment {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     progressBar.setVisibility(View.INVISIBLE);
+                                    buyButton.setEnabled(true);
                                     Toast.makeText(getContext(), "update success", Toast.LENGTH_SHORT).show();
                                     Log.d("test", "update equip success");
                                 }
@@ -130,6 +132,7 @@ public class AvatarFragment extends Fragment {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressBar.setVisibility(View.INVISIBLE);
+                            buyButton.setEnabled(true);
                             Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d("test", "equip fail : " + e.getMessage());
                         }
@@ -139,6 +142,7 @@ public class AvatarFragment extends Fragment {
                 {
                     if (user.getMoney() < price)
                     {
+                        buyButton.setEnabled(true);
                         Toast.makeText(getContext(), "not enough money", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.INVISIBLE);
                         return;
@@ -149,6 +153,7 @@ public class AvatarFragment extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    buyButton.setEnabled(true);
                                     progressBar.setVisibility(View.INVISIBLE);
                                     buyButton.setText("Use");
                                     Toast.makeText(getContext(), "buy success", Toast.LENGTH_SHORT).show();
@@ -158,6 +163,7 @@ public class AvatarFragment extends Fragment {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressBar.setVisibility(View.INVISIBLE);
+                            buyButton.setEnabled(true);
                             Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d("test", "update buy error : " + e.getMessage());
                         }
