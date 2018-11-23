@@ -33,8 +33,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -43,7 +41,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="10dp"
-            android:padding="10dp">
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/view_edit_post_button"
@@ -100,28 +98,11 @@
                 style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
                 android:visibility="gone"/>
 
-            <!--
-                DANGER ZONE !!!
-                PLEASE DO NOT EDIT ANYTHING IN THIS ZONE.
-                changing anything outside such as outer (or parent) LinearLayout padding can break
-                this zone so please do it with caution.
-                IT IS RECOMMENDED TO RUN THIS PAGE TO SEE THE REAL RESULT. JUST SEEING RESULT IN
-                PREVIEW IS NOT ENOUGH.
-                but you can move this zone up or down safely.
-            -->
-
-            <LinearLayout
-                android:id="@+id/view_picture_linear_layout"
+            <ListView
+                android:id="@+id/view_picture_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
-
-            </LinearLayout>
-
-            <!--
-                END OF DANGER ZONE
-            -->
+                android:layout_height="400dp"
+                android:nestedScrollingEnabled="true"></ListView>
 
             <LinearLayout
                 android:id="@+id/view_vote_linear_layout"

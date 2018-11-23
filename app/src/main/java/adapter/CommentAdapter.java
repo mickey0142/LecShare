@@ -1,4 +1,4 @@
-package com.kairanpa.se.lecshare;
+package adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.kairanpa.se.lecshare.R;
 
 import java.util.ArrayList;
 import java.util.Date;

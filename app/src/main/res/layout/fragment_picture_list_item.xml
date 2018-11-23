@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/text_box"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/picture_list_item_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/picture_list_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:text="namenamename.jpg"/>
+
+    <ProgressBar
+        android:id="@+id/picture_list_item_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="-40dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/picture_list_item_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ico_yes"
+        android:layout_gravity="right"
+        android:layout_marginTop="-45dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/picture_list_item_download_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ico_download"
+        android:layout_gravity="right"
+        android:layout_marginTop="-35dp"/>
+
+</LinearLayout>

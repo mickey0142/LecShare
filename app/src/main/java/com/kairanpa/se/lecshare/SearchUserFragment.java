@@ -27,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import adapter.UserAdapter;
 import model.User;
 
 public class SearchUserFragment extends Fragment {

@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import adapter.CommentAdapter;
 import model.Comment;
 import model.LecNote;
 import model.User;
