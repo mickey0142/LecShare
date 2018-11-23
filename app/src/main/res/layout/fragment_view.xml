@@ -164,7 +164,16 @@
                     android:layout_gravity="center"
                     android:layout_margin="7dp"/>
 
+
+
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/view_comment_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comment" />
 
         </LinearLayout>
     </ScrollView>

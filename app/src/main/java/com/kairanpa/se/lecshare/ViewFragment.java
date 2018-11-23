@@ -78,6 +78,21 @@ public class ViewFragment extends Fragment{
         initToolbar();
         initDownloadAllButton();
         initVoteStar();
+
+        TextView textView = getView().findViewById(R.id.view_comment_form);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("User object", user);
+                bundle.putSerializable("LecNote object", lecNote);
+                Fragment fragment = new CommentFragment();
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+            }
+        });
     }
 
     public void setTextBox()
