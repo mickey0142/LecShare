@@ -47,27 +47,33 @@
                 android:src="@drawable/avatar_blue"
                 android:layout_gravity="center"
                 android:background="@drawable/text_box"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:padding="16dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/border_login"
+                android:padding="5dp">
 
                 <TextView
-                    android:text="Username :"
+                    android:textAlignment="center"
+                    android:text="Username : "
+                    android:textSize="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    android:textColor="#000"
+                    />
 
                 <EditText
                     android:id="@+id/profile_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#FFF8BB"
                     android:textColor="#505050"
-                    android:textColorHint="#828282"
+                    android:textColorHint="#00bcd4"
                     android:padding="5dp"
                     android:hint="username"
                     android:inputType="text"/>
@@ -75,24 +81,30 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/border_login"
+                android:padding="5dp">
 
                 <TextView
-                    android:text="About me :"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:text="About me : "
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:layout_weight="2"
+                    android:textColor="#000"
+                    />
 
                 <EditText
                     android:id="@+id/profile_about_me"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#FFF8BB"
                     android:textColor="#505050"
-                    android:textColorHint="#828282"
+                    android:textColorHint="#00bcd4"
                     android:padding="5dp"
                     android:hint="about me" />
 
@@ -107,28 +119,40 @@
                 android:visibility="gone"/>
 
             <Button
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:id="@+id/profile_update_button"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="update"/>
+                android:text="update"
+                android:background="@drawable/login_btn"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/border_login"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/profile_average_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="average score : 1"/>
 
-            <TextView
-                android:id="@+id/profile_average_score"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="average score : 1"/>
+        <TextView
+            android:id="@+id/profile_ranking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="score ranking : 2"/>
 
-            <TextView
-                android:id="@+id/profile_ranking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="score ranking : 2"/>
+        <TextView
+            android:id="@+id/profile_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Money : 100"/>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/profile_money"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Money : 100"/>
 
             <ProgressBar
                 android:id="@+id/profile_progress_bar"
