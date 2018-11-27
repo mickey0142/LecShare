@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment {
                 }
             });
         }
-        String pictureName = target.getAvatar() + target.getAccessory();
+        String pictureName = target.getAvatar();
         Log.d("test", "picture name is " + pictureName);
         switch (pictureName)
         {

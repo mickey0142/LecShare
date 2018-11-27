@@ -23,6 +23,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import model.User;
 
 public class AvatarFragment extends Fragment {
@@ -49,16 +52,79 @@ public class AvatarFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initGachaButton();
         initAvatar();
         initShop();
+        updateMoneyText();
         initBackButton();
         initToolbar();
+    }
+
+    void initGachaButton()
+    {
+        final ProgressBar progressBar = getView().findViewById(R.id.avatar_progress_bar);
+        final Button gachaButton = getView().findViewById(R.id.avatar_gacha_button);
+        gachaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean gotAll = true;
+                Set<String> keys = user.getInventory().keySet();
+                ArrayList<String> randomBox = new ArrayList<>();
+                for (String key : keys)
+                {
+                    if (!user.getInventory().get(key))
+                    {
+                        gotAll = false;
+                        randomBox.add(key);
+                    }
+                }
+                if (gotAll)
+                {
+                    Toast.makeText(getContext(), "you already have every item", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    gachaButton.setEnabled(false);
+                    progressBar.setVisibility(View.VISIBLE);
+                    final String result = randomBox.get((int) (Math.random() * randomBox.size()));
+                    user.getInventory().put(result, true);
+                    user.addMoney(-100);
+                    updateMoneyText();
+                    fbStore.collection("User").document(user.getDocumentId()).set(user)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    gachaButton.setEnabled(true);
+                                    Log.d("test", "gacha random success result is : " + result);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("User object", user);
+                                    bundle.putString("gacha result", result);
+                                    Fragment fragment = new GachaFragment();
+                                    fragment.setArguments(bundle);
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    gachaButton.setEnabled(true);
+                                    Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Log.d("test", "gacha random update fail : " + e.getMessage());
+                                }
+                            });
+                }
+            }
+        });
     }
 
     void initAvatar()
     {
         ImageView avatar = getView().findViewById(R.id.avatar_avatar);
-        String pictureName = user.getAvatar()+user.getAccessory();
+        String pictureName = user.getAvatar();
         Log.d("test", "picture name is " + pictureName);
         switch (pictureName)
         {
@@ -79,15 +145,17 @@ public class AvatarFragment extends Fragment {
 
     void initShop()
     {
-        initItem(R.id.avatar_item_blue, "blue", "", 100, R.drawable.avatar_blue);
-        initItem(R.id.avatar_item_green, "green", "", 100, R.drawable.avatar_green);
-        initItem(R.id.avatar_item_grey, "grey", "", 100, R.drawable.avatar_grey);
-        initItem(R.id.avatar_item_red, "red", "", 100, R.drawable.avatar_red);
+        initItem(R.id.avatar_item_blue, "blue", 1000, R.drawable.avatar_blue);
+        initItem(R.id.avatar_item_green, "green",1000, R.drawable.avatar_green);
+        initItem(R.id.avatar_item_grey, "grey", 1000, R.drawable.avatar_grey);
+        initItem(R.id.avatar_item_red, "red", 1000, R.drawable.avatar_red);
     }
 
-    void initItem(final int id, final String name, final String accName, final int price, final int avatarId)
+    void initItem(final int id, final String name, final int price, final int avatarId)
     {
         LinearLayout itemLayout = getView().findViewById(id);
+        ImageView itemPicture = itemLayout.findViewById(R.id.shop_item_picture);
+        itemPicture.setImageResource(avatarId);
         TextView itemName = itemLayout.findViewById(R.id.shop_item_name);
         TextView itemPrice = itemLayout.findViewById(R.id.shop_item_price);
         final Button buyButton = itemLayout.findViewById(R.id.shop_item_buy_button);
@@ -118,7 +186,6 @@ public class AvatarFragment extends Fragment {
                     ImageView avatar = getView().findViewById(R.id.avatar_avatar);
                     avatar.setImageResource(avatarId);
                     user.setAvatar(name);
-                    user.setAccessory(accName);
                     fbStore.collection("User").document(user.getDocumentId()).set(user)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -147,8 +214,9 @@ public class AvatarFragment extends Fragment {
                         progressBar.setVisibility(View.INVISIBLE);
                         return;
                     }
-                    user.getInventory().put(name+accName, true);
+                    user.getInventory().put(name, true);
                     user.addMoney(-price);
+                    updateMoneyText();
                     fbStore.collection("User").document(user.getDocumentId()).set(user)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -184,6 +252,12 @@ public class AvatarFragment extends Fragment {
             buyButton.setVisibility(View.VISIBLE);
             equipped.setVisibility(View.GONE);
         }
+    }
+
+    void updateMoneyText()
+    {
+        TextView moneyText = getView().findViewById(R.id.avatar_money);
+        moneyText.setText("Money : " + user.getMoney());
     }
 
     void initBackButton()

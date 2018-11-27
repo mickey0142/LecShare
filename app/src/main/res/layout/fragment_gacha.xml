@@ -5,7 +5,7 @@
     android:background="#D5A253">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/avatar_toolbar"
+        android:id="@+id/gacha_toolbar"
         android:theme="@style/HeaderBar"
         android:elevation="4dp"
         android:background="@color/Wooden"
@@ -14,36 +14,20 @@
         >
 
         <ImageView
-            android:id="@+id/avatar_back_button"
+            android:id="@+id/gacha_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ico_back"
             />
 
         <TextView
-            android:text="Avatar"
+            android:text="Gacha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor = "#FFFFFF"
             android:gravity="center"/>
 
     </android.support.v7.widget.Toolbar>
-
-    <ImageView
-        android:id="@+id/avatar_avatar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/avatar_blue"
-        android:layout_gravity="center"
-        android:background="@drawable/text_box"
-        android:layout_margin="10dp"/>
-
-    <TextView
-        android:id="@+id/avatar_money"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="money : 100"
-        android:textAlignment="center"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -54,26 +38,37 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <include android:id="@+id/avatar_item_blue" layout="@layout/fragment_shop_item"/>
-
-            <include android:id="@+id/avatar_item_green" layout="@layout/fragment_shop_item"/>
-
-            <include android:id="@+id/avatar_item_grey" layout="@layout/fragment_shop_item"/>
-
-            <include android:id="@+id/avatar_item_red" layout="@layout/fragment_shop_item"/>
-
-            <ProgressBar
-                android:id="@+id/avatar_progress_bar"
+            <ImageView
+                android:id="@+id/gacha_picture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"/>
+                android:layout_gravity="center"/>
 
-            <Button
-                android:id="@+id/avatar_gacha_button"
+            <LinearLayout
+                android:id="@+id/gacha_after_finish_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_box"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_gravity="center"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/gacha_after_finish_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/avatar_red" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/gacha_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="open gacha (100)"/>
+                android:text="you got fluffer"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>

@@ -11,7 +11,6 @@ public class User implements Serializable{
     private int money;
     private String documentId;
     private String avatar;
-    private String accessory;
     private HashMap<String, Boolean> inventory;
 
     public User()
@@ -33,7 +32,6 @@ public class User implements Serializable{
         getInventory().put("red", false);
         getInventory().put(avatar, true);
         this.avatar = avatar;
-        this.accessory = "";
     }
 
     public String getUsername() {
@@ -95,14 +93,6 @@ public class User implements Serializable{
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public String getAccessory() {
-        return accessory;
-    }
-
-    public void setAccessory(String accessory) {
-        this.accessory = accessory;
     }
 
     public HashMap<String, Boolean> getInventory() {
