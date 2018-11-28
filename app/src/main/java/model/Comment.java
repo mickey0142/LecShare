@@ -8,9 +8,10 @@ import java.util.Date;
 
 public class Comment implements Serializable {
     private String comment;
-    private String CommentDocID;
+    private String lecNoteID;
     private String userName;
     private String userNameID;
+    private String documentID;
     private String commentTimeStamp;
 
     public Comment() {
@@ -37,14 +38,6 @@ public class Comment implements Serializable {
         this.comment = comment;
     }
 
-    public String getCommentDocID() {
-        return CommentDocID;
-    }
-
-    public void setCommentDocID(String commentDocID) {
-        CommentDocID = commentDocID;
-    }
-
     public void setCommentTimeStamp(){
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -69,5 +62,21 @@ public class Comment implements Serializable {
 
     public void setUserNameID(String userNameID) {
         this.userNameID = userNameID;
+    }
+
+    public String getDocumentID() {
+        return documentID;
+    }
+
+    public void setDocumentID(String documentID) {
+        this.documentID = documentID;
+    }
+
+    public String getLecNoteID() {
+        return lecNoteID;
+    }
+
+    public void setLecNoteID(String lecNoteID) {
+        this.lecNoteID = lecNoteID;
     }
 }

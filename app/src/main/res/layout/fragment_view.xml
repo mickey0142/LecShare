@@ -150,13 +150,30 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/view_comment_form"
+            <EditText
+                android:id="@+id/comment_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textLongMessage"
+                android:hint="What do you thinks?" />
+
+            <Button
+                android:id="@+id/commentBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Comment" />
 
+            <ListView
+                android:id="@+id/comment_list"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                android:nestedScrollingEnabled="true"
+                android:background="@drawable/text_box"
+                android:padding="10dp" />
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

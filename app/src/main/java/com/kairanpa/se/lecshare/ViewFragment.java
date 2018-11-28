@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -40,8 +42,11 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import adapter.CommentAdapter;
 import adapter.PictureAdapter;
+import model.Comment;
 import model.LecNote;
 import model.User;
 
@@ -52,6 +57,10 @@ public class ViewFragment extends Fragment{
     FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
     LecNote lecNote;
     User user;
+    ListView commentList;
+    ArrayList<Comment> comments = new ArrayList<Comment>();
+    CommentAdapter commentAdapter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,21 +88,23 @@ public class ViewFragment extends Fragment{
         initToolbar();
         initDownloadAllButton();
         initVoteStar();
+        CommentBtn();
+        initShowComment();
 
-        TextView textView = getView().findViewById(R.id.view_comment_form);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("User object", user);
-                bundle.putSerializable("LecNote object", lecNote);
-                Fragment fragment = new CommentFragment();
-                fragment.setArguments(bundle);
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
-            }
-        });
+//        TextView textView = getView().findViewById(R.id.view_comment_form);
+//        textView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("User object", user);
+//                bundle.putSerializable("LecNote object", lecNote);
+//                Fragment fragment = new CommentFragment();
+//                fragment.setArguments(bundle);
+//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+//            }
+//        });
     }
 
     public void setTextBox()
@@ -453,5 +464,92 @@ public class ViewFragment extends Fragment{
                         }
                     }
                 });
+    }
+
+    void uploadComment(final Comment comment){
+        fbStore.collection("Comment").add(comment).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                fbStore.collection("Comment").document(documentReference.getId())
+                        .update("documentID", documentReference.getId())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("test", "Add comment to firebase success.");
+                                Toast.makeText(getContext(), "Comment success", Toast.LENGTH_SHORT).show();
+                                initShowComment();
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("User object", user);
+                                bundle.putSerializable("LecNote object", lecNote);
+                                Fragment fragment = new ViewFragment();
+                                fragment.setArguments(bundle);
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                transaction.replace(R.id.main_view, fragment).commit();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("test", "Comment: add documentId to firebase error: " + e.getMessage());
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("test", "Comment: add comment to firebase error: " + e.getMessage());
+            }
+        });
+    }
+
+    void CommentBtn(){
+        Button button = getView().findViewById(R.id.commentBtn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = getView().findViewById(R.id.comment_form);
+                String form_check = editText.getText().toString();
+                if (form_check.isEmpty()){
+                    Toast.makeText(getActivity(), "Comment is empty. Please comment something.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                final Comment comment = new Comment();
+                comment.setUserName(user.getUsername());
+                comment.setUserNameID(user.getDocumentId());
+                comment.setLecNoteID(lecNote.getDocumentId());
+                comment.setComment(form_check);
+                comment.setCommentTimeStamp();
+                uploadComment(comment);
+            }
+        });
+    }
+
+    void initShowComment(){
+        fbStore.collection("Comment").whereEqualTo("lecNoteID", lecNote.getDocumentId())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    comments = new ArrayList<>();
+                    for (DocumentSnapshot doc: task.getResult()){
+                        Comment comment = doc.toObject(Comment.class);
+                        comments.add(comment);
+                    }
+                    readerPost();
+                }
+                else{
+                    Log.d("test", "Comment: get comment error: " + task.getException());
+                }
+            }
+        });
+    }
+
+    void readerPost(){
+        if (getView() != null){
+            commentList = getView().findViewById(R.id.comment_list);
+            commentList.setDivider(null);
+            commentAdapter = new CommentAdapter(getActivity(), R.layout.fragment_list_comment, comments, user);
+            commentList.setAdapter(commentAdapter);
+        }
     }
 }
