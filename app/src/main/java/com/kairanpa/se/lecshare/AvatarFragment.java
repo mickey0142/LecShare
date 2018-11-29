@@ -140,6 +140,18 @@ public class AvatarFragment extends Fragment {
             case "red":
                 avatar.setImageResource(R.drawable.avatar_red);
                 break;
+            case "brown bunny":
+                avatar.setImageResource(R.drawable.avatar_brown_bunny);
+                break;
+            case "pinky":
+                avatar.setImageResource(R.drawable.avatar_pinky);
+                break;
+            case "wingky":
+                avatar.setImageResource(R.drawable.avatar_wingky);
+                break;
+            case "zombie":
+                avatar.setImageResource(R.drawable.avatar_zombie);
+                break;
         }
     }
 
@@ -149,6 +161,10 @@ public class AvatarFragment extends Fragment {
         initItem(R.id.avatar_item_green, "green",1000, R.drawable.avatar_green);
         initItem(R.id.avatar_item_grey, "grey", 1000, R.drawable.avatar_grey);
         initItem(R.id.avatar_item_red, "red", 1000, R.drawable.avatar_red);
+        initItem(R.id.avatar_item_brown_bunny, "brown bunny", 1000, R.drawable.avatar_brown_bunny);
+        initItem(R.id.avatar_item_pinky, "pinky", 1000, R.drawable.avatar_pinky);
+        initItem(R.id.avatar_item_wingky, "wingky", 1000, R.drawable.avatar_wingky);
+        initItem(R.id.avatar_item_zombie, "zombie", 1000, R.drawable.avatar_zombie);
     }
 
     void initItem(final int id, final String name, final int price, final int avatarId)

@@ -62,6 +62,14 @@
 
             <include android:id="@+id/avatar_item_red" layout="@layout/fragment_shop_item"/>
 
+            <include android:id="@+id/avatar_item_brown_bunny" layout="@layout/fragment_shop_item"/>
+
+            <include android:id="@+id/avatar_item_pinky" layout="@layout/fragment_shop_item"/>
+
+            <include android:id="@+id/avatar_item_wingky" layout="@layout/fragment_shop_item"/>
+
+            <include android:id="@+id/avatar_item_zombie" layout="@layout/fragment_shop_item"/>
+
             <ProgressBar
                 android:id="@+id/avatar_progress_bar"
                 android:layout_width="wrap_content"

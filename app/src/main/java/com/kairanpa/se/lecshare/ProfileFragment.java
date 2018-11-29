@@ -108,6 +108,18 @@ public class ProfileFragment extends Fragment {
             case "red":
                 avatar.setImageResource(R.drawable.avatar_red);
                 break;
+            case "brown bunny":
+                avatar.setImageResource(R.drawable.avatar_brown_bunny);
+                break;
+            case "pinky":
+                avatar.setImageResource(R.drawable.avatar_pinky);
+                break;
+            case "wingky":
+                avatar.setImageResource(R.drawable.avatar_wingky);
+                break;
+            case "zombie":
+                avatar.setImageResource(R.drawable.avatar_zombie);
+                break;
         }
     }
 

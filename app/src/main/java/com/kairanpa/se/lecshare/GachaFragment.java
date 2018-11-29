@@ -127,6 +127,18 @@ public class GachaFragment extends Fragment {
             case "red":
                 afterPicture.setImageResource(R.drawable.avatar_red);
                 break;
+            case "brown bunny":
+                afterPicture.setImageResource(R.drawable.avatar_brown_bunny);
+                break;
+            case "pinky":
+                afterPicture.setImageResource(R.drawable.avatar_pinky);
+                break;
+            case "wingky":
+                afterPicture.setImageResource(R.drawable.avatar_wingky);
+                break;
+            case "zombie":
+                afterPicture.setImageResource(R.drawable.avatar_zombie);
+                break;
         }
         afterPicture.setVisibility(View.VISIBLE);
         TextView resultText = getView().findViewById(R.id.gacha_text);
