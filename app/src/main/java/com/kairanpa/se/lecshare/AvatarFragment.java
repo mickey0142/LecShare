@@ -155,6 +155,24 @@ public class AvatarFragment extends Fragment {
             case "spinny":
                 avatar.setImageResource(R.drawable.avatar_spinny);
                 break;
+            case "feddy":
+                avatar.setImageResource(R.drawable.avatar_feddy);
+                break;
+            case "gold ufo":
+                avatar.setImageResource(R.drawable.avatar_gold_ufo);
+                break;
+            case "judy":
+                avatar.setImageResource(R.drawable.avatar_judy);
+                break;
+            case "marico":
+                avatar.setImageResource(R.drawable.avatar_marico);
+                break;
+            case "penny":
+                avatar.setImageResource(R.drawable.avatar_penny);
+                break;
+            case "ufo":
+                avatar.setImageResource(R.drawable.avatar_ufo);
+                break;
         }
     }
 
@@ -169,6 +187,12 @@ public class AvatarFragment extends Fragment {
         initItem(R.id.avatar_item_wingky, "wingky", 1000, R.drawable.avatar_wingky);
         initItem(R.id.avatar_item_zombie, "zombie", 1000, R.drawable.avatar_zombie);
         initItem(R.id.avatar_item_spinny, "spinny", 1000, R.drawable.avatar_spinny);
+        initItem(R.id.avatar_item_feddy, "feddy", 1000, R.drawable.avatar_feddy);
+        initItem(R.id.avatar_item_gold_ufo, "gold ufo", 1000, R.drawable.avatar_gold_ufo);
+        initItem(R.id.avatar_item_judy, "judy", 1000, R.drawable.avatar_judy);
+        initItem(R.id.avatar_item_marico, "marico", 1000, R.drawable.avatar_marico);
+        initItem(R.id.avatar_item_penny, "penny", 1000, R.drawable.avatar_penny);
+        initItem(R.id.avatar_item_ufo, "ufo", 1000, R.drawable.avatar_ufo);
 
     }
 

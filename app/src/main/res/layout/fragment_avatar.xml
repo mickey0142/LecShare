@@ -72,6 +72,18 @@
 
             <include android:id="@+id/avatar_item_spinny" layout="@layout/fragment_shop_item"/>
 
+            <include android:id="@+id/avatar_item_feddy" layout="@layout/fragment_shop_item"/>
+
+            <include android:id="@+id/avatar_item_gold_ufo" layout="@layout/fragment_shop_item"/>
+
+            <include android:id="@+id/avatar_item_judy" layout="@layout/fragment_shop_item"/>
+
+            <include android:id="@+id/avatar_item_marico" layout="@layout/fragment_shop_item"/>
+
+            <include android:id="@+id/avatar_item_penny" layout="@layout/fragment_shop_item"/>
+
+            <include android:id="@+id/avatar_item_ufo" layout="@layout/fragment_shop_item"/>
+
             <ProgressBar
                 android:id="@+id/avatar_progress_bar"
                 android:layout_width="wrap_content"

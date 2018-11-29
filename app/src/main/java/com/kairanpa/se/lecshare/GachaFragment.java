@@ -142,6 +142,24 @@ public class GachaFragment extends Fragment {
             case "spinny":
                 afterPicture.setImageResource(R.drawable.avatar_spinny);
                 break;
+            case "feddy":
+                afterPicture.setImageResource(R.drawable.avatar_feddy);
+                break;
+            case "gold ufo":
+                afterPicture.setImageResource(R.drawable.avatar_gold_ufo);
+                break;
+            case "judy":
+                afterPicture.setImageResource(R.drawable.avatar_judy);
+                break;
+            case "marico":
+                afterPicture.setImageResource(R.drawable.avatar_marico);
+                break;
+            case "penny":
+                afterPicture.setImageResource(R.drawable.avatar_penny);
+                break;
+            case "ufo":
+                afterPicture.setImageResource(R.drawable.avatar_ufo);
+                break;
         }
         afterPicture.setVisibility(View.VISIBLE);
         TextView resultText = getView().findViewById(R.id.gacha_text);

@@ -123,6 +123,24 @@ public class ProfileFragment extends Fragment {
             case "spinny":
                 avatar.setImageResource(R.drawable.avatar_spinny);
                 break;
+            case "feddy":
+                avatar.setImageResource(R.drawable.avatar_feddy);
+                break;
+            case "gold ufo":
+                avatar.setImageResource(R.drawable.avatar_gold_ufo);
+                break;
+            case "judy":
+                avatar.setImageResource(R.drawable.avatar_judy);
+                break;
+            case "marico":
+                avatar.setImageResource(R.drawable.avatar_marico);
+                break;
+            case "penny":
+                avatar.setImageResource(R.drawable.avatar_penny);
+                break;
+            case "ufo":
+                avatar.setImageResource(R.drawable.avatar_ufo);
+                break;
         }
     }
 
