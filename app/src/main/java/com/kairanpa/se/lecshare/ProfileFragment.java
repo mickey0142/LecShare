@@ -120,6 +120,9 @@ public class ProfileFragment extends Fragment {
             case "zombie":
                 avatar.setImageResource(R.drawable.avatar_zombie);
                 break;
+            case "spinny":
+                avatar.setImageResource(R.drawable.avatar_spinny);
+                break;
         }
     }
 

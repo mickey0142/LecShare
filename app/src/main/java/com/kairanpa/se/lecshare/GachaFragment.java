@@ -139,6 +139,9 @@ public class GachaFragment extends Fragment {
             case "zombie":
                 afterPicture.setImageResource(R.drawable.avatar_zombie);
                 break;
+            case "spinny":
+                afterPicture.setImageResource(R.drawable.avatar_spinny);
+                break;
         }
         afterPicture.setVisibility(View.VISIBLE);
         TextView resultText = getView().findViewById(R.id.gacha_text);

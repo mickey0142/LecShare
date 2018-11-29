@@ -70,6 +70,8 @@
 
             <include android:id="@+id/avatar_item_zombie" layout="@layout/fragment_shop_item"/>
 
+            <include android:id="@+id/avatar_item_spinny" layout="@layout/fragment_shop_item"/>
+
             <ProgressBar
                 android:id="@+id/avatar_progress_bar"
                 android:layout_width="wrap_content"

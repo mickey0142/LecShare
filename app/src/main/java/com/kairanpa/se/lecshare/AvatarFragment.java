@@ -152,6 +152,9 @@ public class AvatarFragment extends Fragment {
             case "zombie":
                 avatar.setImageResource(R.drawable.avatar_zombie);
                 break;
+            case "spinny":
+                avatar.setImageResource(R.drawable.avatar_spinny);
+                break;
         }
     }
 
@@ -165,6 +168,8 @@ public class AvatarFragment extends Fragment {
         initItem(R.id.avatar_item_pinky, "pinky", 1000, R.drawable.avatar_pinky);
         initItem(R.id.avatar_item_wingky, "wingky", 1000, R.drawable.avatar_wingky);
         initItem(R.id.avatar_item_zombie, "zombie", 1000, R.drawable.avatar_zombie);
+        initItem(R.id.avatar_item_spinny, "spinny", 1000, R.drawable.avatar_spinny);
+
     }
 
     void initItem(final int id, final String name, final int price, final int avatarId)
