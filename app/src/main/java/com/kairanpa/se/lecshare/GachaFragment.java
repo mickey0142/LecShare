@@ -160,6 +160,12 @@ public class GachaFragment extends Fragment {
             case "ufo":
                 afterPicture.setImageResource(R.drawable.avatar_ufo);
                 break;
+            case "helicopty":
+                afterPicture.setImageResource(R.drawable.avatar_helicopty);
+                break;
+            case "spikey":
+                afterPicture.setImageResource(R.drawable.avatar_spikey);
+                break;
         }
         afterPicture.setVisibility(View.VISIBLE);
         TextView resultText = getView().findViewById(R.id.gacha_text);

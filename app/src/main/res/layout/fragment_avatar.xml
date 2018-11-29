@@ -84,6 +84,10 @@
 
             <include android:id="@+id/avatar_item_ufo" layout="@layout/fragment_shop_item"/>
 
+            <include android:id="@+id/avatar_item_helicopty" layout="@layout/fragment_shop_item"/>
+
+            <include android:id="@+id/avatar_item_spikey" layout="@layout/fragment_shop_item"/>
+
             <ProgressBar
                 android:id="@+id/avatar_progress_bar"
                 android:layout_width="wrap_content"

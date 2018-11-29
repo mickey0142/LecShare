@@ -173,6 +173,12 @@ public class AvatarFragment extends Fragment {
             case "ufo":
                 avatar.setImageResource(R.drawable.avatar_ufo);
                 break;
+            case "helicopty":
+                avatar.setImageResource(R.drawable.avatar_helicopty);
+                break;
+            case "spikey":
+                avatar.setImageResource(R.drawable.avatar_spikey);
+                break;
         }
     }
 
@@ -193,6 +199,8 @@ public class AvatarFragment extends Fragment {
         initItem(R.id.avatar_item_marico, "marico", 1000, R.drawable.avatar_marico);
         initItem(R.id.avatar_item_penny, "penny", 1000, R.drawable.avatar_penny);
         initItem(R.id.avatar_item_ufo, "ufo", 1000, R.drawable.avatar_ufo);
+        initItem(R.id.avatar_item_helicopty, "helicopty", 1000, R.drawable.avatar_helicopty);
+        initItem(R.id.avatar_item_spikey, "spikey", 1000, R.drawable.avatar_spikey);
 
     }
 

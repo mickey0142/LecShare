@@ -141,6 +141,12 @@ public class ProfileFragment extends Fragment {
             case "ufo":
                 avatar.setImageResource(R.drawable.avatar_ufo);
                 break;
+            case "helicopty":
+                avatar.setImageResource(R.drawable.avatar_helicopty);
+                break;
+            case "spikey":
+                avatar.setImageResource(R.drawable.avatar_spikey);
+                break;
         }
     }
 
