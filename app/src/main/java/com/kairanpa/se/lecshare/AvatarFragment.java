@@ -82,6 +82,10 @@ public class AvatarFragment extends Fragment {
                 {
                     Toast.makeText(getContext(), "you already have every item", Toast.LENGTH_SHORT).show();
                 }
+                else if (user.getMoney() < 100)
+                {
+                    Toast.makeText(getContext(), "not enough money", Toast.LENGTH_SHORT).show();
+                }
                 else
                 {
                     gachaButton.setEnabled(false);
@@ -216,6 +220,7 @@ public class AvatarFragment extends Fragment {
         final ProgressBar progressBar = itemLayout.findViewById(R.id.shop_item_progress_bar);
         itemName.setText(name);
         itemPrice.setText("Price : " + price);
+        Log.d("test", "name is : " + name);
         if (user.getInventory().get(name))
         {
             buyButton.setText("Use");
@@ -296,7 +301,11 @@ public class AvatarFragment extends Fragment {
 
     void resetBuyButton()
     {
-        int[] ids = {R.id.avatar_item_blue, R.id.avatar_item_green, R.id.avatar_item_grey, R.id.avatar_item_red};
+        int[] ids = {R.id.avatar_item_blue, R.id.avatar_item_green, R.id.avatar_item_grey
+                , R.id.avatar_item_red, R.id.avatar_item_brown_bunny, R.id.avatar_item_feddy
+        , R.id.avatar_item_gold_ufo, R.id.avatar_item_helicopty, R.id.avatar_item_judy
+        , R.id.avatar_item_marico, R.id.avatar_item_penny, R.id.avatar_item_pinky, R.id.avatar_item_spikey
+        , R.id.avatar_item_spinny, R.id.avatar_item_ufo, R.id.avatar_item_wingky, R.id.avatar_item_zombie};
         for (int i = 0; i < ids.length; i++)
         {
             LinearLayout layout = getView().findViewById(ids[i]);

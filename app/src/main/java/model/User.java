@@ -30,6 +30,19 @@ public class User implements Serializable{
         getInventory().put("green", false);
         getInventory().put("grey", false);
         getInventory().put("red", false);
+        getInventory().put("brown bunny", false);
+        getInventory().put("pinky", false);
+        getInventory().put("wingky", false);
+        getInventory().put("zombie", false);
+        getInventory().put("spinny", false);
+        getInventory().put("feddy", false);
+        getInventory().put("gold ufo", false);
+        getInventory().put("judy", false);
+        getInventory().put("marico", false);
+        getInventory().put("penny", false);
+        getInventory().put("ufo", false);
+        getInventory().put("helicopty", false);
+        getInventory().put("spikey", false);
         getInventory().put(avatar, true);
         this.avatar = avatar;
     }
