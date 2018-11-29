@@ -64,7 +64,7 @@ public class GachaFragment extends Fragment {
     void setGif()
     {
         ImageView iv = getView().findViewById(R.id.gacha_picture);
-        GlideApp.with(getContext()).asGif().load(R.drawable.sample)
+        GlideApp.with(getContext()).asGif().load(R.drawable.open_gacha)
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).listener(new RequestListener<GifDrawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {

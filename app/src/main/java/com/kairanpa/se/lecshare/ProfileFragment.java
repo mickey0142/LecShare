@@ -294,6 +294,7 @@ public class ProfileFragment extends Fragment {
                     allNote = (ArrayList<LecNote>) lecNoteList.clone();
                     try {
                         LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, allNote);
+                        lecNoteListView.setFocusable(false);
                         lecNoteListView.setAdapter(lecNoteListAdapter);
                         lecNoteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override

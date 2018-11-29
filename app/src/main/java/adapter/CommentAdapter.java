@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,19 +37,10 @@ import model.LecNote;
 import model.User;
 
 public class CommentAdapter extends ArrayAdapter<Comment> {
-    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    private List<Comment> comments = new ArrayList<>();
+    private FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
+    private List<Comment> comments;
     private Context context;
-    private String _content, _userName, _timeStamp;
     private User user;
-    private TextView userPost, timeStamp, content, editHost, editTime;
-    private EditText editContent;
-    private Button editUpdate, editCancel, editBtn;
-    private ProgressBar progressBar;
-//    private Comment comment;
-//    private LecNote lecNote;
-
-
 
     public CommentAdapter (@NonNull Context context, int resource, @NonNull List<Comment> objects, User user){
         super(context, resource, objects);
@@ -60,119 +52,99 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
-        View commentItem = LayoutInflater.from(context).inflate(R.layout.fragment_list_comment, parent, false);
+        final View commentItem = LayoutInflater.from(context).inflate(R.layout.fragment_list_comment, parent, false);
 
-        userPost = commentItem.findViewById(R.id.comment_host);
-        timeStamp = commentItem.findViewById(R.id.comment_time);
-        content = commentItem.findViewById(R.id.comment_content);
+        final ProgressBar progressBar = commentItem.findViewById(R.id.comment_progress_bar);
+        final Comment comment = comments.get(position);
+        TextView owner = commentItem.findViewById(R.id.comment_owner);
+        TextView time = commentItem.findViewById(R.id.comment_time);
+        final TextView content = commentItem.findViewById(R.id.comment_content);
+        String ownerStr = comment.getUserName();
+        String timeStr = comment.getCommentTimeStamp();
+        String contentStr = comment.getComment();
+        owner.setText("Username : " + ownerStr);
+        time.setText("Time : " + timeStr);
+        content.setText(contentStr);
 
-        editBtn = commentItem.findViewById(R.id.comment_edit_button);
+        final Button editButton = commentItem.findViewById(R.id.comment_edit_button);
+        final Button updateButton = commentItem.findViewById(R.id.comment_edit_update);
+        final Button cancelButton = commentItem.findViewById(R.id.comment_edit_cancel);
+        final EditText editContent = commentItem.findViewById(R.id.comment_edit_content);
 
-        editContent = commentItem.findViewById(R.id.comment_edit_content);
-        editCancel = commentItem.findViewById(R.id.comment_edit_cancel);
-        editUpdate = commentItem.findViewById(R.id.comment_edit_update);
+        if (user.getDocumentId().equals(comment.getUserNameID()))
+        {
+            editButton.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            editButton.setVisibility(View.GONE);
+        }
 
-        progressBar = commentItem.findViewById(R.id.comment_progressingBar);
-//        editHost = commentItem.findViewById(R.id.comment_edit_host);
-//        editTime = commentItem.findViewById(R.id.comment_edit_time);
-
-        final Comment row = comments.get(position);
-
-        userPost.setText("User : " + row.getUserName());
-        timeStamp.setText("Time : " + row.getCommentTimeStamp());
-        content.setText(row.getComment());
-        editContent.setText(row.getComment());
-
-        editUpdate.setOnClickListener(new View.OnClickListener() {
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                row.setComment(content.getText().toString());
-                renderPost();
-                firestore.collection("Comment").document(row.getDocumentID()).update("comment", editContent.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+                editButton.setVisibility(View.GONE);
+                updateButton.setVisibility(View.VISIBLE);
+                cancelButton.setVisibility(View.VISIBLE);
+                content.setVisibility(View.GONE);
+                editContent.setVisibility(View.VISIBLE);
+                editContent.setText(comment.getComment());
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editButton.setVisibility(View.VISIBLE);
+                updateButton.setVisibility(View.GONE);
+                cancelButton.setVisibility(View.GONE);
+                content.setVisibility(View.VISIBLE);
+                editContent.setVisibility(View.GONE);
+            }
+        });
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = editContent.getText().toString();
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(commentItem.getWindowToken(), 0);
+                if (text.isEmpty() || text.equals(""))
+                {
+                    Toast.makeText(getContext(), "Comment is empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                progressBar.setVisibility(View.VISIBLE);
+                comment.setComment(text);
+                fbStore.collection("Comment").document(comment.getDocumentID()).set(comment)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getContext(), "update complete", Toast.LENGTH_SHORT).show();
+                                Log.d("test", "update comment complete");
+                                content.setText(comment.getComment());
+                                editButton.setVisibility(View.VISIBLE);
+                                updateButton.setVisibility(View.GONE);
+                                cancelButton.setVisibility(View.GONE);
+                                content.setVisibility(View.VISIBLE);
+                                editContent.setVisibility(View.GONE);
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressBar.setVisibility(View.GONE);
-                        Log.d("test", "error edit comment: " + e.getMessage());
+                        Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("test", "update comment error : " + e.getMessage());
                     }
                 });
             }
         });
-
-        if (user.getDocumentId().equals(row.getUserNameID())){
-            editBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editBtn.setVisibility(View.GONE);
-                    content.setVisibility(View.GONE);
-                    editContent.setVisibility(View.VISIBLE);
-                    editCancel.setVisibility(View.VISIBLE);
-                    editUpdate.setVisibility(View.VISIBLE);
-                }
-            });
-        }
-        else{
-            editBtn.setVisibility(View.GONE);
-        }
-//        if (user.equals(row.getUserNameID())) // if current user is owner of this comment
-//        {
-//            // set visible to edittext
-//            editContent.setVisibility(View.VISIBLE);
-//            // set gone to textview
-//            editHost.setVisibility(View.GONE);
-//            editTime.setVisibility(View.GONE);
-//            final ProgressBar progressBar = commentItem.findViewById(R.id.comment_progressingBar);
-//            // set button onclick to update edited comment here (upload new comment to firebase here)
-//            updateComment = commentItem.findViewById(R.id.comment_update_button);
-//            updateComment.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    progressBar.setVisibility(View.VISIBLE);
-//                    row.setComment(content.getText().toString());
-//                    readerPost();
-//                    firestore.collection("Comment").document(row.getDocumentID()).update("comment", content).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            progressBar.setVisibility(View.GONE);
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            progressBar.setVisibility(View.GONE);
-//                            Log.d("test", "error edit comment: " + e.getMessage());
-//                        }
-//                    });
-//                }
-//            });
-//        }
-//        else
-//        {
-//            // set gone to edittext
-//            editContent.setVisibility(View.GONE);
-//            // set visible to textview
-//            editHost.setVisibility(View.VISIBLE);
-//            editTime.setVisibility(View.VISIBLE);
-//            _userName = row.getUserName();
-//            _content = row.getComment();
-//            _timeStamp = row.getCommentTimeStamp();
-//
-//            userPost.setText(_userName);
-//            content.setText(_content);
-//            timeStamp.setText(_timeStamp);
-//        }
 
         return commentItem;
     }
 
     public Comment getItem(int position){
         return comments.get(position);
-    }
-
-    void renderPost(){
-            this.notifyDataSetChanged();
     }
 }
