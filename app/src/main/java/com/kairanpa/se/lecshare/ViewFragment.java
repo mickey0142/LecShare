@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -88,7 +89,7 @@ public class ViewFragment extends Fragment{
         initToolbar();
         initDownloadAllButton();
         initVoteStar();
-        CommentBtn();
+        initCommentBtn();
         initShowComment();
     }
 
@@ -165,6 +166,10 @@ public class ViewFragment extends Fragment{
         ListView pictureListView = getView().findViewById(R.id.view_picture_list_view);
         PictureAdapter pictureAdapter = new PictureAdapter(getActivity(), R.layout.fragment_picture_list_item, combine);
         pictureListView.setAdapter(pictureAdapter);
+        if (combine.size() == 0)
+        {
+            pictureListView.setVisibility(View.GONE);
+        }
     }
 
     public void initToolbar()
@@ -487,12 +492,12 @@ public class ViewFragment extends Fragment{
         });
     }
 
-    void CommentBtn(){
-        Button button = getView().findViewById(R.id.commentBtn);
+    void initCommentBtn(){
+        Button button = getView().findViewById(R.id.view_commentBtn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editText = getView().findViewById(R.id.comment_form);
+                EditText editText = getView().findViewById(R.id.view_comment_form);
                 String form_check = editText.getText().toString();
                 if (form_check.isEmpty()){
                     Toast.makeText(getActivity(), "Comment is empty. Please comment something.", Toast.LENGTH_SHORT).show();
@@ -531,7 +536,8 @@ public class ViewFragment extends Fragment{
 
     void renderPost(){
         if (getView() != null){
-            commentList = getView().findViewById(R.id.comment_list);
+            commentList = getView().findViewById(R.id.view_comment_list);
+            commentList.setFocusable(false);
             commentAdapter = new CommentAdapter(getActivity(), R.layout.fragment_list_comment, comments, user);
             commentList.setAdapter(commentAdapter);
         }

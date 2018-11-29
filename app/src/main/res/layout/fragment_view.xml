@@ -102,7 +102,10 @@
                 android:id="@+id/view_picture_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:nestedScrollingEnabled="true"></ListView>
+                android:nestedScrollingEnabled="true"
+                android:background="@drawable/search_result_border"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"></ListView>
 
             <LinearLayout
                 android:id="@+id/view_vote_linear_layout"
@@ -151,20 +154,20 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/comment_form"
+                android:id="@+id/view_comment_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textLongMessage"
                 android:hint="What do you thinks?" />
 
             <Button
-                android:id="@+id/commentBtn"
+                android:id="@+id/view_commentBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Comment" />
 
             <ListView
-                android:id="@+id/comment_list"
+                android:id="@+id/view_comment_list"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginTop="20dp"

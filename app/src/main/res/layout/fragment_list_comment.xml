@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/comment_host"
+        android:id="@+id/comment_owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="username" />
@@ -35,26 +35,25 @@
         android:inputType="textPersonName"
         android:hint="What do you think?" />
 
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/comment_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:visibility="gone"
         android:id="@+id/comment_edit_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="Update" />
 
     <Button
         android:visibility="gone"
         android:id="@+id/comment_edit_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <ProgressBar
-        android:visibility="gone"
-        android:id="@+id/comment_progressingBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:text="Cancel" />
 
 </LinearLayout>
