@@ -90,21 +90,6 @@ public class ViewFragment extends Fragment{
         initVoteStar();
         CommentBtn();
         initShowComment();
-
-//        TextView textView = getView().findViewById(R.id.view_comment_form);
-//        textView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("User object", user);
-//                bundle.putSerializable("LecNote object", lecNote);
-//                Fragment fragment = new CommentFragment();
-//                fragment.setArguments(bundle);
-//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//                ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
-//            }
-//        });
     }
 
     public void setTextBox()
@@ -535,7 +520,7 @@ public class ViewFragment extends Fragment{
                         Comment comment = doc.toObject(Comment.class);
                         comments.add(comment);
                     }
-                    readerPost();
+                    renderPost();
                 }
                 else{
                     Log.d("test", "Comment: get comment error: " + task.getException());
@@ -544,10 +529,9 @@ public class ViewFragment extends Fragment{
         });
     }
 
-    void readerPost(){
+    void renderPost(){
         if (getView() != null){
             commentList = getView().findViewById(R.id.comment_list);
-            commentList.setDivider(null);
             commentAdapter = new CommentAdapter(getActivity(), R.layout.fragment_list_comment, comments, user);
             commentList.setAdapter(commentAdapter);
         }

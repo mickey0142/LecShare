@@ -3,75 +3,58 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/comment_normal_layout"
+    <TextView
+        android:id="@+id/comment_host"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="username" />
+
+    <TextView
+        android:id="@+id/comment_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="time" />
+
+    <TextView
+        android:id="@+id/comment_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="normal content" />
+
+    <Button
+        android:id="@+id/comment_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="edit" />
+
+    <EditText
+        android:visibility="gone"
+        android:id="@+id/comment_edit_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:inputType="textPersonName"
+        android:hint="What do you think?" />
 
-        <TextView
-            android:id="@+id/comment_host"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/comment_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/comment_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/comment_edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="edit" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/comment_owner_layout"
+    <Button
+        android:visibility="gone"
+        android:id="@+id/comment_edit_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Button" />
 
-        <TextView
-            android:id="@+id/comment_edit_host"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+    <Button
+        android:visibility="gone"
+        android:id="@+id/comment_edit_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
-        <TextView
-            android:id="@+id/comment_edit_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <EditText
-            android:id="@+id/comment_edit_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <Button
-            android:id="@+id/comment_update_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="update"/>
-
-        <Button
-            android:id="@+id/comment_cancel_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="cancel" />
-
-    </LinearLayout>
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/comment_progressingBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
