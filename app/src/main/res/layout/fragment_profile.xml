@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#D5A253"
+
     >
 
     <android.support.v7.widget.Toolbar
@@ -59,6 +60,7 @@
                 android:background="@drawable/login_btn"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="10dp"
+                android:padding="7dp"
                 android:visibility="gone"/>
 
             <LinearLayout
