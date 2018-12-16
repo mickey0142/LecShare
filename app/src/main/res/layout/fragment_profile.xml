@@ -125,7 +125,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="update"
-                android:background="@drawable/login_btn"/>
+                android:background="@drawable/login_btn"
+                android:textColor="#FFFFFF"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

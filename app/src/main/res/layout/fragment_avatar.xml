@@ -29,119 +29,128 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ImageView
-        android:padding="15dp"
-        android:id="@+id/avatar_avatar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/avatar_blue"
-        android:layout_gravity="center"
-        android:background="@drawable/text_box"
-        android:layout_margin="10dp"/>
-
-    <TextView
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:id="@+id/avatar_money"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="money : 100"
-        android:textAlignment="center"/>
-    <Button
-        android:id="@+id/avatar_gacha_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="open gacha (100)"
-        android:layout_margin="10dp"/>
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp">
         <LinearLayout
-            android:background="@drawable/search_result_border"
-            android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
-            <include
-                android:id="@+id/avatar_item_blue"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_green"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_grey"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_red"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_brown_bunny"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_pinky"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_wingky"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_zombie"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_spinny"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_feddy"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_gold_ufo"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_judy"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_marico"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_penny"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_ufo"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_helicopty"
-                layout="@layout/fragment_shop_item" />
-
-            <include
-                android:id="@+id/avatar_item_spikey"
-                layout="@layout/fragment_shop_item" />
-
-            <ProgressBar
-                android:id="@+id/avatar_progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:padding="15dp"
+                android:id="@+id/avatar_avatar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/avatar_blue"
                 android:layout_gravity="center"
-                android:visibility="gone" />
+                android:background="@drawable/text_box"
+                android:layout_margin="10dp"/>
 
+            <TextView
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:id="@+id/avatar_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="money : 100"
+                android:textAlignment="center"/>
+            <Button
+                android:id="@+id/avatar_gacha_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="open gacha (100)"
+                android:layout_margin="10dp"
+                android:background="@drawable/login_btn"
+                android:textColor="#FFFFFF"/>
+
+            <LinearLayout
+                android:background="@drawable/search_result_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <include
+                    android:id="@+id/avatar_item_blue"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_green"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_grey"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_red"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_brown_bunny"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_pinky"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_wingky"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_zombie"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_spinny"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_feddy"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_gold_ufo"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_judy"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_marico"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_penny"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_ufo"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_helicopty"
+                    layout="@layout/fragment_shop_item" />
+
+                <include
+                    android:id="@+id/avatar_item_spikey"
+                    layout="@layout/fragment_shop_item" />
+
+                <ProgressBar
+                    android:id="@+id/avatar_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
