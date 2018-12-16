@@ -265,8 +265,7 @@ public class GachaFragment extends Fragment {
     }
 
     void initTryAgain(){
-        final ProgressBar progressBar = getView().findViewById(R.id.avatar_progress_bar);
-        final Button gachaButton = getView().findViewById(R.id.avatar_gacha_button);
+        final Button gachaButton = getView().findViewById(R.id.gacha_try_again);
         gachaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -292,7 +291,6 @@ public class GachaFragment extends Fragment {
                 else
                 {
                     gachaButton.setEnabled(false);
-                    progressBar.setVisibility(View.VISIBLE);
                     final String result = randomBox.get((int) (Math.random() * randomBox.size()));
                     user.getInventory().put(result, true);
                     user.addMoney(-100);
@@ -300,7 +298,6 @@ public class GachaFragment extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    progressBar.setVisibility(View.INVISIBLE);
                                     gachaButton.setEnabled(true);
                                     Log.d("test", "gacha random success result is : " + result);
                                     Bundle bundle = new Bundle();
@@ -316,7 +313,6 @@ public class GachaFragment extends Fragment {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    progressBar.setVisibility(View.INVISIBLE);
                                     gachaButton.setEnabled(true);
                                     Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     Log.d("test", "gacha random update fail : " + e.getMessage());
