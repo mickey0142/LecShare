@@ -91,6 +91,20 @@ public class ProfileFragment extends Fragment {
                     ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
                 }
             });
+            Button avatarButton= getView().findViewById(R.id.profile_avatar_button);
+            avatarButton.setVisibility(View.VISIBLE);
+            avatarButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("User object", user);
+                    Fragment fragment = new AvatarFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+                }
+            });
         }
         String pictureName = target.getAvatar();
         Log.d("test", "picture name is " + pictureName);

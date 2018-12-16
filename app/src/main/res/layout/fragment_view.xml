@@ -147,10 +147,7 @@
                     android:background="@drawable/login_btn"
                     android:layout_gravity="center"
                     android:layout_margin="7dp"/>
-
-
-
-
+                
             </LinearLayout>
 
             <EditText

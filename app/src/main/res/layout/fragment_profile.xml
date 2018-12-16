@@ -50,6 +50,17 @@
                 android:layout_margin="10dp"
                 android:padding="16dp"/>
 
+            <Button
+                android:id="@+id/profile_avatar_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change Avatar"
+                android:layout_gravity="center"
+                android:background="@drawable/login_btn"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
