@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -25,8 +27,13 @@ import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 import model.User;
 
@@ -35,6 +42,7 @@ public class GachaFragment extends Fragment {
     FirebaseAuth fbAuth = FirebaseAuth.getInstance();
     FirebaseFirestore fbStore = FirebaseFirestore.getInstance();
     User user;
+    Button _backBtn;
     String result;
 
     @Override
@@ -60,6 +68,7 @@ public class GachaFragment extends Fragment {
         setGif();
         initBackButton();
         initToolbar();
+        initTryAgain();
     }
 
 
@@ -174,17 +183,17 @@ public class GachaFragment extends Fragment {
         resultText.setVisibility(View.VISIBLE);
         Button _tryAgain = getView().findViewById(R.id.gacha_try_again);
         _tryAgain.setVisibility(View.VISIBLE);
-        Button _backBtn = getView().findViewById(R.id.gacha_back);
+        _backBtn = getView().findViewById(R.id.gacha_back_button);
         _backBtn.setVisibility(View.VISIBLE);
     }
 
     void initBackButton()
     {
-        ImageView backButton = getView().findViewById(R.id.gacha_back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
+        _backBtn = getView().findViewById(R.id.gacha_back_button);
+        _backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStack();
+                getFragmentManager().beginTransaction().replace(R.id.main_view, new ProfileFragment()).commit();
             }
         });
     }
@@ -251,6 +260,69 @@ public class GachaFragment extends Fragment {
                             .commit();
                 }
                 return false;
+            }
+        });
+    }
+
+    void initTryAgain(){
+        final ProgressBar progressBar = getView().findViewById(R.id.avatar_progress_bar);
+        final Button gachaButton = getView().findViewById(R.id.avatar_gacha_button);
+        gachaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean gotAll = true;
+                Set<String> keys = user.getInventory().keySet();
+                ArrayList<String> randomBox = new ArrayList<>();
+                for (String key : keys)
+                {
+                    if (!user.getInventory().get(key))
+                    {
+                        gotAll = false;
+                        randomBox.add(key);
+                    }
+                }
+                if (gotAll)
+                {
+                    Toast.makeText(getContext(), "you already have every item", Toast.LENGTH_SHORT).show();
+                }
+                else if (user.getMoney() < 100)
+                {
+                    Toast.makeText(getContext(), "not enough money", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    gachaButton.setEnabled(false);
+                    progressBar.setVisibility(View.VISIBLE);
+                    final String result = randomBox.get((int) (Math.random() * randomBox.size()));
+                    user.getInventory().put(result, true);
+                    user.addMoney(-100);
+                    fbStore.collection("User").document(user.getDocumentId()).set(user)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    gachaButton.setEnabled(true);
+                                    Log.d("test", "gacha random success result is : " + result);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("User object", user);
+                                    bundle.putString("gacha result", result);
+                                    Fragment fragment = new GachaFragment();
+                                    fragment.setArguments(bundle);
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    gachaButton.setEnabled(true);
+                                    Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Log.d("test", "gacha random update fail : " + e.getMessage());
+                                }
+                            });
+                }
             }
         });
     }

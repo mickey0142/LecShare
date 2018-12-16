@@ -13,13 +13,6 @@
         android:layout_height="wrap_content"
         >
 
-        <ImageView
-            android:id="@+id/gacha_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ico_back"
-            />
-
         <TextView
             android:text="Gacha"
             android:layout_width="match_parent"
@@ -86,7 +79,7 @@
                     android:textColor="#fff"
                     android:visibility="gone"/>
                 <Button
-                    android:id="@+id/gacha_back"
+                    android:id="@+id/gacha_back_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Back"
