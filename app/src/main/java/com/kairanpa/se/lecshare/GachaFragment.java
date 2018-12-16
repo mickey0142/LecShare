@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -61,6 +62,7 @@ public class GachaFragment extends Fragment {
         initToolbar();
     }
 
+
     void setGif()
     {
         ImageView iv = getView().findViewById(R.id.gacha_picture);
@@ -105,7 +107,6 @@ public class GachaFragment extends Fragment {
         })
                 .into(iv);
     }
-
     void setAfterFinish()
     {
         LinearLayout layout = getView().findViewById(R.id.gacha_after_finish_layout);
@@ -171,6 +172,10 @@ public class GachaFragment extends Fragment {
         TextView resultText = getView().findViewById(R.id.gacha_text);
         resultText.setText("you got " + result);
         resultText.setVisibility(View.VISIBLE);
+        Button _tryAgain = getView().findViewById(R.id.gacha_try_again);
+        _tryAgain.setVisibility(View.VISIBLE);
+        Button _backBtn = getView().findViewById(R.id.gacha_back);
+        _backBtn.setVisibility(View.VISIBLE);
     }
 
     void initBackButton()
@@ -183,6 +188,7 @@ public class GachaFragment extends Fragment {
             }
         });
     }
+
 
     public void initToolbar()
     {

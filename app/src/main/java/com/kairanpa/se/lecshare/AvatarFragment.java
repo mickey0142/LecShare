@@ -58,6 +58,7 @@ public class AvatarFragment extends Fragment {
         updateMoneyText();
         initBackButton();
         initToolbar();
+
     }
 
     void initGachaButton()
