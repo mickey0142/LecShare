@@ -29,14 +29,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:hint="@string/welcome"
                 android:textAlignment="center"
                 android:textColorHint="#F5F5F5"
                 android:textSize="35sp"
                 android:textStyle="bold"
                 />
-
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/logo"/>
             <EditText
                 android:id="@+id/login_email"
                 android:layout_width="300dp"
