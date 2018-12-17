@@ -193,11 +193,10 @@ public class GachaFragment extends Fragment {
         _backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.main_view, new ProfileFragment()).commit();
+                getFragmentManager().popBackStack();
             }
         });
     }
-
 
     public void initToolbar()
     {
@@ -307,7 +306,7 @@ public class GachaFragment extends Fragment {
                                     fragment.setArguments(bundle);
                                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                    ft.replace(R.id.main_view, fragment).addToBackStack(null).commit();
+                                    ft.replace(R.id.main_view, fragment).commit();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
