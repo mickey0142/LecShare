@@ -33,23 +33,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Search page"
-                    android:textSize="30dp"
-                    android:layout_gravity="center"
-                    android:textColor="#F5F5F5"
-                    android:layout_marginTop="10dp"
-                    />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:orientation="horizontal"
                 android:layout_margin="10dp"
                 android:paddingRight="15dp">
@@ -62,10 +54,10 @@
                 <EditText
                     android:id="@+id/search_search_title"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
                     android:hint="Search title"
-                    android:background="#FFF8BB"
+                    android:background="@drawable/border_login"
                     android:textColor="#505050"
                     android:textColorHint="#828282"
                     android:inputType="text"/>
@@ -74,7 +66,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:orientation="horizontal"
                 android:layout_margin="10dp"
                 android:paddingRight="15dp">
@@ -87,10 +79,10 @@
                 <EditText
                     android:id="@+id/search_search_subject"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
                     android:hint="Search subject"
-                    android:background="#FFF8BB"
+                    android:background="@drawable/border_login"
                     android:textColor="#505050"
                     android:textColorHint="#828282"
                     android:inputType="text"/>
@@ -99,7 +91,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:orientation="horizontal"
                 android:layout_margin="10dp"
                 android:paddingRight="15dp">
@@ -112,10 +104,10 @@
                 <EditText
                     android:id="@+id/search_search_owner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
                     android:hint="Search owner"
-                    android:background="#FFF8BB"
+                    android:background="@drawable/border_login"
                     android:textColor="#505050"
                     android:textColorHint="#828282"
                     android:inputType="text"/>

@@ -47,7 +47,7 @@
                 android:layout_height="200dp"
                 android:src="@drawable/avatar_blue"
                 android:layout_gravity="center"
-                android:background="@drawable/text_box"
+                android:background="@drawable/avatar_border"
                 android:layout_margin="10dp"
                 android:padding="16dp"/>
 

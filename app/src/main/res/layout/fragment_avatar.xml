@@ -36,19 +36,10 @@
         android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp">
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <ImageView
-                android:padding="15dp"
-                android:id="@+id/avatar_avatar"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/avatar_blue"
-                android:layout_gravity="center"
-                android:background="@drawable/text_box"
-                android:layout_margin="10dp"/>
 
             <TextView
                 android:textColor="#000"
@@ -68,8 +59,17 @@
                 android:background="@drawable/login_btn"
                 android:textColor="#FFFFFF"/>
 
+            <ImageView
+                android:id="@+id/avatar_avatar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/avatar_border"
+                android:padding="15dp"
+                android:src="@drawable/avatar_blue" />
+
             <LinearLayout
-                android:background="@drawable/search_result_border"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

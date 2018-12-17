@@ -43,12 +43,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="15dp">
+                android:paddingLeft="15dp"
+                android:layout_gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sort by : "
+                    android:textSize="15dp"
                     android:layout_gravity="center_vertical"/>
 
                 <Spinner
@@ -66,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <ListView

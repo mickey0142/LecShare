@@ -48,14 +48,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="53dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:src="@drawable/ico_title" />
 
                     <EditText
@@ -64,22 +64,22 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter title here..."
                         android:inputType="text"
-                        android:background="#FFF8BB"
+                        android:background="@drawable/border_login"
                         android:textColor="#000000"
                         android:textColorHint="#000000"
-                        android:paddingLeft="10dp"/>
+                        android:padding="5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="53dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:src="@drawable/ico_title" />
 
                     <EditText
@@ -88,22 +88,22 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter subject here..."
                         android:inputType="text"
-                        android:background="#FFF8BB"
+                        android:background="@drawable/border_login"
                         android:textColor="#000000"
                         android:textColorHint="#000000"
-                        android:paddingLeft="10dp"/>
+                        android:padding="5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="53dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:src="@drawable/ico_message" />
 
                     <EditText
@@ -112,10 +112,10 @@
                         android:layout_height="wrap_content"
                         android:hint="Enter message here..."
                         android:inputType="textMultiLine"
-                        android:background="#FFF8BB"
+                        android:background="@drawable/border_login"
                         android:textColor="#000000"
                         android:textColorHint="#000000"
-                        android:paddingLeft="10dp"/>
+                        android:padding="5dp"/>
                 </LinearLayout>
 
             </LinearLayout>
