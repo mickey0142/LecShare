@@ -229,124 +229,155 @@ public class ProfileFragment extends Fragment {
 
     void initUpdateButton()
     {
-        final ProgressBar progressBar = getView().findViewById(R.id.profile_update_progress_bar);
-        Button updateButton = getView().findViewById(R.id.profile_update_button);
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                progressBar.setVisibility(View.VISIBLE);
-                EditText username = getView().findViewById(R.id.profile_username);
-                EditText aboutMe = getView().findViewById(R.id.profile_about_me);
-                String usernameStr = username.getText().toString();
-                String aboutMeStr = aboutMe.getText().toString();
-                final String oldUsername = user.getUsername();
-                user.setUsername(usernameStr);
-                user.setAboutMe(aboutMeStr);
-                fbStore.collection("User").document(user.getDocumentId()).set(user)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                fbStore.collection("LecNote").whereEqualTo("owner", oldUsername).get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                progressBar.setVisibility(View.GONE);
-                                                if (task.isSuccessful())
-                                                {
-                                                    for (DocumentSnapshot doc : task.getResult())
+        try
+        {
+            final ProgressBar progressBar = getView().findViewById(R.id.profile_update_progress_bar);
+            final Button updateButton = getView().findViewById(R.id.profile_update_button);
+            updateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateButton.setEnabled(false);
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                    progressBar.setVisibility(View.VISIBLE);
+                    EditText username = getView().findViewById(R.id.profile_username);
+                    EditText aboutMe = getView().findViewById(R.id.profile_about_me);
+                    String usernameStr = username.getText().toString();
+                    String aboutMeStr = aboutMe.getText().toString();
+                    final String oldUsername = user.getUsername();
+                    user.setUsername(usernameStr);
+                    user.setAboutMe(aboutMeStr);
+                    fbStore.collection("User").document(user.getDocumentId()).set(user)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    fbStore.collection("LecNote").whereEqualTo("owner", oldUsername).get()
+                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    progressBar.setVisibility(View.GONE);
+                                                    updateButton.setEnabled(true);
+                                                    if (task.isSuccessful())
                                                     {
-                                                        fbStore.collection("LecNote").document(doc.getId())
-                                                                .update("owner", user.getUsername())
-                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                    @Override
-                                                                    public void onSuccess(Void aVoid) {
-                                                                        Toast.makeText(getContext(), "update success", Toast.LENGTH_SHORT).show();
-                                                                        Log.d("test", "update profile success");
-                                                                        initLecNoteList();
-                                                                        TextView uploadBy = getView().findViewById(R.id.profile_upload_by);
-                                                                        uploadBy.setText("All note uploaded by " + user.getUsername());
-                                                                    }
-                                                                }).addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                                Log.d("test", "update owner in order fail : " + e.getMessage());
-                                                            }
-                                                        });
+                                                        int count = 0;
+                                                        for (DocumentSnapshot doc : task.getResult())
+                                                        {
+                                                            final int countFinal = count;
+                                                            fbStore.collection("LecNote").document(doc.getId())
+                                                                    .update("owner", user.getUsername())
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                            int check = countFinal;
+                                                                            if (countFinal == 0)
+                                                                            {
+                                                                                try
+                                                                                {
+                                                                                    Toast.makeText(getContext(), "update success", Toast.LENGTH_SHORT).show();
+                                                                                    Log.d("test", "update profile success");
+                                                                                    initLecNoteList();
+                                                                                    TextView uploadBy = getView().findViewById(R.id.profile_upload_by);
+                                                                                    uploadBy.setText("All note uploaded by " + user.getUsername());
+                                                                                }
+                                                                                catch (NullPointerException e)
+                                                                                {
+                                                                                    Log.d("test", "catch NullPointerException : " + e.getMessage());
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                    Log.d("test", "update owner in order fail : " + e.getMessage());
+                                                                }
+                                                            });
+                                                            count += 1;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Toast.makeText(getContext(), "Error : " + task.getException(), Toast.LENGTH_SHORT).show();
+                                                        Log.d("test", "get lecnote to update owner fail : " + task.getException());
                                                     }
                                                 }
-                                                else
-                                                {
-                                                    Toast.makeText(getContext(), "Error : " + task.getException(), Toast.LENGTH_SHORT).show();
-                                                    Log.d("test", "get lecnote to update owner fail : " + task.getException());
-                                                }
-                                            }
-                                        });
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.d("test", "update profile error : " + e.getMessage());
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-            }
-        });
+                                            });
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d("test", "update profile error : " + e.getMessage());
+                            progressBar.setVisibility(View.GONE);
+                            updateButton.setEnabled(true);
+                        }
+                    });
+                }
+            });
+        }
+        catch (NullPointerException e)
+        {
+            Log.d("test", "catch NullPointerException : " + e.getMessage());
+        }
     }
 
     void initLecNoteList()
     {
-        final ProgressBar progressBar = getView().findViewById(R.id.profile_progress_bar);
-        progressBar.setVisibility(View.VISIBLE);
-        final ListView lecNoteListView = getView().findViewById(R.id.profile_lec_note_list);
-        fbStore.collection("LecNote").whereEqualTo("owner", target.getUsername())
-                .orderBy("title", Query.Direction.ASCENDING)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                progressBar.setVisibility(View.GONE);
-                if (task.isSuccessful())
-                {
-                    final ArrayList<LecNote> lecNoteList = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        LecNote lecNote = document.toObject(LecNote.class);
-                        lecNoteList.add(lecNote);
-                    }
-                    allNote = (ArrayList<LecNote>) lecNoteList.clone();
-                    try {
-                        LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, allNote);
-                        lecNoteListView.setFocusable(false);
-                        lecNoteListView.setAdapter(lecNoteListAdapter);
-                        lecNoteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Fragment viewFragment = new ViewFragment();
-                                Bundle bundle = new Bundle();
-                                Log.d("test", allNote.get(position).toString());
-                                bundle.putSerializable("LecNote object", allNote.get(position));
-                                bundle.putSerializable("User object", user);
-                                viewFragment.setArguments(bundle);
-                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                ft.replace(R.id.main_view, viewFragment).addToBackStack(null).commit();
-                            }
-                        });
-                    }
-                    catch (NullPointerException e)
+        try
+        {
+            final ProgressBar progressBar = getView().findViewById(R.id.profile_progress_bar);
+            progressBar.setVisibility(View.VISIBLE);
+            final ListView lecNoteListView = getView().findViewById(R.id.profile_lec_note_list);
+            fbStore.collection("LecNote").whereEqualTo("owner", target.getUsername())
+                    .orderBy("title", Query.Direction.ASCENDING)
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    progressBar.setVisibility(View.GONE);
+                    if (task.isSuccessful())
                     {
-                        Log.d("test", "catch NullPointerException : " + e.getMessage());
+                        final ArrayList<LecNote> lecNoteList = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            LecNote lecNote = document.toObject(LecNote.class);
+                            lecNoteList.add(lecNote);
+                        }
+                        allNote = (ArrayList<LecNote>) lecNoteList.clone();
+                        try {
+                            LecNoteListAdapter lecNoteListAdapter = new LecNoteListAdapter(getActivity(), R.layout.fragment_file_list_item, allNote);
+                            lecNoteListView.setFocusable(false);
+                            lecNoteListView.setAdapter(lecNoteListAdapter);
+                            lecNoteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Fragment viewFragment = new ViewFragment();
+                                    Bundle bundle = new Bundle();
+                                    Log.d("test", allNote.get(position).toString());
+                                    bundle.putSerializable("LecNote object", allNote.get(position));
+                                    bundle.putSerializable("User object", user);
+                                    viewFragment.setArguments(bundle);
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                    ft.replace(R.id.main_view, viewFragment).addToBackStack(null).commit();
+                                }
+                            });
+                        }
+                        catch (NullPointerException e)
+                        {
+                            Log.d("test", "catch NullPointerException : " + e.getMessage());
+                        }
+                    }
+                    else
+                    {
+                        Log.d("test", "get lec note list fail : " + task.getException());
+                        Toast.makeText(getContext(), "Error : " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                else
-                {
-                    Log.d("test", "get lec note list fail : " + task.getException());
-                    Toast.makeText(getContext(), "Error : " + task.getException(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+            });
+        }
+        catch (NullPointerException e)
+        {
+            Log.d("test", "catch NullPointerException : " + e.getMessage());
+        }
     }
 
     void initBackButton()
