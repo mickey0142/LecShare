@@ -268,7 +268,6 @@ public class ProfileFragment extends Fragment {
                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void aVoid) {
-                                                                            int check = countFinal;
                                                                             if (countFinal == 0)
                                                                             {
                                                                                 try
@@ -299,6 +298,37 @@ public class ProfileFragment extends Fragment {
                                                     {
                                                         Toast.makeText(getContext(), "Error : " + task.getException(), Toast.LENGTH_SHORT).show();
                                                         Log.d("test", "get lecnote to update owner fail : " + task.getException());
+                                                    }
+                                                }
+                                            });
+                                    fbStore.collection("Comment").whereEqualTo("userName", oldUsername).get()
+                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful())
+                                                    {
+                                                        int count = 0;
+                                                        for (DocumentSnapshot doc : task.getResult())
+                                                        {
+                                                            final int countFinal = count;
+                                                            fbStore.collection("Comment").document(doc.getId())
+                                                                    .update("userName", user.getUsername())
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                            if (countFinal == 0) {
+                                                                                Log.d("test", "change username in comment success");
+                                                                            }
+                                                                        }
+                                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.d("test", "change username in comment fail : " + e.getMessage());
+                                                                    Toast.makeText(getContext(), "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                            count += 1;
+                                                        }
                                                     }
                                                 }
                                             });
