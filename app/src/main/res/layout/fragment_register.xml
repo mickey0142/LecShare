@@ -41,22 +41,29 @@
                 android:layout_height="200dp"
                 android:src="@drawable/avatar_blue"
                 android:layout_gravity="center"
-                android:background="@drawable/text_box"
-                android:layout_margin="10dp"/>
-
-            <ImageView
-                android:id="@+id/register_avatar_left"
-                android:layout_width="wrap_content"
+                android:background="@drawable/avatar_border"
+                android:layout_margin="10dp"
+                android:padding="16dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_box"
-                android:src="@drawable/ico_arrow_left" />
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/register_avatar_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_box"
+                    android:src="@drawable/ico_arrow_left" />
 
-            <ImageView
-                android:id="@+id/register_avatar_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_box"
-                android:src="@drawable/ico_arrow_right"/>
+                <ImageView
+                    android:id="@+id/register_avatar_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_box"
+                    android:src="@drawable/ico_arrow_right"/>
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
