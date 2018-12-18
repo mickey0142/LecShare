@@ -265,6 +265,8 @@ public class ProfileFragment extends Fragment {
                                                                         Toast.makeText(getContext(), "update success", Toast.LENGTH_SHORT).show();
                                                                         Log.d("test", "update profile success");
                                                                         initLecNoteList();
+                                                                        TextView uploadBy = getView().findViewById(R.id.profile_upload_by);
+                                                                        uploadBy.setText("All note uploaded by " + user.getUsername());
                                                                     }
                                                                 }).addOnFailureListener(new OnFailureListener() {
                                                             @Override
