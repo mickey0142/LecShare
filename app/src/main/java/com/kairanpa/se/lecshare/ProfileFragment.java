@@ -224,7 +224,7 @@ public class ProfileFragment extends Fragment {
         TextView money = getView().findViewById(R.id.profile_money);
         money.setText("Money : " + target.getMoney());
         TextView uploadBy = getView().findViewById(R.id.profile_upload_by);
-        uploadBy.setText("All note uploaded by " + user.getUsername());
+        uploadBy.setText("All note uploaded by " + target.getUsername());
     }
 
     void initUpdateButton()
