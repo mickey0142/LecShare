@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -60,11 +61,16 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         TextView time = commentItem.findViewById(R.id.comment_time);
         final TextView content = commentItem.findViewById(R.id.comment_content);
         String ownerStr = comment.getUserName();
-        String timeStr = comment.getCommentTimeStamp();
+        String timeStr = comment.commentTimeReverse();
         String contentStr = comment.getComment();
-        owner.setText("Username : " + ownerStr);
+        owner.setText("Name : " + ownerStr);
         time.setText("Time : " + timeStr);
         content.setText(contentStr);
+
+        if (position %2 == 1)
+        {
+            commentItem.setBackgroundColor(Color.parseColor("#FCDF91"));
+        }
 
         final Button editButton = commentItem.findViewById(R.id.comment_edit_button);
         final Button updateButton = commentItem.findViewById(R.id.comment_edit_update);
