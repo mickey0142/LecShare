@@ -161,7 +161,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="—————————————————————————————————"
+                android:text="————————————————"
+                android:textAlignment="center"
                 android:layout_marginTop="10dp"/>
             <EditText
                 android:layout_marginTop="10dp"
@@ -169,7 +170,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textLongMessage"
-                android:textColorHint="#000"
+                android:textColorHint="#888888"
                 android:paddingLeft="5dp"
                 android:hint="Let's share your opinion about this." />
 
@@ -178,7 +179,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/view_border"
-                android:text="Comment" />
+                android:text="Comment"
+                android:textColor="#FFFFFF"/>
 
             <ListView
                 android:id="@+id/view_comment_list"

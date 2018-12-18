@@ -140,33 +140,42 @@
                 android:text="update"
                 android:background="@drawable/login_btn"
                 android:textColor="#FFFFFF"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/border_login"
-        android:padding="10dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp">
-        <TextView
-            android:id="@+id/profile_average_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="average score : 1"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/border_login"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/profile_average_score"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="average score : 1"/>
 
-        <TextView
-            android:id="@+id/profile_ranking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="score ranking : 2"/>
+                <TextView
+                    android:id="@+id/profile_ranking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="score ranking : 2"/>
 
-        <TextView
-            android:id="@+id/profile_money"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Money : 100"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/profile_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Money : 100"/>
+            </LinearLayout>
 
+            <TextView
+                android:id="@+id/profile_upload_by"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Note uploaded by ..."
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textAlignment="center"/>
 
             <ProgressBar
                 android:id="@+id/profile_progress_bar"
