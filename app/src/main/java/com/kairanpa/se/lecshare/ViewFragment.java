@@ -34,6 +34,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -457,6 +458,7 @@ public class ViewFragment extends Fragment{
     }
 
     void uploadComment(final Comment comment){
+        final Button button = getView().findViewById(R.id.view_commentBtn);
         fbStore.collection("Comment").add(comment).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -465,6 +467,7 @@ public class ViewFragment extends Fragment{
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                button.setEnabled(true);
                                 Log.d("test", "Add comment to firebase success.");
                                 Toast.makeText(getContext(), "Comment success", Toast.LENGTH_SHORT).show();
                                 initShowComment();
@@ -480,6 +483,7 @@ public class ViewFragment extends Fragment{
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        button.setEnabled(true);
                         Log.d("test", "Comment: add documentId to firebase error: " + e.getMessage());
                     }
                 });
@@ -487,13 +491,14 @@ public class ViewFragment extends Fragment{
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                button.setEnabled(true);
                 Log.d("test", "Comment: add comment to firebase error: " + e.getMessage());
             }
         });
     }
 
     void initCommentBtn(){
-        Button button = getView().findViewById(R.id.view_commentBtn);
+        final Button button = getView().findViewById(R.id.view_commentBtn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -503,6 +508,7 @@ public class ViewFragment extends Fragment{
                     Toast.makeText(getActivity(), "Comment is empty. Please comment something.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                button.setEnabled(false);
                 final Comment comment = new Comment();
                 comment.setUserName(user.getUsername());
                 comment.setUserNameID(user.getDocumentId());
@@ -516,6 +522,7 @@ public class ViewFragment extends Fragment{
 
     void initShowComment(){
         fbStore.collection("Comment").whereEqualTo("lecNoteID", lecNote.getDocumentId())
+                .orderBy("commentTimeStamp", Query.Direction.ASCENDING)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

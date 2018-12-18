@@ -252,9 +252,9 @@ public class UploadFragment extends Fragment{
                 Intent intent;
                 chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
                 chooseFile.addCategory(Intent.CATEGORY_OPENABLE);
-                chooseFile.setType("application/pdf");
-                String[] mimeType = {"image/*"};
-                chooseFile.putExtra(Intent.EXTRA_MIME_TYPES, mimeType);
+                chooseFile.setType("*/*");
+//                String[] mimeType = {"image/*"};
+//                chooseFile.putExtra(Intent.EXTRA_MIME_TYPES, mimeType);
                 intent = Intent.createChooser(chooseFile, "Choose a file");
                 startActivityForResult(intent, 1);
             }
