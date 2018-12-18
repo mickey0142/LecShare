@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 
 public class GetFilePathFromDevice {
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -28,9 +29,12 @@ public class GetFilePathFromDevice {
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
                 final String id = DocumentsContract.getDocumentId(uri);
-                if (uri.toString().startsWith("raw:"))
+                Log.d("test", "to string : " + uri.toString());
+                Log.d("test", "id : " + id);
+                if (id.startsWith("raw:"))
                 {
-                    return uri.toString().substring(4, uri.toString().length());
+                    Log.d("test", "return value from GetFilePathFromDevice is : " + id.substring(4));
+                    return id.substring(4);
                 }
                 else
                 {
