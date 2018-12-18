@@ -4,28 +4,38 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:paddingLeft="10dp"
         android:id="@+id/comment_owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="username" />
+        android:text="username"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="20dp"/>
 
     <TextView
+        android:paddingLeft="10dp"
         android:id="@+id/comment_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="time" />
-
     <TextView
+        android:paddingLeft="10dp"
         android:id="@+id/comment_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="normal content" />
+        android:text="normal content"
+        android:textSize="15dp"
+        android:textColor="#000"/>
 
     <Button
         android:id="@+id/comment_edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="edit" />
+        android:text="edit"
+        android:layout_gravity="end"
+        android:textColor="#fff"
+        android:background="@drawable/button_box"/>
 
     <EditText
         android:visibility="gone"

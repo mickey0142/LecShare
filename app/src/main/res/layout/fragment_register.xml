@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_box"
-                android:src="@drawable/ico_arrow_left"/>
+                android:src="@drawable/ico_arrow_left" />
 
             <ImageView
                 android:id="@+id/register_avatar_right"
