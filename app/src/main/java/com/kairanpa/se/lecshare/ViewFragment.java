@@ -1,5 +1,6 @@
 package com.kairanpa.se.lecshare;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -472,6 +474,8 @@ public class ViewFragment extends Fragment{
 
     void uploadComment(final Comment comment){
         final Button button = getView().findViewById(R.id.view_commentBtn);
+        final ProgressBar progressBar = getView().findViewById(R.id.view_comment_progress_bar);
+        final EditText text = getView().findViewById(R.id.view_comment_form);
         fbStore.collection("Comment").add(comment).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -480,38 +484,56 @@ public class ViewFragment extends Fragment{
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                button.setEnabled(true);
-                                Log.d("test", "Add comment to firebase success.");
-                                Toast.makeText(getContext(), "Comment success", Toast.LENGTH_SHORT).show();
-                                initShowComment();
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("User object", user);
-                                bundle.putSerializable("LecNote object", lecNote);
-                                Fragment fragment = new ViewFragment();
-                                fragment.setArguments(bundle);
-                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                transaction.replace(R.id.main_view, fragment).commit();
+                                try
+                                {
+                                    button.setEnabled(true);
+                                    progressBar.setVisibility(View.GONE);
+                                    Log.d("test", "Add comment to firebase success.");
+                                    Toast.makeText(getContext(), "Comment success", Toast.LENGTH_SHORT).show();
+                                    initShowComment();
+                                    text.setText("");
+                                }
+                                catch (NullPointerException e)
+                                {
+                                    Log.d("test", "catch NullPointerException : " + e.getMessage());
+                                }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        button.setEnabled(true);
-                        Log.d("test", "Comment: add documentId to firebase error: " + e.getMessage());
+                        try
+                        {
+                            button.setEnabled(true);
+                            progressBar.setVisibility(View.GONE);
+                            Log.d("test", "Comment: add documentId to firebase error: " + e.getMessage());
+                        }
+                        catch (NullPointerException e2)
+                        {
+                            Log.d("test", "catch NullPointerException : " + e2.getMessage());
+                        }
                     }
                 });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                button.setEnabled(true);
-                Log.d("test", "Comment: add comment to firebase error: " + e.getMessage());
+                try
+                {
+                    button.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                    Log.d("test", "Comment: add comment to firebase error: " + e.getMessage());
+                }
+                catch (NullPointerException e2)
+                {
+                    Log.d("test", "catch NullPointerException : " + e2.getMessage());
+                }
             }
         });
     }
 
     void initCommentBtn(){
         final Button button = getView().findViewById(R.id.view_commentBtn);
+        final ProgressBar progressBar = getView().findViewById(R.id.view_comment_progress_bar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -521,7 +543,10 @@ public class ViewFragment extends Fragment{
                     Toast.makeText(getActivity(), "Comment is empty. Please comment something.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                 button.setEnabled(false);
+                progressBar.setVisibility(View.VISIBLE);
                 final Comment comment = new Comment();
                 comment.setUserName(user.getUsername());
                 comment.setUserNameID(user.getDocumentId());

@@ -174,6 +174,15 @@
                 android:paddingLeft="5dp"
                 android:hint="Let's share your opinion about this." />
 
+            <ProgressBar
+                android:id="@+id/view_comment_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"/>
+
             <Button
                 android:id="@+id/view_commentBtn"
                 android:layout_width="match_parent"
