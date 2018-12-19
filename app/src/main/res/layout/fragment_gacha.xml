@@ -59,7 +59,7 @@
                 android:id="@+id/gacha_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="you got fluffer"
+                android:text="You got fluffer"
                 android:textSize="50dp"
                 android:textStyle="bold"
                 android:gravity="center"

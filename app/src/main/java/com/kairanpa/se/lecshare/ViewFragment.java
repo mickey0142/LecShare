@@ -1,6 +1,8 @@
 package com.kairanpa.se.lecshare;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -132,7 +134,7 @@ public class ViewFragment extends Fragment{
 
     public void initEditButton()
     {
-        TextView _editButton = getView().findViewById(R.id.view_edit_post_button);
+        Button _editButton = getView().findViewById(R.id.view_edit_post_button);
         _editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -242,11 +244,26 @@ public class ViewFragment extends Fragment{
                 else if (itemId == R.id.menu_logout)
                 {
                     Log.d("test", "press logout");
-                    fbAuth.signOut();
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.main_view, new LoginFragment())
-                            .commit();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Do you want log out ?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("test", "log out");
+                            fbAuth.signOut();
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.main_view, new LoginFragment())
+                                    .commit();
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("test", "log out cancel");
+                        }
+                    });
+                    builder.show();
                 }
                 return false;
             }
@@ -297,13 +314,27 @@ public class ViewFragment extends Fragment{
                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                 Log.d("test", "download success");
                                 Log.d("test", "create at : " + file.toString());
-                                Toast.makeText(getContext(), "download " + lecNote.getFilesName().get(temp) + " completed", Toast.LENGTH_SHORT).show();
+                                try
+                                {
+                                    Toast.makeText(getContext(), "download " + lecNote.getFilesName().get(temp) + " completed", Toast.LENGTH_SHORT).show();
+                                }
+                                catch (NullPointerException e)
+                                {
+                                    Log.d("test", "catch NullPointerException : " + e.getMessage());
+                                }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.d("test", "download failed");
-                                Toast.makeText(getContext(), "download error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                try
+                                {
+                                    Toast.makeText(getContext(), "download error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                                catch (NullPointerException e2)
+                                {
+                                    Log.d("test", "catch NullPointerException : " + e2.getMessage());
+                                }
                             }
                         }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
                             @Override
@@ -317,12 +348,19 @@ public class ViewFragment extends Fragment{
                                     sumProgress += allProgress.get(j);
                                 }
                                 sumProgress /= allProgress.size();
-                                progressBar.setProgress(sumProgress);
-                                if (sumProgress == 100)
+                                try
                                 {
-                                    progressBar.setVisibility(View.GONE);
-                                    downloadAllButton.setEnabled(false);
-                                    downloadAllButton.setText("Download completed");
+                                    progressBar.setProgress(sumProgress);
+                                    if (sumProgress == 100)
+                                    {
+                                        progressBar.setVisibility(View.GONE);
+                                        downloadAllButton.setEnabled(false);
+                                        downloadAllButton.setText("Download completed");
+                                    }
+                                }
+                                catch (NullPointerException e)
+                                {
+                                    Log.d("test", "catch NullPointerException : " + e.getMessage());
                                 }
                             }
                         });

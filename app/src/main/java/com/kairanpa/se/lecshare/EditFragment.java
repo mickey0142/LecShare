@@ -1,5 +1,7 @@
 package com.kairanpa.se.lecshare;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +36,8 @@ import java.util.ArrayList;
 import adapter.FileListAdapter;
 import model.LecNote;
 import model.User;
+
+import static java.lang.Math.min;
 
 public class EditFragment extends Fragment {
 
@@ -216,9 +220,26 @@ public class EditFragment extends Fragment {
                 lecNote.setFilesName(fileName);
 
                 boolean newPicture = false;
+                Log.d("test", "start");
                 if (oldFileName.size() != fileName.size())
                 {
-                    newPicture = true;
+                    for (int i = 0; i < oldFileName.size(); i++)
+                    {
+                        boolean contain = false;
+                        for(int j = 0; j < fileName.size(); j++)
+                        {
+                            if (oldFileName.get(i).equals(fileName.get(j)))
+                            {
+                                contain = true;
+                                Log.d("test", "new picture is true");
+                            }
+                        }
+                        if (!contain)
+                        {
+                            newPicture = true;
+                            break;
+                        }
+                    }
                 }
                 else
                 {
@@ -226,16 +247,20 @@ public class EditFragment extends Fragment {
                     {
                         if (!oldFileName.get(i).equals(fileName.get(i)))
                         {
+                            Log.d("test", "new picture is true 2");
                             newPicture = true;
                             break;
                         }
                     }
+                    Log.d("test", "new picture is false");
                 }
                 if (fileName.size() == 0 || !newPicture)
                 {
+                    Log.d("test", "upload lecnote only");
                     uploadLecNote(lecNote);
                     return;
                 }
+                Log.d("test", "start upload");
                 Uri file;
                 StorageReference fileRef;
                 UploadTask uploadTask;
@@ -370,11 +395,26 @@ public class EditFragment extends Fragment {
                 else if (itemId == R.id.menu_logout)
                 {
                     Log.d("test", "press logout");
-                    fbAuth.signOut();
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.main_view, new LoginFragment())
-                            .commit();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Do you want log out ?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("test", "log out");
+                            fbAuth.signOut();
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.main_view, new LoginFragment())
+                                    .commit();
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("test", "log out cancel");
+                        }
+                    });
+                    builder.show();
                 }
                 return false;
             }

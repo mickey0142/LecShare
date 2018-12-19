@@ -109,6 +109,10 @@ public class GachaFragment extends Fragment {
                         {
                             Log.d("test", "catch InterruptException" + e.getMessage());
                         }
+                        catch (Exception e)
+                        {
+                            Log.d("test", "catch Exception : " + e.getMessage());
+                        }
                         while(true) {
                             if(!resource.isRunning()) {
                                 getActivity().runOnUiThread(new Runnable() {
@@ -130,73 +134,80 @@ public class GachaFragment extends Fragment {
     }
     void setAfterFinish()
     {
-        LinearLayout layout = getView().findViewById(R.id.gacha_after_finish_layout);
-        layout.setVisibility(View.VISIBLE);
-        ImageView iv = getView().findViewById(R.id.gacha_picture);
-        iv.setVisibility(View.GONE);
-        ImageView afterPicture = getView().findViewById(R.id.gacha_after_finish_picture);
-        switch (result)
+        try
         {
-            case "blue":
-                afterPicture.setImageResource(R.drawable.avatar_blue);
-                break;
-            case "green":
-                afterPicture.setImageResource(R.drawable.avatar_green);
-                break;
-            case "grey":
-                afterPicture.setImageResource(R.drawable.avatar_grey);
-                break;
-            case "red":
-                afterPicture.setImageResource(R.drawable.avatar_red);
-                break;
-            case "brown bunny":
-                afterPicture.setImageResource(R.drawable.avatar_brown_bunny);
-                break;
-            case "pinky":
-                afterPicture.setImageResource(R.drawable.avatar_pinky);
-                break;
-            case "wingky":
-                afterPicture.setImageResource(R.drawable.avatar_wingky);
-                break;
-            case "zombie":
-                afterPicture.setImageResource(R.drawable.avatar_zombie);
-                break;
-            case "spinny":
-                afterPicture.setImageResource(R.drawable.avatar_spinny);
-                break;
-            case "feddy":
-                afterPicture.setImageResource(R.drawable.avatar_feddy);
-                break;
-            case "gold ufo":
-                afterPicture.setImageResource(R.drawable.avatar_gold_ufo);
-                break;
-            case "judy":
-                afterPicture.setImageResource(R.drawable.avatar_judy);
-                break;
-            case "marico":
-                afterPicture.setImageResource(R.drawable.avatar_marico);
-                break;
-            case "penny":
-                afterPicture.setImageResource(R.drawable.avatar_penny);
-                break;
-            case "ufo":
-                afterPicture.setImageResource(R.drawable.avatar_ufo);
-                break;
-            case "helicopty":
-                afterPicture.setImageResource(R.drawable.avatar_helicopty);
-                break;
-            case "spikey":
-                afterPicture.setImageResource(R.drawable.avatar_spikey);
-                break;
+            LinearLayout layout = getView().findViewById(R.id.gacha_after_finish_layout);
+            layout.setVisibility(View.VISIBLE);
+            ImageView iv = getView().findViewById(R.id.gacha_picture);
+            iv.setVisibility(View.GONE);
+            ImageView afterPicture = getView().findViewById(R.id.gacha_after_finish_picture);
+            switch (result)
+            {
+                case "blue":
+                    afterPicture.setImageResource(R.drawable.avatar_blue);
+                    break;
+                case "green":
+                    afterPicture.setImageResource(R.drawable.avatar_green);
+                    break;
+                case "grey":
+                    afterPicture.setImageResource(R.drawable.avatar_grey);
+                    break;
+                case "red":
+                    afterPicture.setImageResource(R.drawable.avatar_red);
+                    break;
+                case "brown bunny":
+                    afterPicture.setImageResource(R.drawable.avatar_brown_bunny);
+                    break;
+                case "pinky":
+                    afterPicture.setImageResource(R.drawable.avatar_pinky);
+                    break;
+                case "wingky":
+                    afterPicture.setImageResource(R.drawable.avatar_wingky);
+                    break;
+                case "zombie":
+                    afterPicture.setImageResource(R.drawable.avatar_zombie);
+                    break;
+                case "spinny":
+                    afterPicture.setImageResource(R.drawable.avatar_spinny);
+                    break;
+                case "feddy":
+                    afterPicture.setImageResource(R.drawable.avatar_feddy);
+                    break;
+                case "gold ufo":
+                    afterPicture.setImageResource(R.drawable.avatar_gold_ufo);
+                    break;
+                case "judy":
+                    afterPicture.setImageResource(R.drawable.avatar_judy);
+                    break;
+                case "marico":
+                    afterPicture.setImageResource(R.drawable.avatar_marico);
+                    break;
+                case "penny":
+                    afterPicture.setImageResource(R.drawable.avatar_penny);
+                    break;
+                case "ufo":
+                    afterPicture.setImageResource(R.drawable.avatar_ufo);
+                    break;
+                case "helicopty":
+                    afterPicture.setImageResource(R.drawable.avatar_helicopty);
+                    break;
+                case "spikey":
+                    afterPicture.setImageResource(R.drawable.avatar_spikey);
+                    break;
+            }
+            afterPicture.setVisibility(View.VISIBLE);
+            TextView resultText = getView().findViewById(R.id.gacha_text);
+            resultText.setText("You got " + result);
+            resultText.setVisibility(View.VISIBLE);
+            Button _tryAgain = getView().findViewById(R.id.gacha_try_again);
+            _tryAgain.setVisibility(View.VISIBLE);
+            _backBtn = getView().findViewById(R.id.gacha_back_button);
+            _backBtn.setVisibility(View.VISIBLE);
         }
-        afterPicture.setVisibility(View.VISIBLE);
-        TextView resultText = getView().findViewById(R.id.gacha_text);
-        resultText.setText("you got " + result);
-        resultText.setVisibility(View.VISIBLE);
-        Button _tryAgain = getView().findViewById(R.id.gacha_try_again);
-        _tryAgain.setVisibility(View.VISIBLE);
-        _backBtn = getView().findViewById(R.id.gacha_back_button);
-        _backBtn.setVisibility(View.VISIBLE);
+        catch (NullPointerException e)
+        {
+            Log.d("test", "catch NullPointerException : " + e.getMessage());
+        }
     }
 
     void initBackButton()
@@ -264,11 +275,26 @@ public class GachaFragment extends Fragment {
                 else if (itemId == R.id.menu_logout)
                 {
                     Log.d("test", "press logout");
-                    fbAuth.signOut();
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.main_view, new LoginFragment())
-                            .commit();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Do you want log out ?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("test", "log out");
+                            fbAuth.signOut();
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.main_view, new LoginFragment())
+                                    .commit();
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("test", "log out cancel");
+                        }
+                    });
+                    builder.show();
                 }
                 return false;
             }

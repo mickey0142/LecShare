@@ -43,16 +43,15 @@
             android:layout_marginTop="10dp"
             android:padding="20dp">
 
-            <TextView
+            <Button
                 android:id="@+id/view_edit_post_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit post"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@drawable/login_btn"
                 android:layout_gravity="end"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:textColor="#fff"
-                />
+                android:layout_marginTop="15dp"
+                android:text="Edit"
+                android:textColor="#FFFFFF"/>
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -169,7 +168,7 @@
                 android:id="@+id/view_comment_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textLongMessage"
+                android:inputType="textMultiLine"
                 android:textColorHint="#888888"
                 android:paddingLeft="5dp"
                 android:hint="Let's share your opinion about this." />

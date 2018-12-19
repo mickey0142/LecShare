@@ -170,27 +170,32 @@
                 android:layout_gravity="center"
                 android:visibility="gone"
                 android:layout_marginTop="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="15dp">
+                <Button
+                    android:id="@+id/edit_edit_button"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/login_btn"
+                    android:layout_gravity="center"
+                    android:text="Edit"
+                    android:textColor="#FFFFFF"/>
 
-            <Button
-                android:id="@+id/edit_edit_button"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:background="@drawable/login_btn"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:drawableRight="@drawable/ico_upload"
-                android:text="Edit"
-                android:textColor="#FFFFFF"/>
+                <Button
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/edit_delete_button"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/login_btn"
+                    android:layout_gravity="center"
+                    android:text="Delete"
+                    android:textColor="#FFFFFF"/>
 
-            <Button
-                android:id="@+id/edit_delete_button"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:background="@drawable/login_btn"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:text="Delete"
-                android:textColor="#FFFFFF"/>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
