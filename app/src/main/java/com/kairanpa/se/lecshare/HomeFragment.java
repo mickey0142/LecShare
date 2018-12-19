@@ -60,12 +60,25 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        checkAuthen();
         showLecNoteList();
         initRefreshButton();
         initAdvanceSearchButton();
         initUploadButton();
         initSearchButton();
         initToolbar();
+    }
+
+    void checkAuthen()
+    {
+        if (fbAuth.getCurrentUser() == null)
+        {
+            Log.d("test", "not logged in return to login page");
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_view, new LoginFragment())
+                    .commit();
+        }
     }
 
     public void showLecNoteList()
